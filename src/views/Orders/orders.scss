@@ -1,0 +1,140 @@
+.products {
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 27px 25px;
+
+    .productstable {
+        table {
+            width: 100%;
+
+            thead {
+                th {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 18px;
+                    color: #030229;
+                    opacity: 0.7;
+                    padding-bottom: 18px;
+
+                    &:last-child {
+                        display: flex;
+                        justify-content: flex-end;
+                        padding-right: 10px;
+                    }
+
+                    .arrowdown {
+                        margin-left: 10px;
+                        margin-bottom: 2px;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 20px 0px;
+
+                        .productimg {
+                            width: 91px;
+                            height: 58px;
+                            background: linear-gradient(180deg, #FFB800 0%, #FF8A00 101.75%), linear-gradient(180deg, #3456D0 0%, #2542A6 100%);
+                            border-radius: 5px;
+
+                            .innerimg {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                object-position: center;
+                            }
+                        }
+
+                        .darktext {
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 24px;
+                            color: #000000;
+                        }
+
+                        .wallet {
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 24px;
+                            color: #000000;
+                            width: 135px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                        }
+
+                        .droped {
+                            .dropbtn {
+                                background: #FAFAFB;
+                                border: 1px solid #EFEFEF;
+                                border-radius: 5px;
+                                padding: 13px 20px;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                width: 161px;
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 16px;
+                                line-height: 24px;
+                                color: #000000;
+                            }
+                            .status{
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 16px;
+                                line-height: 24px;
+                                color: #000000;
+                            }
+                            .pendingcolor{
+                                color: #FF8300 !important;
+                            }
+                            .processingcolor{
+                                color: #0075FF !important;
+                            }
+                            .completecolor{
+                                color: #00AA21 !important;
+                            }
+                        }
+
+                        &:last-child {
+                            display: flex;
+                            justify-content: flex-end;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:850px) {
+    .products {
+        padding: 10px;
+
+        .productstable {
+            overflow-x: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            table {
+                width: 900px;
+            }
+        }
+    }
+}
+
+.dropdown-item.active, .dropdown-item:active{
+    background-color: unset !important;
+}
+
+.dropdown-item:hover, .dropdown-item:focus{
+    background-color: unset;
+}

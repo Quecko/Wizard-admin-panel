@@ -1,0 +1,441 @@
+.gifts-section {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  position: relative;
+
+  .add_gift__button_main {
+    position: absolute;
+    top: -88px;
+    right: 14px;
+    z-index: 9;
+  }
+
+  .set-text-mails {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    color: #030229;
+  }
+
+  .innertable_gifts {
+    .namemain {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 16px;
+      .namepara {
+        color: #5f6d7e;
+        font-size: 13px !important;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: -0.013px;
+      }
+    }
+    table {
+      width: 100%;
+      thead {
+        padding: 0px;
+        th {
+          color: #5f6d7e;
+          font-size: 13px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 18px;
+          letter-spacing: -0.013px;
+          padding: 16px 24px;
+          vertical-align: middle;
+          border-bottom: 1px solid #f3f7fb;
+          white-space: nowrap;
+        }
+      }
+      tbody {
+        padding: 0px;
+        tr {
+            white-space: nowrap ;
+          td {
+            .eleipiess {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: 109px;
+              display: block;
+              white-space: nowrap;
+            }
+            .mainimgdiv {
+              display: flex;
+
+              align-items: center;
+              gap: 16px;
+              .inerimgd {
+                width: 32px;
+                height: 32px;
+                border-radius: 30px;
+                object-fit: cover;
+                object-position: center;
+                .tableimgginer {
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 30px;
+                  object-fit: cover;
+                  object-position: center;
+                }
+              }
+              .tableimgtext {
+                color: #2e3646 !important;
+
+                font-size: 14px !important;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px;
+                letter-spacing: -0.014px;
+                white-space: nowrap;
+              }
+              .tableimgtext_mute {
+                color: #2e3646;
+          
+                font-size: 10px !important;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px; /* 200% */
+                letter-spacing: -0.01px;
+              }
+            }
+            color: #5f6d7e !important;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: -0.014px;
+            border-bottom: 1px solid #f3f7fb;
+            background: var(--White, #fff);
+            padding: 16px 24px;
+            vertical-align: middle;
+
+            .detailbtn {
+              border-radius: 40px;
+              background: #f5f9ff;
+              display: flex;
+              padding: 9px 37px;
+              justify-content: center;
+              align-items: center;
+              color: #3553d5;
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 18px;
+              letter-spacing: -0.012px;
+              border: none;
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .Paginationlattable {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 24px;
+    .leftpigbtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      padding: 0px;
+      margin: 0px;
+      color: #5f6d7e;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 20px;
+      letter-spacing: -0.014px;
+      border: none;
+      background-color: transparent;
+    }
+    .pagination {
+      margin: 0px;
+      padding: 0px;
+      gap: 2px;
+      .page-item.active .page-link {
+        border-radius: 5px;
+        background: #e6e9ec;
+      }
+      .page-item {
+        .page-link {
+          display: flex;
+          width: 40px;
+          height: 40px;
+          border-radius: 5px;
+          padding: 0px 16px;
+          justify-content: center;
+          align-items: center;
+          border: none !important;
+          color: #5f6d7e !important;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 20px;
+          letter-spacing: -0.014px;
+          box-shadow: none !important;
+        }
+      }
+    }
+  }
+}
+
+// send gift modal scss here...............................
+.sendgift-modal {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+
+  .modal-content {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 42px 40px;
+    border: none;
+  }
+
+  .modal-dialog {
+    max-width: 574px;
+  }
+
+  .modal-header {
+    padding: 0;
+    border-bottom: none !important;
+    .modal-title {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 28px;
+      color: #222222;
+      margin: 0;
+    }
+  }
+
+  .modal-body {
+    padding: 0;
+    padding-top: 40px;
+
+    .parent-field {
+      h6 {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+        color: #222222;
+        margin-bottom: 12px;
+      }
+
+      .dropdown {
+        .dropdown-toggle {
+          background: #fafafb;
+          border: 1px solid #efefef;
+          border-radius: 5px;
+          padding: 15px 20px;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #cdcdcd;
+          width: 100%;
+          text-align: start;
+          justify-content: space-between;
+          display: flex;
+          align-items: center;
+
+          &:focus {
+            box-shadow: none;
+            border: 1px solid #3456d0;
+          }
+        }
+
+        .dropdown-menu {
+          background: #fafafb;
+          border: 1px solid #3456d0;
+          box-shadow: 0px 5px 24px rgba(0, 0, 0, 0.05);
+          border-radius: 5px;
+          padding: 15px 20px;
+          max-height: 190px;
+          overflow-y: auto;
+          width: 100%;
+
+          a {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            color: #222222;
+            padding: 0;
+            padding-bottom: 10px;
+          }
+
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px #eeeeee;
+            border-radius: 30px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #3456d0;
+            border-radius: 30px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #3456d0;
+          }
+        }
+      }
+    }
+
+    .option-field {
+      margin-top: 32px;
+
+      h6 {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+        color: #222222;
+        margin-bottom: 12px;
+      }
+
+      input {
+        background: #fafafb;
+        border: 1px solid #efefef;
+        border-radius: 5px;
+        padding: 16px 20px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #000;
+        width: 100%;
+
+        &::placeholder {
+          color: #cdcdcd;
+        }
+      }
+    }
+
+    .areatext {
+      p {
+        color: #000;
+        margin-top: 38px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      textarea {
+        border-radius: 5px;
+        border: 1px solid #efefef;
+        background: #fafafb;
+        padding: 16px 20px;
+        color: #000;
+        width: 100%;
+        height: 124px;
+
+        &::placeholder {
+          color: #cdcdcd;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+        }
+      }
+    }
+
+    .twice-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 38px;
+
+      button {
+        border-radius: 150px;
+        background: #ffffff;
+        padding: 16px 96px 13px 105px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        color: #3456d0;
+        border: 1px solid #3568c1;
+
+        &:hover {
+          border-radius: 150px;
+          // background: var(
+          //   --buttons-gradient,
+          //   linear-gradient(90deg, #3553d5 0%, #0c194e 100%)
+          // );
+          color: #ffffff;
+        }
+      }
+
+      button {
+        padding: 15px;
+        flex: 0 0 49%;
+      }
+
+      .btn-cancel {
+        background: #ffffff;
+        border: 1px solid #3568c1;
+        border-radius: 150px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 21px;
+        background: linear-gradient(89.93deg, #3553d5 50.15%, #0c194e 217.12%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
+
+      .btn-send {
+        background: linear-gradient(89.93deg, #3553d5 50.15%, #0c194e 217.12%);
+        border-radius: 150px;
+        border: none;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 21px;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.sendgift-modal .modal-body .twice-btn .btn-send-dis {
+  background: linear-gradient(89.93deg, #d8d8d8 50.15%, #c8c8c8 217.12%);
+  border-radius: 150px;
+  border: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  cursor: not-allowed;
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  // .sendgift-modal .modal-body .areatext input{
+  //     width: 100%;
+  // }
+  .gifts-section .add_gift__button_main {
+    position: absolute;
+    top: -114px;
+    right: 28px;
+    z-index: 9;
+  }
+}
