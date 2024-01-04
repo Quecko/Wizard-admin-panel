@@ -330,7 +330,10 @@
     }
   }
 }
+.columnreverse{
 
+  flex-direction: column-reverse;
+}
 @media (max-width: 1199px) {
   .main-dashboard .dashbrd_top_cardmaindiv {
     display: flex;
@@ -354,7 +357,7 @@
 }
 @media (max-width: 600px) {
   .main-dashboard .btumouterhdngmain .inerbutmsec .commoncardtextbutm {
-    font-size: 15px;
+    font-size: 18px;
   }
   .main-dashboard .btumouterhdngmain .inerbutmsec .tootall {
     font-size: 14px;
@@ -367,7 +370,7 @@
   }
   .main-dashboard .dash_butmright_outer_chart .dash_butmouter_chart_inertext .cvfred {
  
-    font-size: 22px;
+    font-size: 26px;
  
 }
 }

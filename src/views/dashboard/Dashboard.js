@@ -162,7 +162,7 @@ function Dashboard() {
               <div className='chartouterdiv'>
                 <div className="dashbodtop_left ">
                   <h5 className="statay">
-                    New Users
+                  Sales Report
                   </h5>
                   <div>
                     {/* <img src="/dashboard-assets/issonns.svg" className="img-fluid custom-img" alt="Your Alt Text" /> */}
@@ -324,7 +324,7 @@ function Dashboard() {
 
             </div>
           </div>
-          <div className="row my-4">
+          <div className="row my-4 columnreverse">
             <div className="col-xl-8 col-sm-12 ">
               <div className='chartouterdiv'>
                 <div className="dashbodtop_left mb-0">
