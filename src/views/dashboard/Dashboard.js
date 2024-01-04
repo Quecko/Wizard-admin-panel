@@ -5,7 +5,7 @@ import ReactApexChart from "react-apexcharts";
 import './dashboard.scss';
 import { Link } from "react-router-dom";
 import DatePicker, { Calendar, DateObject } from "react-multi-date-picker";
-// import 'your-date-picker-library/styles.css';
+
 function Dashboard() {
 
   const [setalllset, setSetalllset] = useState();
@@ -20,13 +20,25 @@ function Dashboard() {
   const [options, setobject] = useState({
     chart: {
       height: 350,
-      type: 'bar'
+      type: 'line'
     },
     dataLabels: {
       enabled: false
     },
     stroke: {
-      curve: 'smooth'
+      curve: 'smooth',
+      colors: ['#862FC0'],
+      width: 3,
+      dashArray: 0, // Remove dashed stroke if not needed
+      lineCap: 'round', // Adjust line cap if needed
+      dropShadow: {
+        enabled: true,
+        top: 4,
+        left: 0,
+        blur: 10,
+        opacity: 1,
+        color: '#862FC0'
+      }
     },
     xaxis: {
       type: 'datetime',
@@ -41,10 +53,20 @@ function Dashboard() {
       bar: {
         columnWidth: '50%', // Adjust column width if needed
         colors: {
-          Colors: ['#3654D6',]
+          ranges: [{
+            from: 0,
+            to: 0,
+            color: '#862FC0'
+          }]
+        },
+        strokeColors: ['#862FC0'],
+        strokeWidth: 3,
+        fill: {
+          type: 'solid'
         }
       }
     }
+
   });
   const [series, setseries] = useState(
     [
@@ -76,622 +98,405 @@ function Dashboard() {
 
   return (
     <>
-      {/* <div className="content">
-        <section className="main-dashboard">
-          <div className="row ">
-            <div className="col-sm-3">
-              <div className="card">
-                <ul className="list-inline">
-                  <li className="list-inline-item top">
-                    <img src="/dashboard-assets/total-users-icon.svg" className="img-fluid" />
-                    <img src={`${images['total-users-icon.svg']['default']}`} alt="" className="img-fluid" />
-                  </li>
-                  <li className="list-inline-item">
-                    <div className="inner-content">
-                      <h3 className="common">178+</h3>
-                      <h6 className="grey">Total Users</h6>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-sm-3">
-              <div className="card">
-                <ul className="list-inline">
-                  <li className="list-inline-item top">
-                    <img src="/dashboard-assets/total-users-icon.svg" className="img-fluid" />
-                    <img src={`${images['tota-videos-icon.svg']['default']}`} alt="" className="img-fluid" />
-                  </li>
-                  <li className="list-inline-item">
-                    <div className="inner-content">
-                      <h3 className="common">20+</h3>
-                      <h6 className="grey">Total Videos</h6>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-sm-3">
-              <div className="card">
-                <ul className="list-inline">
-                  <li className="list-inline-item top">
-                    <img src="/dashboard-assets/total-users-icon.svg" className="img-fluid" />
-                    <img src={`${images['total-transections-icon.svg']['default']}`} alt="" className="img-fluid" />
-                  </li>
-                  <li className="list-inline-item">
-                    <div className="inner-content">
-                      <h3 className="common">190+</h3>
-                      <h6 className="grey">Total Transactions</h6>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-sm-3">
-              <div className="card">
-                <ul className="list-inline">
-                  <li className="list-inline-item top">
-                    <img src="/dashboard-assets/total-users-icon.svg" className="img-fluid" />
-                    <img src={`${images['total-games-icon.svg']['default']}`} alt="" className="img-fluid" />
-                  </li>
-                  <li className="list-inline-item">
-                    <div className="inner-content">
-                      <h3 className="common">12+</h3>
-                      <h6 className="grey">Total Games</h6>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="row ">
-            <div className="col-sm-8">
-              <div className="card">
-                <div className="row ptb20">
-                  <div className="col-sm-9">
-                    <h3 className="common">Statistics</h3>
-                  </div>
-                  <div className="col-sm-3">
-                    <div class="dropdown">
-                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Time
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Last Month</a>
-                        <a class="dropdown-item" href="#">Last Week</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row ptb20">
-                  <div className="col-sm-12 text-center">
-                    <div id="chart">
-                      <ReactApexChart options={options} series={series} type="area" height={350} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="card">
-                <div className="row pt20">
-                  <div className="col-sm-8">
-                    <h3 className="common">Top Games</h3>
-                  </div>
-                  {(Acls?.dailyChallenge || Acls?.playToEarn || Acls?.upComming) ?
-                  <div className="col-sm-4">
-                    <Link to="playtoearn">
-                      <h6 className="common">View All</h6>
-                    </Link>
-                  </div>
-                  : ''}
-                </div>
-                <div className="row ptb20">
-                  <div className="col-sm-3 text-center">
-                    <img src={`${images['top-games-img-one.png']['default']}`} alt="" className="img-fluid" />
-                  </div>
-                  <div className="col-sm-9">
-                    <h3 className="">Eco Birds</h3>
-                    <h6 className="grey">Total Votes 1.5K</h6>
-                    <h6 className="grey">Total Plays 2.9K</h6>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-3 text-center">
-                    <img src={`${images['top-games-img-two.png']['default']}`} alt="" className="img-fluid" />
-                  </div>
-                  <div className="col-sm-9">
-                    <h3 className="">Eco Birds</h3>
-                    <h6 className="grey">Total Votes 1.5K</h6>
-                    <h6 className="grey">Total Plays 2.9K</h6>
-                  </div>
-                </div>
-                <div className="row ptb20">
-                  <div className="col-sm-3 text-center">
-                    <img src={`${images['top-games-img-three.png']['default']}`} alt="" className="img-fluid" />
-                  </div>
-                  <div className="col-sm-9">
-                    <h3 className="">Eco Birds</h3>
-                    <h6 className="grey">Total Votes 1.5K</h6>
-                    <h6 className="grey">Total Plays 2.9K</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row ">
-            <div className="col-sm-8">
-              <div className="card">
-                <div className="row ptb20">
-                  <div className="col-sm-10">
-                    <h3 className="common">Latest Transactions</h3>
-                  </div>
-                  <div className="col-sm-2">
-                    <Link to="alltransaction">
-                      <h6 className="common">View All</h6>
-                    </Link>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-12 text-center">
-                    <div class="table-responsive">
-                      <table class="table ">
-                        <thead>
-                          <tr>
-                            <th> Token <img src={arrowdown} className="pl-1" alt="" /></th>
-                            <th> Date <img src={arrowdown} className="pl-1" alt="" /></th>
-                            <th> From <img src={arrowdown} className="pl-1" alt="" /></th>
-                            <th> To <img src={arrowdown} className="pl-1" alt="" /></th>
-                            <th> Amount <img src={arrowdown} className="pl-1" alt="" /></th>
-                          </tr>
-                        </thead>
-                        <tbody className="main-t-body-text" >
-                          <tr>
-                            <td className='main-image'>
-                              <ul className="d-flex justify-content-start align-items-center">
-                                <li><img src={`${images['btc.svg']['default']}`} alt="" className="img-fluid" /></li>&nbsp;&nbsp;
-                                <li>BTC</li>
-                              </ul>
-                            </td>
-                            <td className=''>Aug 14, 2021</td>
-                            <td className=''>0x1DD74DAF...</td>
-                            <td className="">0x340962B...</td>
-                            <td className="">0.1 BTC</td>
-                          </tr>
-                          <tr>
-                            <td className='main-image'>
-                              <ul className="d-flex justify-content-start align-items-center">
-                                <li><img src={`${images['btc.svg']['default']}`} alt="" className="img-fluid" /></li>&nbsp;&nbsp;
-                                <li>BTC</li>
-                              </ul>
-                            </td>
-                            <td className=''>Aug 14, 2021</td>
-                            <td className=''>0x1DD74DAF...</td>
-                            <td className="">0x340962B...</td>
-                            <td className="">0.1 BTC</td>
-                          </tr>
-                          <tr>
-                            <td className='main-image'>
-                              <ul className="d-flex justify-content-start align-items-center">
-                                <li><img src={`${images['btc.svg']['default']}`} alt="" className="img-fluid" /></li>&nbsp;&nbsp;
-                                <li>BTC</li>
-                              </ul>
-                            </td>
-                            <td className=''>Aug 14, 2021</td>
-                            <td className=''>0x1DD74DAF...</td>
-                            <td className="">0x340962B...</td>
-                            <td className="">0.1 BTC</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="card">
-                <div className="row pt20">
-                  <div className="col-sm-8">
-                    <h3 className="common">Latest Videos</h3>
-                  </div>
-                  {Acls?.videos ? 
-                  <div className="col-sm-4">
-                    <Link to="videos">
-                      <h6 className="common">View All</h6>
-                    </Link>
-                  </div>
-                  : ''}
-                </div>
-                <div className="row ptb20">
-                  <div className="col-sm-3 text-center">
-                    <img src={`${images['top-games-img-one.png']['default']}`} alt="" className="img-fluid" />
-                  </div>
-                  <div className="col-sm-9">
-                    <h6 className="">REN Price Climbs to Record High, Benefiting From Ethereum Congestion</h6>
-                    <ul className="list-inline pt10">
-                      <li className="list-inline-item">
-                        <span className="circle"></span>&nbsp;
-                        <span className="grey">BNB</span>&nbsp;&nbsp;&nbsp;
-                        <span className="grey">2.3K Views</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-3 text-center">
-                    <img src={`${images['top-games-img-one.png']['default']}`} alt="" className="img-fluid" />
-                  </div>
-                  <div className="col-sm-9">
-                    <h6 className="">REN Price Climbs to Record High, Benefiting From Ethereum Congestion</h6>
-                    <ul className="list-inline pt10">
-                      <li className="list-inline-item">
-                        <span className="circle"></span>&nbsp;
-                        <span className="grey">BNB</span>&nbsp;&nbsp;&nbsp;
-                        <span className="grey">2.3K Views</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="row ptb20">
-                  <div className="col-sm-3 text-center">
-                    <img src={`${images['top-games-img-one.png']['default']}`} alt="" className="img-fluid" />
-                  </div>
-                  <div className="col-sm-9">
-                    <h6 className="">REN Price Climbs to Record High, Benefiting From Ethereum Congestion</h6>
-                    <ul className="list-inline pt10">
-                      <li className="list-inline-item">
-                        <span className="circle"></span>&nbsp;
-                        <span className="grey">BNB</span>&nbsp;&nbsp;&nbsp;
-                        <span className="grey">2.3K Views</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div> */}
-
-
-
       <div className="content">
-        <section className="New-dashboard">
-          <div className="inertoperdiv">
-
-            <div className="dashbodtop">
-              <h5 className="statay">
-                Global Stats
-              </h5>
-              <div>
-                <div className="custom-tab-bar">
-                  <a className='clanderdate'
-                  >
-                    1D
-                  </a>
-                  <a className='clanderdate'
-                  >
-                    7D
-                  </a>
-                  <a className='clanderdate'>
-                    1M
-                  </a>
-                  <a className='clanderdate'  >
-                    1Y
-                  </a>
-                  <a className='clanderdate'>
-                    All
-                  </a>
-                  <a className='clanderdate' onClick={() => setShowCalendar1(!showcalendar1)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M16.7502 3.56V2C16.7502 1.59 16.4102 1.25 16.0002 1.25C15.5902 1.25 15.2502 1.59 15.2502 2V3.5H8.75023V2C8.75023 1.59 8.41023 1.25 8.00023 1.25C7.59023 1.25 7.25023 1.59 7.25023 2V3.56C4.55023 3.81 3.24023 5.42 3.04023 7.81C3.02023 8.1 3.26023 8.34 3.54023 8.34H20.4602C20.7502 8.34 20.9902 8.09 20.9602 7.81C20.7602 5.42 19.4502 3.81 16.7502 3.56Z" fill="#3654D6" />
-                      <path d="M20 9.83984H4C3.45 9.83984 3 10.2898 3 10.8398V16.9998C3 19.9998 4.5 21.9998 8 21.9998H16C19.5 21.9998 21 19.9998 21 16.9998V10.8398C21 10.2898 20.55 9.83984 20 9.83984ZM9.21 18.2098C9.16 18.2498 9.11 18.2998 9.06 18.3298C9 18.3698 8.94 18.3998 8.88 18.4198C8.82 18.4498 8.76 18.4698 8.7 18.4798C8.63 18.4898 8.57 18.4998 8.5 18.4998C8.37 18.4998 8.24 18.4698 8.12 18.4198C7.99 18.3698 7.89 18.2998 7.79 18.2098C7.61 18.0198 7.5 17.7598 7.5 17.4998C7.5 17.2398 7.61 16.9798 7.79 16.7898C7.89 16.6998 7.99 16.6298 8.12 16.5798C8.3 16.4998 8.5 16.4798 8.7 16.5198C8.76 16.5298 8.82 16.5498 8.88 16.5798C8.94 16.5998 9 16.6298 9.06 16.6698C9.11 16.7098 9.16 16.7498 9.21 16.7898C9.39 16.9798 9.5 17.2398 9.5 17.4998C9.5 17.7598 9.39 18.0198 9.21 18.2098ZM9.21 14.7098C9.02 14.8898 8.76 14.9998 8.5 14.9998C8.24 14.9998 7.98 14.8898 7.79 14.7098C7.61 14.5198 7.5 14.2598 7.5 13.9998C7.5 13.7398 7.61 13.4798 7.79 13.2898C8.07 13.0098 8.51 12.9198 8.88 13.0798C9.01 13.1298 9.12 13.1998 9.21 13.2898C9.39 13.4798 9.5 13.7398 9.5 13.9998C9.5 14.2598 9.39 14.5198 9.21 14.7098ZM12.71 18.2098C12.52 18.3898 12.26 18.4998 12 18.4998C11.74 18.4998 11.48 18.3898 11.29 18.2098C11.11 18.0198 11 17.7598 11 17.4998C11 17.2398 11.11 16.9798 11.29 16.7898C11.66 16.4198 12.34 16.4198 12.71 16.7898C12.89 16.9798 13 17.2398 13 17.4998C13 17.7598 12.89 18.0198 12.71 18.2098ZM12.71 14.7098C12.66 14.7498 12.61 14.7898 12.56 14.8298C12.5 14.8698 12.44 14.8998 12.38 14.9198C12.32 14.9498 12.26 14.9698 12.2 14.9798C12.13 14.9898 12.07 14.9998 12 14.9998C11.74 14.9998 11.48 14.8898 11.29 14.7098C11.11 14.5198 11 14.2598 11 13.9998C11 13.7398 11.11 13.4798 11.29 13.2898C11.38 13.1998 11.49 13.1298 11.62 13.0798C11.99 12.9198 12.43 13.0098 12.71 13.2898C12.89 13.4798 13 13.7398 13 13.9998C13 14.2598 12.89 14.5198 12.71 14.7098ZM16.21 18.2098C16.02 18.3898 15.76 18.4998 15.5 18.4998C15.24 18.4998 14.98 18.3898 14.79 18.2098C14.61 18.0198 14.5 17.7598 14.5 17.4998C14.5 17.2398 14.61 16.9798 14.79 16.7898C15.16 16.4198 15.84 16.4198 16.21 16.7898C16.39 16.9798 16.5 17.2398 16.5 17.4998C16.5 17.7598 16.39 18.0198 16.21 18.2098ZM16.21 14.7098C16.16 14.7498 16.11 14.7898 16.06 14.8298C16 14.8698 15.94 14.8998 15.88 14.9198C15.82 14.9498 15.76 14.9698 15.7 14.9798C15.63 14.9898 15.56 14.9998 15.5 14.9998C15.24 14.9998 14.98 14.8898 14.79 14.7098C14.61 14.5198 14.5 14.2598 14.5 13.9998C14.5 13.7398 14.61 13.4798 14.79 13.2898C14.89 13.1998 14.99 13.1298 15.12 13.0798C15.3 12.9998 15.5 12.9798 15.7 13.0198C15.76 13.0298 15.82 13.0498 15.88 13.0798C15.94 13.0998 16 13.1298 16.06 13.1698C16.11 13.2098 16.16 13.2498 16.21 13.2898C16.39 13.4798 16.5 13.7398 16.5 13.9998C16.5 14.2598 16.39 14.5198 16.21 14.7098Z" fill="#3654D6" />
-                    </svg>
-                  </a>
-                  {/* {showcalendar && ( */}
-                  {showcalendar1 && (
-                    <div className="cal set-custom-calendar-div">
-                      <Calendar
-                        numberOfMonths={2}
-                        disableMonthPicker
-                        disableYearPicker
-                      />
-                    </div>
-                  )}
-
-
+        <section className="main-dashboard">
+          <div className="dashbrd_top_cardmaindiv ">
+            <div className="new_card">
+              <div className='cardinercont'>
+                <div className="imgouterdiv">
+                  <img src="\dashboard\card1.svg" className="inoncardiner" />
+                </div>
+                <div className="innercontent">
+                  <h6 className="inertext">Total Users</h6>
+                  <h3 className="commoncardtext">178+</h3>
                 </div>
               </div>
             </div>
-
-
-            <div className="maaasssuuss">
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/11.svg" className="img-fluid" />
-                <h6 className="greytoral">Total Users</h6>
-                <h3 className=" commondigits">178K+</h3>
-              </div>
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/22.svg" className="img-fluid" />
-                <h6 className="greytoral">New Users</h6>
-                <h3 className=" commondigits">165K+</h3>
-              </div>
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/33.svg" className="img-fluid" />
-                <h6 className="greytoral">Logins</h6>
-                <h3 className=" commondigits">172K+</h3>
-              </div>
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/44.svg" className="img-fluid" />
-                <h6 className="greytoral">Mystery Boxes</h6>
-                <h3 className=" commondigits">10K+</h3>
-              </div>
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/55.svg" className="img-fluid" />
-                <h6 className="greytoral">Referrals</h6>
-                <h3 className=" commondigits">75K+</h3>
-              </div>
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/66.svg" className="img-fluid" />
-                <h6 className="greytoral">Raffles Users </h6>
-                <h3 className=" commondigits">98K+</h3>
-              </div>
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/77.svg" className="img-fluid" />
-                <h6 className="greytoral">Tickets / Used </h6>
-                <h3 className=" commondigits">10K-2K</h3>
-              </div>
-              <div className="innerkjcontent">
-                <img src="/dashboard-assets/88.svg" className="img-fluid" />
-                <h6 className="greytoral">Commission </h6>
-                <h3 className=" commondigits">$10K</h3>
-              </div>
-
-            </div>
-            <div className="row ">
-              <div className="col-xl-6 col-sm-12">
-                <div className="outerdivchart">
-                  <div className="dashbodtop mb-3">
-                    <h5 className="statay">
-                      New Users
-                    </h5>
-                    <div>
-                      {/* <img src="/dashboard-assets/issonns.svg" className="img-fluid custom-img" alt="Your Alt Text" /> */}
-                      <div className="custom-tab-bar">
-                        <a className='clanderdate'
-                        >
-                          1D
-                        </a>
-                        <a className='clanderdate'
-                        >
-                          7D
-                        </a>
-                        <a className='clanderdate'>
-                          1M
-                        </a>
-                        <a className='clanderdate'  >
-                          1Y
-                        </a>
-                        <a className='clanderdate'>
-                          All
-                        </a>
-                        <a className='clanderdate' onClick={() => setShowCalendar2(!showcalendar2)}>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M16.7502 3.56V2C16.7502 1.59 16.4102 1.25 16.0002 1.25C15.5902 1.25 15.2502 1.59 15.2502 2V3.5H8.75023V2C8.75023 1.59 8.41023 1.25 8.00023 1.25C7.59023 1.25 7.25023 1.59 7.25023 2V3.56C4.55023 3.81 3.24023 5.42 3.04023 7.81C3.02023 8.1 3.26023 8.34 3.54023 8.34H20.4602C20.7502 8.34 20.9902 8.09 20.9602 7.81C20.7602 5.42 19.4502 3.81 16.7502 3.56Z" fill="#3654D6" />
-                            <path d="M20 9.83984H4C3.45 9.83984 3 10.2898 3 10.8398V16.9998C3 19.9998 4.5 21.9998 8 21.9998H16C19.5 21.9998 21 19.9998 21 16.9998V10.8398C21 10.2898 20.55 9.83984 20 9.83984ZM9.21 18.2098C9.16 18.2498 9.11 18.2998 9.06 18.3298C9 18.3698 8.94 18.3998 8.88 18.4198C8.82 18.4498 8.76 18.4698 8.7 18.4798C8.63 18.4898 8.57 18.4998 8.5 18.4998C8.37 18.4998 8.24 18.4698 8.12 18.4198C7.99 18.3698 7.89 18.2998 7.79 18.2098C7.61 18.0198 7.5 17.7598 7.5 17.4998C7.5 17.2398 7.61 16.9798 7.79 16.7898C7.89 16.6998 7.99 16.6298 8.12 16.5798C8.3 16.4998 8.5 16.4798 8.7 16.5198C8.76 16.5298 8.82 16.5498 8.88 16.5798C8.94 16.5998 9 16.6298 9.06 16.6698C9.11 16.7098 9.16 16.7498 9.21 16.7898C9.39 16.9798 9.5 17.2398 9.5 17.4998C9.5 17.7598 9.39 18.0198 9.21 18.2098ZM9.21 14.7098C9.02 14.8898 8.76 14.9998 8.5 14.9998C8.24 14.9998 7.98 14.8898 7.79 14.7098C7.61 14.5198 7.5 14.2598 7.5 13.9998C7.5 13.7398 7.61 13.4798 7.79 13.2898C8.07 13.0098 8.51 12.9198 8.88 13.0798C9.01 13.1298 9.12 13.1998 9.21 13.2898C9.39 13.4798 9.5 13.7398 9.5 13.9998C9.5 14.2598 9.39 14.5198 9.21 14.7098ZM12.71 18.2098C12.52 18.3898 12.26 18.4998 12 18.4998C11.74 18.4998 11.48 18.3898 11.29 18.2098C11.11 18.0198 11 17.7598 11 17.4998C11 17.2398 11.11 16.9798 11.29 16.7898C11.66 16.4198 12.34 16.4198 12.71 16.7898C12.89 16.9798 13 17.2398 13 17.4998C13 17.7598 12.89 18.0198 12.71 18.2098ZM12.71 14.7098C12.66 14.7498 12.61 14.7898 12.56 14.8298C12.5 14.8698 12.44 14.8998 12.38 14.9198C12.32 14.9498 12.26 14.9698 12.2 14.9798C12.13 14.9898 12.07 14.9998 12 14.9998C11.74 14.9998 11.48 14.8898 11.29 14.7098C11.11 14.5198 11 14.2598 11 13.9998C11 13.7398 11.11 13.4798 11.29 13.2898C11.38 13.1998 11.49 13.1298 11.62 13.0798C11.99 12.9198 12.43 13.0098 12.71 13.2898C12.89 13.4798 13 13.7398 13 13.9998C13 14.2598 12.89 14.5198 12.71 14.7098ZM16.21 18.2098C16.02 18.3898 15.76 18.4998 15.5 18.4998C15.24 18.4998 14.98 18.3898 14.79 18.2098C14.61 18.0198 14.5 17.7598 14.5 17.4998C14.5 17.2398 14.61 16.9798 14.79 16.7898C15.16 16.4198 15.84 16.4198 16.21 16.7898C16.39 16.9798 16.5 17.2398 16.5 17.4998C16.5 17.7598 16.39 18.0198 16.21 18.2098ZM16.21 14.7098C16.16 14.7498 16.11 14.7898 16.06 14.8298C16 14.8698 15.94 14.8998 15.88 14.9198C15.82 14.9498 15.76 14.9698 15.7 14.9798C15.63 14.9898 15.56 14.9998 15.5 14.9998C15.24 14.9998 14.98 14.8898 14.79 14.7098C14.61 14.5198 14.5 14.2598 14.5 13.9998C14.5 13.7398 14.61 13.4798 14.79 13.2898C14.89 13.1998 14.99 13.1298 15.12 13.0798C15.3 12.9998 15.5 12.9798 15.7 13.0198C15.76 13.0298 15.82 13.0498 15.88 13.0798C15.94 13.0998 16 13.1298 16.06 13.1698C16.11 13.2098 16.16 13.2498 16.21 13.2898C16.39 13.4798 16.5 13.7398 16.5 13.9998C16.5 14.2598 16.39 14.5198 16.21 14.7098Z" fill="#3654D6" />
-                          </svg>
-                        </a>
-                        {/* {showcalendar && ( */}
-                        {showcalendar2 && (
-                          <div className="cal set-custom-calendar-div">
-                            <Calendar
-                              numberOfMonths={2}
-                              disableMonthPicker
-                              disableYearPicker
-                            />
-                          </div>
-                        )}
-
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="chart ">
-
-                    <ReactApexChart options={options} series={series} type="bar" height={350} />
-                  </div>
+            <div className="new_card">
+              <div className='cardinercont'>
+                <div className="imgouterdiv">
+                  <img src="\dashboard\card2.svg" className="inoncardiner" />
                 </div>
-
-              </div>
-              <div className="col-xl-6 col-sm-12">
-                <div className="outerdivchart">
-                  <div className="dashbodtop mb-3">
-                    <h5 className="statay">
-                      Mystery Boxes
-                    </h5>
-                    <div className="custom-tab-bar">
-                  <a className='clanderdate'
-                  >
-                    1D
-                  </a>
-                  <a className='clanderdate'
-                  >
-                    7D
-                  </a>
-                  <a className='clanderdate'>
-                    1M
-                  </a>
-                  <a className='clanderdate'  >
-                    1Y
-                  </a>
-                  <a className='clanderdate'>
-                    All
-                  </a>
-                  <a className='clanderdate' onClick={() => setShowCalendar3(!showcalendar3)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M16.7502 3.56V2C16.7502 1.59 16.4102 1.25 16.0002 1.25C15.5902 1.25 15.2502 1.59 15.2502 2V3.5H8.75023V2C8.75023 1.59 8.41023 1.25 8.00023 1.25C7.59023 1.25 7.25023 1.59 7.25023 2V3.56C4.55023 3.81 3.24023 5.42 3.04023 7.81C3.02023 8.1 3.26023 8.34 3.54023 8.34H20.4602C20.7502 8.34 20.9902 8.09 20.9602 7.81C20.7602 5.42 19.4502 3.81 16.7502 3.56Z" fill="#3654D6" />
-                      <path d="M20 9.83984H4C3.45 9.83984 3 10.2898 3 10.8398V16.9998C3 19.9998 4.5 21.9998 8 21.9998H16C19.5 21.9998 21 19.9998 21 16.9998V10.8398C21 10.2898 20.55 9.83984 20 9.83984ZM9.21 18.2098C9.16 18.2498 9.11 18.2998 9.06 18.3298C9 18.3698 8.94 18.3998 8.88 18.4198C8.82 18.4498 8.76 18.4698 8.7 18.4798C8.63 18.4898 8.57 18.4998 8.5 18.4998C8.37 18.4998 8.24 18.4698 8.12 18.4198C7.99 18.3698 7.89 18.2998 7.79 18.2098C7.61 18.0198 7.5 17.7598 7.5 17.4998C7.5 17.2398 7.61 16.9798 7.79 16.7898C7.89 16.6998 7.99 16.6298 8.12 16.5798C8.3 16.4998 8.5 16.4798 8.7 16.5198C8.76 16.5298 8.82 16.5498 8.88 16.5798C8.94 16.5998 9 16.6298 9.06 16.6698C9.11 16.7098 9.16 16.7498 9.21 16.7898C9.39 16.9798 9.5 17.2398 9.5 17.4998C9.5 17.7598 9.39 18.0198 9.21 18.2098ZM9.21 14.7098C9.02 14.8898 8.76 14.9998 8.5 14.9998C8.24 14.9998 7.98 14.8898 7.79 14.7098C7.61 14.5198 7.5 14.2598 7.5 13.9998C7.5 13.7398 7.61 13.4798 7.79 13.2898C8.07 13.0098 8.51 12.9198 8.88 13.0798C9.01 13.1298 9.12 13.1998 9.21 13.2898C9.39 13.4798 9.5 13.7398 9.5 13.9998C9.5 14.2598 9.39 14.5198 9.21 14.7098ZM12.71 18.2098C12.52 18.3898 12.26 18.4998 12 18.4998C11.74 18.4998 11.48 18.3898 11.29 18.2098C11.11 18.0198 11 17.7598 11 17.4998C11 17.2398 11.11 16.9798 11.29 16.7898C11.66 16.4198 12.34 16.4198 12.71 16.7898C12.89 16.9798 13 17.2398 13 17.4998C13 17.7598 12.89 18.0198 12.71 18.2098ZM12.71 14.7098C12.66 14.7498 12.61 14.7898 12.56 14.8298C12.5 14.8698 12.44 14.8998 12.38 14.9198C12.32 14.9498 12.26 14.9698 12.2 14.9798C12.13 14.9898 12.07 14.9998 12 14.9998C11.74 14.9998 11.48 14.8898 11.29 14.7098C11.11 14.5198 11 14.2598 11 13.9998C11 13.7398 11.11 13.4798 11.29 13.2898C11.38 13.1998 11.49 13.1298 11.62 13.0798C11.99 12.9198 12.43 13.0098 12.71 13.2898C12.89 13.4798 13 13.7398 13 13.9998C13 14.2598 12.89 14.5198 12.71 14.7098ZM16.21 18.2098C16.02 18.3898 15.76 18.4998 15.5 18.4998C15.24 18.4998 14.98 18.3898 14.79 18.2098C14.61 18.0198 14.5 17.7598 14.5 17.4998C14.5 17.2398 14.61 16.9798 14.79 16.7898C15.16 16.4198 15.84 16.4198 16.21 16.7898C16.39 16.9798 16.5 17.2398 16.5 17.4998C16.5 17.7598 16.39 18.0198 16.21 18.2098ZM16.21 14.7098C16.16 14.7498 16.11 14.7898 16.06 14.8298C16 14.8698 15.94 14.8998 15.88 14.9198C15.82 14.9498 15.76 14.9698 15.7 14.9798C15.63 14.9898 15.56 14.9998 15.5 14.9998C15.24 14.9998 14.98 14.8898 14.79 14.7098C14.61 14.5198 14.5 14.2598 14.5 13.9998C14.5 13.7398 14.61 13.4798 14.79 13.2898C14.89 13.1998 14.99 13.1298 15.12 13.0798C15.3 12.9998 15.5 12.9798 15.7 13.0198C15.76 13.0298 15.82 13.0498 15.88 13.0798C15.94 13.0998 16 13.1298 16.06 13.1698C16.11 13.2098 16.16 13.2498 16.21 13.2898C16.39 13.4798 16.5 13.7398 16.5 13.9998C16.5 14.2598 16.39 14.5198 16.21 14.7098Z" fill="#3654D6" />
-                    </svg>
-                  </a>
-                  {/* {showcalendar && ( */}
-                  {showcalendar3 && (
-                    <div className="cal set-custom-calendar-div">
-                      <Calendar
-                        numberOfMonths={2}
-                        disableMonthPicker
-                        disableYearPicker
-                      />
-                    </div>
-                  )}
-
-
-                </div>
-                  </div>
-                  <div id="chart ">
-                    <ReactApexChart options={options} series={series} type="bar" height={350} />
-                  </div>
+                <div className="innercontent">
+                  <h6 className="inertext">Total NFT’s</h6>
+                  <h3 className="commoncardtext">178+</h3>
                 </div>
               </div>
             </div>
-            <div className="lastpratdiv">
-              <div className="dashbodtoplast">
-                <div className="inerlast">
-                  <h5 className="statayfst">
-                    Total Bolts distributed to users
+            <div className="new_card">
+              <div className='cardinercont'>
+                <div className="imgouterdiv">
+                  <img src="\dashboard\card3.svg" className="inoncardiner" />
+                </div>
+                <div className="innercontent">
+                  <h6 className="inertext">Total Collection’s</h6>
+                  <h3 className="commoncardtext">178+</h3>
+                </div>
+              </div>
+            </div>
+            <div className="new_card">
+              <div className='cardinercont'>
+                <div className="imgouterdiv">
+                  <img src="\dashboard\card4.svg" className="inoncardiner" />
+                </div>
+                <div className="innercontent">
+                  <h6 className="inertext">Total Transaction’s</h6>
+                  <h3 className="commoncardtext">178+</h3>
+                </div>
+              </div>
+            </div>
+            <div className="new_card">
+              <div className='cardinercont'>
+                <div className="imgouterdiv">
+                  <img src="\dashboard\card5.svg" className="inoncardiner" />
+                </div>
+                <div className="innercontent">
+                  <h6 className="inertext">Total Artist’s</h6>
+                  <h3 className="commoncardtext">178+</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row ">
+            <div className="col-xl-8 col-sm-12">
+              <div className='chartouterdiv'>
+                <div className="dashbodtop_left ">
+                  <h5 className="statay">
+                    New Users
                   </h5>
-                  <h2 className="statayfstbig">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="35" viewBox="0 0 34 35" fill="none">
-                      <path d="M8.6261 19.3133H13.0036V29.5133C13.0036 31.8933 14.2928 32.3749 15.8653 30.5899L26.5894 18.4066C27.9069 16.9191 27.3544 15.6866 25.3569 15.6866H20.9794V5.4866C20.9794 3.1066 19.6903 2.62494 18.1178 4.40994L7.3936 16.5933C6.09026 18.0949 6.64277 19.3133 8.6261 19.3133Z" stroke="#3553D5" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    1,000,000,000
-                  </h2>
-                </div>
-
-                <div className="statay">
-                <div className="custom-tab-bar">
-                  <a className='clanderdate'
-                  >
-                    1D
-                  </a>
-                  <a className='clanderdate'
-                  >
-                    7D
-                  </a>
-                  <a className='clanderdate'>
-                    1M
-                  </a>
-                  <a className='clanderdate'  >
-                    1Y
-                  </a>
-                  <a className='clanderdate'>
-                    All
-                  </a>
-                  <a className='clanderdate' onClick={(handleButtonClick) => setShowCalendar4(!showcalendar4)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M16.7502 3.56V2C16.7502 1.59 16.4102 1.25 16.0002 1.25C15.5902 1.25 15.2502 1.59 15.2502 2V3.5H8.75023V2C8.75023 1.59 8.41023 1.25 8.00023 1.25C7.59023 1.25 7.25023 1.59 7.25023 2V3.56C4.55023 3.81 3.24023 5.42 3.04023 7.81C3.02023 8.1 3.26023 8.34 3.54023 8.34H20.4602C20.7502 8.34 20.9902 8.09 20.9602 7.81C20.7602 5.42 19.4502 3.81 16.7502 3.56Z" fill="#3654D6" />
-                      <path d="M20 9.83984H4C3.45 9.83984 3 10.2898 3 10.8398V16.9998C3 19.9998 4.5 21.9998 8 21.9998H16C19.5 21.9998 21 19.9998 21 16.9998V10.8398C21 10.2898 20.55 9.83984 20 9.83984ZM9.21 18.2098C9.16 18.2498 9.11 18.2998 9.06 18.3298C9 18.3698 8.94 18.3998 8.88 18.4198C8.82 18.4498 8.76 18.4698 8.7 18.4798C8.63 18.4898 8.57 18.4998 8.5 18.4998C8.37 18.4998 8.24 18.4698 8.12 18.4198C7.99 18.3698 7.89 18.2998 7.79 18.2098C7.61 18.0198 7.5 17.7598 7.5 17.4998C7.5 17.2398 7.61 16.9798 7.79 16.7898C7.89 16.6998 7.99 16.6298 8.12 16.5798C8.3 16.4998 8.5 16.4798 8.7 16.5198C8.76 16.5298 8.82 16.5498 8.88 16.5798C8.94 16.5998 9 16.6298 9.06 16.6698C9.11 16.7098 9.16 16.7498 9.21 16.7898C9.39 16.9798 9.5 17.2398 9.5 17.4998C9.5 17.7598 9.39 18.0198 9.21 18.2098ZM9.21 14.7098C9.02 14.8898 8.76 14.9998 8.5 14.9998C8.24 14.9998 7.98 14.8898 7.79 14.7098C7.61 14.5198 7.5 14.2598 7.5 13.9998C7.5 13.7398 7.61 13.4798 7.79 13.2898C8.07 13.0098 8.51 12.9198 8.88 13.0798C9.01 13.1298 9.12 13.1998 9.21 13.2898C9.39 13.4798 9.5 13.7398 9.5 13.9998C9.5 14.2598 9.39 14.5198 9.21 14.7098ZM12.71 18.2098C12.52 18.3898 12.26 18.4998 12 18.4998C11.74 18.4998 11.48 18.3898 11.29 18.2098C11.11 18.0198 11 17.7598 11 17.4998C11 17.2398 11.11 16.9798 11.29 16.7898C11.66 16.4198 12.34 16.4198 12.71 16.7898C12.89 16.9798 13 17.2398 13 17.4998C13 17.7598 12.89 18.0198 12.71 18.2098ZM12.71 14.7098C12.66 14.7498 12.61 14.7898 12.56 14.8298C12.5 14.8698 12.44 14.8998 12.38 14.9198C12.32 14.9498 12.26 14.9698 12.2 14.9798C12.13 14.9898 12.07 14.9998 12 14.9998C11.74 14.9998 11.48 14.8898 11.29 14.7098C11.11 14.5198 11 14.2598 11 13.9998C11 13.7398 11.11 13.4798 11.29 13.2898C11.38 13.1998 11.49 13.1298 11.62 13.0798C11.99 12.9198 12.43 13.0098 12.71 13.2898C12.89 13.4798 13 13.7398 13 13.9998C13 14.2598 12.89 14.5198 12.71 14.7098ZM16.21 18.2098C16.02 18.3898 15.76 18.4998 15.5 18.4998C15.24 18.4998 14.98 18.3898 14.79 18.2098C14.61 18.0198 14.5 17.7598 14.5 17.4998C14.5 17.2398 14.61 16.9798 14.79 16.7898C15.16 16.4198 15.84 16.4198 16.21 16.7898C16.39 16.9798 16.5 17.2398 16.5 17.4998C16.5 17.7598 16.39 18.0198 16.21 18.2098ZM16.21 14.7098C16.16 14.7498 16.11 14.7898 16.06 14.8298C16 14.8698 15.94 14.8998 15.88 14.9198C15.82 14.9498 15.76 14.9698 15.7 14.9798C15.63 14.9898 15.56 14.9998 15.5 14.9998C15.24 14.9998 14.98 14.8898 14.79 14.7098C14.61 14.5198 14.5 14.2598 14.5 13.9998C14.5 13.7398 14.61 13.4798 14.79 13.2898C14.89 13.1998 14.99 13.1298 15.12 13.0798C15.3 12.9998 15.5 12.9798 15.7 13.0198C15.76 13.0298 15.82 13.0498 15.88 13.0798C15.94 13.0998 16 13.1298 16.06 13.1698C16.11 13.2098 16.16 13.2498 16.21 13.2898C16.39 13.4798 16.5 13.7398 16.5 13.9998C16.5 14.2598 16.39 14.5198 16.21 14.7098Z" fill="#3654D6" />
-                    </svg>
-                  </a>
-                  {/* {showcalendar && ( */}
-                  {showcalendar4 && (
-                    <div className="cal set-custom-calendar-div">
-                      <Calendar
-                        numberOfMonths={2}
-                        disableMonthPicker
-                        disableYearPicker
-                      />
+                  <div>
+                    {/* <img src="/dashboard-assets/issonns.svg" className="img-fluid custom-img" alt="Your Alt Text" /> */}
+                    <div className="custom-tab-bar">
+                      <a className='clanderdate'
+                      >
+                        1D
+                      </a>
+                      <a className='clanderdate'
+                      >
+                        7D
+                      </a>
+                      <a className='clanderdate'>
+                        1M
+                      </a>
+                      <a className='clanderdate'  >
+                        1Y
+                      </a>
+                      <a className='clanderdate'>
+                        All
+                      </a>
+                      <a className='clanderdate' onClick={() => setShowCalendar2(!showcalendar2)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M14.1036 2.96822V1.73013C14.1036 1.40473 13.8337 1.13489 13.5083 1.13489C13.1829 1.13489 12.9131 1.40473 12.9131 1.73013V2.9206H7.75435V1.73013C7.75435 1.40473 7.48451 1.13489 7.15911 1.13489C6.83372 1.13489 6.56388 1.40473 6.56388 1.73013V2.96822C4.42102 3.16663 3.38134 4.44441 3.22261 6.34124C3.20673 6.5714 3.39721 6.76187 3.61943 6.76187H17.048C17.2782 6.76187 17.4686 6.56346 17.4448 6.34124C17.2861 4.44441 16.2464 3.16663 14.1036 2.96822Z" fill="#862FC0" />
+                          <path d="M16.6825 7.95227H3.98408C3.54757 7.95227 3.19043 8.30941 3.19043 8.74592V13.6348C3.19043 16.0158 4.38091 17.6031 7.15868 17.6031H13.5079C16.2857 17.6031 17.4761 16.0158 17.4761 13.6348V8.74592C17.4761 8.30941 17.119 7.95227 16.6825 7.95227ZM8.119 14.5951C8.07932 14.6269 8.03964 14.6666 7.99995 14.6904C7.95233 14.7221 7.90472 14.7459 7.8571 14.7618C7.80948 14.7856 7.76186 14.8015 7.71424 14.8094C7.65868 14.8173 7.61106 14.8253 7.55551 14.8253C7.45233 14.8253 7.34916 14.8015 7.25392 14.7618C7.15075 14.7221 7.07138 14.6666 6.99202 14.5951C6.84916 14.4443 6.76186 14.238 6.76186 14.0316C6.76186 13.8253 6.84916 13.6189 6.99202 13.4681C7.07138 13.3967 7.15075 13.3412 7.25392 13.3015C7.39678 13.238 7.55551 13.2221 7.71424 13.2539C7.76186 13.2618 7.80948 13.2777 7.8571 13.3015C7.90472 13.3173 7.95233 13.3412 7.99995 13.3729C8.03964 13.4047 8.07932 13.4364 8.119 13.4681C8.26186 13.6189 8.34916 13.8253 8.34916 14.0316C8.34916 14.238 8.26186 14.4443 8.119 14.5951ZM8.119 11.8173C7.96821 11.9602 7.76186 12.0475 7.55551 12.0475C7.34916 12.0475 7.14281 11.9602 6.99202 11.8173C6.84916 11.6666 6.76186 11.4602 6.76186 11.2539C6.76186 11.0475 6.84916 10.8412 6.99202 10.6904C7.21424 10.4681 7.56345 10.3967 7.8571 10.5237C7.96027 10.5634 8.04757 10.6189 8.119 10.6904C8.26186 10.8412 8.34916 11.0475 8.34916 11.2539C8.34916 11.4602 8.26186 11.6666 8.119 11.8173ZM10.8968 14.5951C10.746 14.738 10.5396 14.8253 10.3333 14.8253C10.1269 14.8253 9.92059 14.738 9.76979 14.5951C9.62694 14.4443 9.53964 14.238 9.53964 14.0316C9.53964 13.8253 9.62694 13.6189 9.76979 13.4681C10.0634 13.1745 10.6031 13.1745 10.8968 13.4681C11.0396 13.6189 11.1269 13.8253 11.1269 14.0316C11.1269 14.238 11.0396 14.4443 10.8968 14.5951ZM10.8968 11.8173C10.8571 11.8491 10.8174 11.8808 10.7777 11.9126C10.7301 11.9443 10.6825 11.9681 10.6349 11.984C10.5873 12.0078 10.5396 12.0237 10.492 12.0316C10.4365 12.0396 10.3888 12.0475 10.3333 12.0475C10.1269 12.0475 9.92059 11.9602 9.76979 11.8173C9.62694 11.6666 9.53964 11.4602 9.53964 11.2539C9.53964 11.0475 9.62694 10.8412 9.76979 10.6904C9.84122 10.6189 9.92852 10.5634 10.0317 10.5237C10.3254 10.3967 10.6746 10.4681 10.8968 10.6904C11.0396 10.8412 11.1269 11.0475 11.1269 11.2539C11.1269 11.4602 11.0396 11.6666 10.8968 11.8173ZM13.6746 14.5951C13.5238 14.738 13.3174 14.8253 13.1111 14.8253C12.9047 14.8253 12.6984 14.738 12.5476 14.5951C12.4047 14.4443 12.3174 14.238 12.3174 14.0316C12.3174 13.8253 12.4047 13.6189 12.5476 13.4681C12.8412 13.1745 13.3809 13.1745 13.6746 13.4681C13.8174 13.6189 13.9047 13.8253 13.9047 14.0316C13.9047 14.238 13.8174 14.4443 13.6746 14.5951ZM13.6746 11.8173C13.6349 11.8491 13.5952 11.8808 13.5555 11.9126C13.5079 11.9443 13.4603 11.9681 13.4127 11.984C13.365 12.0078 13.3174 12.0237 13.2698 12.0316C13.2142 12.0396 13.1587 12.0475 13.1111 12.0475C12.9047 12.0475 12.6984 11.9602 12.5476 11.8173C12.4047 11.6666 12.3174 11.4602 12.3174 11.2539C12.3174 11.0475 12.4047 10.8412 12.5476 10.6904C12.6269 10.6189 12.7063 10.5634 12.8095 10.5237C12.9523 10.4602 13.1111 10.4443 13.2698 10.4761C13.3174 10.484 13.365 10.4999 13.4127 10.5237C13.4603 10.5396 13.5079 10.5634 13.5555 10.5951C13.5952 10.6269 13.6349 10.6586 13.6746 10.6904C13.8174 10.8412 13.9047 11.0475 13.9047 11.2539C13.9047 11.4602 13.8174 11.6666 13.6746 11.8173Z" fill="#862FC0" />
+                        </svg>
+                      </a>
+                      {/* {showcalendar && ( */}
+                      {showcalendar2 && (
+                        <div className="cal set-custom-calendar-div">
+                          <Calendar
+                            numberOfMonths={2}
+                            disableMonthPicker
+                            disableYearPicker
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
-
-
+                  </div>
                 </div>
-                </div>
-              </div>
-
-              <div className="seclastpartdiv">
-                <div className="inerisstdiv">
-                  <p className="inerleft">
-                    Tasks in the app
-                  </p>
-                  <p className="inerright">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M4.56929 9.96017H6.88679V15.3602C6.88679 16.6202 7.56929 16.8752 8.40179 15.9302L14.0793 9.48017C14.7768 8.69267 14.4843 8.04017 13.4268 8.04017H11.1093V2.64017C11.1093 1.38017 10.4268 1.12517 9.59429 2.07017L3.91679 8.52017C3.22679 9.31517 3.51929 9.96017 4.56929 9.96017Z" stroke="#161616" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    595,854
-                  </p>
-
-                </div>
-                <div className="inerisstdiv">
-                  <p className="inerleft">
-                    Playing games
-                  </p>
-                  <p className="inerright">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M4.56929 9.96017H6.88679V15.3602C6.88679 16.6202 7.56929 16.8752 8.40179 15.9302L14.0793 9.48017C14.7768 8.69267 14.4843 8.04017 13.4268 8.04017H11.1093V2.64017C11.1093 1.38017 10.4268 1.12517 9.59429 2.07017L3.91679 8.52017C3.22679 9.31517 3.51929 9.96017 4.56929 9.96017Z" stroke="#161616" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    565,857
-                  </p>
-
-                </div>
-                <div className="inerisstdiv">
-                  <p className="inerleft">
-                    Empower videos
-                  </p>
-                  <p className="inerright">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M4.56929 9.96017H6.88679V15.3602C6.88679 16.6202 7.56929 16.8752 8.40179 15.9302L14.0793 9.48017C14.7768 8.69267 14.4843 8.04017 13.4268 8.04017H11.1093V2.64017C11.1093 1.38017 10.4268 1.12517 9.59429 2.07017L3.91679 8.52017C3.22679 9.31517 3.51929 9.96017 4.56929 9.96017Z" stroke="#161616" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    65,450
-                  </p>
-
-                </div>
-                <div className="inerisstdiv">
-                  <p className="inerleft">
-                    Tasks in the app
-                  </p>
-                  <p className="inerright">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M4.56929 9.96017H6.88679V15.3602C6.88679 16.6202 7.56929 16.8752 8.40179 15.9302L14.0793 9.48017C14.7768 8.69267 14.4843 8.04017 13.4268 8.04017H11.1093V2.64017C11.1093 1.38017 10.4268 1.12517 9.59429 2.07017L3.91679 8.52017C3.22679 9.31517 3.51929 9.96017 4.56929 9.96017Z" stroke="#161616" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    595,854
-                  </p>
-
-                </div>
-                <div className="inerisstdiv">
-                  <p className="inerleft">
-                    Gifted Bolts
-                  </p>
-                  <p className="inerright">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M4.56929 9.96017H6.88679V15.3602C6.88679 16.6202 7.56929 16.8752 8.40179 15.9302L14.0793 9.48017C14.7768 8.69267 14.4843 8.04017 13.4268 8.04017H11.1093V2.64017C11.1093 1.38017 10.4268 1.12517 9.59429 2.07017L3.91679 8.52017C3.22679 9.31517 3.51929 9.96017 4.56929 9.96017Z" stroke="#161616" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    456,258
-                  </p>
-
-                </div>
-                <div className="inerisstdiv">
-                  <p className="inerleft">
-                    Purchased Bolts
-                  </p>
-                  <p className="inerright">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M4.56929 9.96017H6.88679V15.3602C6.88679 16.6202 7.56929 16.8752 8.40179 15.9302L14.0793 9.48017C14.7768 8.69267 14.4843 8.04017 13.4268 8.04017H11.1093V2.64017C11.1093 1.38017 10.4268 1.12517 9.59429 2.07017L3.91679 8.52017C3.22679 9.31517 3.51929 9.96017 4.56929 9.96017Z" stroke="#161616" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    658,548
-                  </p>
-
+                <div id="chart">
+                  <ReactApexChart options={options} series={series} type="line" height={350} />
                 </div>
               </div>
             </div>
+            <div className="col-xl-4 col-sm-12 ">
+              <div className='dash_leftouter'>
+                <div className='dash_leftinertop'>
+                  <h5 className='lefttophdng'>
+                    Top Items
+                  </h5>
+                  <h5 className='lefttophdngright'>
+                    View All
+                  </h5>
+                </div>
+                <div className='dash_leftinersec_scrol'>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Taiyo Infants</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Kups by Raposa</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item3.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">The Anon Club</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Taiyo Infants</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Kups by Raposa</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Taiyo Infants</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Kups by Raposa</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item3.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">The Anon Club</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Taiyo Infants</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                  <div className='scrolinerlefttop'>
+                    <div className='scrolinerleft_iner'>
+                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
+                    </div>
+                    <div className='scrolinerleft_text'>
+                      <h6 className="inertextc">Kups by Raposa</h6>
+                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
+                        CORE  </span></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div className="row my-4">
+            <div className="col-xl-8 col-sm-12 ">
+              <div className='chartouterdiv'>
+                <div className="dashbodtop_left mb-0">
+                  <h5 className="statay">
+                    Sales
+                  </h5>
+                  <div>
+                    <div className="custom-tab-bar">
+                      <a className='clanderdate'
+                      >
+                        1D
+                      </a>
+                      <a className='clanderdate'
+                      >
+                        7D
+                      </a>
+                      <a className='clanderdate'>
+                        1M
+                      </a>
+                      <a className='clanderdate'  >
+                        1Y
+                      </a>
+                      <a className='clanderdate'>
+                        All
+                      </a>
+                      <a className='clanderdate' onClick={() => setShowCalendar1(!showcalendar1)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M14.1036 2.96822V1.73013C14.1036 1.40473 13.8337 1.13489 13.5083 1.13489C13.1829 1.13489 12.9131 1.40473 12.9131 1.73013V2.9206H7.75435V1.73013C7.75435 1.40473 7.48451 1.13489 7.15911 1.13489C6.83372 1.13489 6.56388 1.40473 6.56388 1.73013V2.96822C4.42102 3.16663 3.38134 4.44441 3.22261 6.34124C3.20673 6.5714 3.39721 6.76187 3.61943 6.76187H17.048C17.2782 6.76187 17.4686 6.56346 17.4448 6.34124C17.2861 4.44441 16.2464 3.16663 14.1036 2.96822Z" fill="#862FC0" />
+                          <path d="M16.6825 7.95227H3.98408C3.54757 7.95227 3.19043 8.30941 3.19043 8.74592V13.6348C3.19043 16.0158 4.38091 17.6031 7.15868 17.6031H13.5079C16.2857 17.6031 17.4761 16.0158 17.4761 13.6348V8.74592C17.4761 8.30941 17.119 7.95227 16.6825 7.95227ZM8.119 14.5951C8.07932 14.6269 8.03964 14.6666 7.99995 14.6904C7.95233 14.7221 7.90472 14.7459 7.8571 14.7618C7.80948 14.7856 7.76186 14.8015 7.71424 14.8094C7.65868 14.8173 7.61106 14.8253 7.55551 14.8253C7.45233 14.8253 7.34916 14.8015 7.25392 14.7618C7.15075 14.7221 7.07138 14.6666 6.99202 14.5951C6.84916 14.4443 6.76186 14.238 6.76186 14.0316C6.76186 13.8253 6.84916 13.6189 6.99202 13.4681C7.07138 13.3967 7.15075 13.3412 7.25392 13.3015C7.39678 13.238 7.55551 13.2221 7.71424 13.2539C7.76186 13.2618 7.80948 13.2777 7.8571 13.3015C7.90472 13.3173 7.95233 13.3412 7.99995 13.3729C8.03964 13.4047 8.07932 13.4364 8.119 13.4681C8.26186 13.6189 8.34916 13.8253 8.34916 14.0316C8.34916 14.238 8.26186 14.4443 8.119 14.5951ZM8.119 11.8173C7.96821 11.9602 7.76186 12.0475 7.55551 12.0475C7.34916 12.0475 7.14281 11.9602 6.99202 11.8173C6.84916 11.6666 6.76186 11.4602 6.76186 11.2539C6.76186 11.0475 6.84916 10.8412 6.99202 10.6904C7.21424 10.4681 7.56345 10.3967 7.8571 10.5237C7.96027 10.5634 8.04757 10.6189 8.119 10.6904C8.26186 10.8412 8.34916 11.0475 8.34916 11.2539C8.34916 11.4602 8.26186 11.6666 8.119 11.8173ZM10.8968 14.5951C10.746 14.738 10.5396 14.8253 10.3333 14.8253C10.1269 14.8253 9.92059 14.738 9.76979 14.5951C9.62694 14.4443 9.53964 14.238 9.53964 14.0316C9.53964 13.8253 9.62694 13.6189 9.76979 13.4681C10.0634 13.1745 10.6031 13.1745 10.8968 13.4681C11.0396 13.6189 11.1269 13.8253 11.1269 14.0316C11.1269 14.238 11.0396 14.4443 10.8968 14.5951ZM10.8968 11.8173C10.8571 11.8491 10.8174 11.8808 10.7777 11.9126C10.7301 11.9443 10.6825 11.9681 10.6349 11.984C10.5873 12.0078 10.5396 12.0237 10.492 12.0316C10.4365 12.0396 10.3888 12.0475 10.3333 12.0475C10.1269 12.0475 9.92059 11.9602 9.76979 11.8173C9.62694 11.6666 9.53964 11.4602 9.53964 11.2539C9.53964 11.0475 9.62694 10.8412 9.76979 10.6904C9.84122 10.6189 9.92852 10.5634 10.0317 10.5237C10.3254 10.3967 10.6746 10.4681 10.8968 10.6904C11.0396 10.8412 11.1269 11.0475 11.1269 11.2539C11.1269 11.4602 11.0396 11.6666 10.8968 11.8173ZM13.6746 14.5951C13.5238 14.738 13.3174 14.8253 13.1111 14.8253C12.9047 14.8253 12.6984 14.738 12.5476 14.5951C12.4047 14.4443 12.3174 14.238 12.3174 14.0316C12.3174 13.8253 12.4047 13.6189 12.5476 13.4681C12.8412 13.1745 13.3809 13.1745 13.6746 13.4681C13.8174 13.6189 13.9047 13.8253 13.9047 14.0316C13.9047 14.238 13.8174 14.4443 13.6746 14.5951ZM13.6746 11.8173C13.6349 11.8491 13.5952 11.8808 13.5555 11.9126C13.5079 11.9443 13.4603 11.9681 13.4127 11.984C13.365 12.0078 13.3174 12.0237 13.2698 12.0316C13.2142 12.0396 13.1587 12.0475 13.1111 12.0475C12.9047 12.0475 12.6984 11.9602 12.5476 11.8173C12.4047 11.6666 12.3174 11.4602 12.3174 11.2539C12.3174 11.0475 12.4047 10.8412 12.5476 10.6904C12.6269 10.6189 12.7063 10.5634 12.8095 10.5237C12.9523 10.4602 13.1111 10.4443 13.2698 10.4761C13.3174 10.484 13.365 10.4999 13.4127 10.5237C13.4603 10.5396 13.5079 10.5634 13.5555 10.5951C13.5952 10.6269 13.6349 10.6586 13.6746 10.6904C13.8174 10.8412 13.9047 11.0475 13.9047 11.2539C13.9047 11.4602 13.8174 11.6666 13.6746 11.8173Z" fill="#862FC0" />
+                        </svg>
+                      </a>
+                      {/* {showcalendar && ( */}
+                      {showcalendar1 && (
+                        <div className="cal set-custom-calendar-div">
+                          <Calendar
+                            numberOfMonths={2}
+                            disableMonthPicker
+                            disableYearPicker
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className='btumouterhdngmain'>
+                  <div className='inerbutmsec'>
+                    <h3 className="commoncardtextbutm">    <img src="\dashboard\iconbig.svg" className="inon" alt='icon' />500,058 CORE</h3>
+                    <p className='tootall'>
+                      TOTAL
+                    </p>
+                  </div>
+                  <div className='inerbutmsec'>
+                    <h3 className="commoncardtextbutm">    <img src="\dashboard\iconbig.svg" className="inon" alt='icon' />54,896 CORE</h3>
+                    <p className='tootall'>
+                      AVERAGE
+                    </p>
+                  </div>
+                </div>
+                <div className='table-responsive dastoutertable'>
+                  <div class="tablerow">
+                    <p className='toptaberow'>Year</p>
+                    <p className='toptaberow'>Sales Count</p>
+                    <p className='toptaberow'>Growth</p>
+                    <p className='toptaberow'>Earnings</p>
+                  </div>
+                  <div class="tablerow">
+                    <p className='sectblerow'>2023</p>
+                    <p className='sectblerow'>7,2039</p>
+                    <p className='sectblerow green'>+24%</p>
+                    <p className='sectblerow'>789,845.00</p>
+                  </div>
+                  <div class="tablerow">
+                    <p className='sectblerow'>2023</p>
+                    <p className='sectblerow'>7,2039</p>
+                    <p className='sectblerow red'>Growth</p>
+                    <p className='sectblerow'>789,845.00</p>
+                  </div>
+                  <div class="tablerow">
+                    <p className='sectblerow'>2023</p>
+                    <p className='sectblerow'>7,2039</p>
+                    <p className='sectblerow green'>+24%</p>
+                    <p className='sectblerow'>789,845.00</p>
+                  </div>
+                  <div class="tablerow">
+                    <p className='sectblerow'>2023</p>
+                    <p className='sectblerow'>7,2039</p>
+                    <p className='sectblerow red'>Growth</p>
+                    <p className='sectblerow'>789,845.00</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-4 col-sm-12 ">
+              <div className='dash_butmright_outer_chart'>
+                <div className='dash_butmouter_chart_inertext'>
+                  <div className="imgouterdivxx">
+                    <img src="\dashboard\charts.svg" className="inoncardinercx" />
+                  </div>
+                  <p className='revng'>
+                    Revenue
+                  </p>
+                  <p className='cvfred'>
+                    532K CORE
+                  </p>
+                </div>
+                <div className='dash_butmouter_chart_inertextright'>
+                  {/* <div id="chart">
+                    <ReactApexChart options={options} series={series} type="line" height={100} />
+                  </div> */}
+                  <img src="\dashboard\grnchart.svg" className=" w-100"/>
+
+                  <div className='inercrt'>
+                    <p className='revngggren'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M7.52904 3.98754L4.99987 1.45837L2.4707 3.98754" stroke="#04C182" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5 8.54168L5 1.52917" stroke="#04C182" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      24.87%
+                    </p>
+                    <p className='month'>
+                      This month
+                    </p>
+                  </div>
+
+                </div>
+
+              </div>
+              <div className='dash_butmright_outer_chart'>
+                <div className='dash_butmouter_chart_inertext'>
+                  <div className="imgouterdivxx">
+                    <img src="\dashboard\charts2.svg" className="inoncardinercx" />
+                  </div>
+                  <p className='revng'>
+                    Sales
+                  </p>
+                  <p className='cvfred'>
+                    153 Units
+                  </p>
+                </div>
+                <div className='dash_butmouter_chart_inertextright'>
+                  {/* <div id="chart">
+                    <ReactApexChart options={options} series={series} type="line" height={100} />
+                  </div> */}
+                  <img src="\dashboard\grnchart2.svg" className=" w-100" />
+        
+
+                  <div className='inercrt'>
+                    <p className='revngggren red'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M7.52904 6.01246L4.99987 8.54163L2.4707 6.01246" stroke="#E84A4A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5 1.45832L5 8.47083" stroke="#E84A4A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      24.87%
+                    </p>
+                    <p className='month'>
+                      This month
+                    </p>
+                  </div>
+
+                </div>
+
+              </div>
 
 
-
-
+            </div>
           </div>
         </section>
       </div>
+
+
+
+
     </>
   );
 }
