@@ -1,0 +1,45 @@
+.button-main-daily{
+        outline: none;
+        box-shadow: none;
+        background: linear-gradient(180deg, #E72D1D 0%, #E71D36 100%)!important;
+        border-radius: 10px;
+        width: 170px;
+        height: 50px;
+        border: 1px solid #E72D1D!important;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: #ffffff!important;
+        margin-right: 20px;
+        transition: .4s ease-in-out;
+        &:hover{
+            background: transparent!important;
+            border: 1px solid #c14535!important;
+            color: #3568C1!important;
+        }
+}
+
+.button-main-dailys{
+    outline: none;
+    box-shadow: none;
+    background: #FFFFFF!important;
+    border: 1px solid #3568C1!important;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #3568C1;
+    transition: .4s ease-in-out;
+    &:hover{
+        background: linear-gradient(180deg, #1d7be7 0%, #1d8ce7 100%)!important;
+        color: #ffffff!important;
+        border: 1px solid #1d8ce7!important;
+    }
+}
