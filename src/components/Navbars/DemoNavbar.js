@@ -528,47 +528,8 @@ const Header = (props) => {
             {brandName === 'Launchpad' && <Link to={`/admin/raffles`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Raffles</button></Link>}
 
             {brandName === 'Users' && role === 'super-admin' &&
-              <div className="newinputs">
-
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
-
-                </div>
-
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
-                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    Filters
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>}
+    <></>
+              }
 
             {brandName === 'User / Detail' && role === 'super-admin' &&
               <div className="">

@@ -5,8 +5,11 @@ body {
   font-size: $font-size-base;
   font-family: 'Lexend', sans-serif;
   -moz-osx-font-smoothing: grayscale;
-  background: #08050A !important;
+  // background: #08050A !important;
   -webkit-font-smoothing: antialiased;
+  background-image: url(".//..//..//..//../src/bg.png");
+  width: 100%;
+  height: 100%;
 }
 
 .row {

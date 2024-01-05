@@ -33,8 +33,8 @@ function Dashboard() {
       lineCap: 'round', // Adjust line cap if needed
       dropShadow: {
         enabled: true,
-        top: 4,
-        left: 0,
+        top: 9,
+        left: 5,
         blur: 10,
         opacity: 1,
         color: '#862FC0'
@@ -42,12 +42,31 @@ function Dashboard() {
     },
     xaxis: {
       type: 'datetime',
-      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+      axisBorder: {
+        show: false // Hide the x-axis border
+      },
+      axisTicks: {
+        show: false // Hide the x-axis ticks
+      },
+      labels: {
+        style: {
+          colors: '#725196' // Customize the color of x-axis labels
+        }
+      }
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: '#725196' // Customize the color of y-axis labels
+        }
+      }
     },
     tooltip: {
-      x: {
-        format: 'dd/MM/yy HH:mm'
-      },
+      enabled: false // Remove the tooltip
+    },
+    grid: {
+      show: false // Hide the center line of the chart
     },
     plotOptions: {
       bar: {
@@ -60,19 +79,96 @@ function Dashboard() {
           }]
         },
         strokeColors: ['#862FC0'],
-        strokeWidth: 3,
+        strokeWidth: 5,
         fill: {
           type: 'solid'
         }
       }
     }
-
   });
+
+
+  const [options1, setobject1] = useState({
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth',
+      colors: ['#04C182'],
+      width: 3,
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+      labels: {
+        show: false, // Hide x-axis labels
+      }
+    },
+    yaxis: {
+      labels: {
+        show: false, // Hide y-axis labels
+      }
+    },
+    grid: {
+      show: false // Hide the grid
+    },
+    plotOptions: {
+      area: {
+        fillTo: 'origin', // Fill area to the x-axis
+        opacity: 0.5,
+        colors: ['#04C182'],
+      }
+    }
+  });
+  
+  const [options2, setobject2] = useState({
+    chart: {
+      height: 350,
+      type: 'area'
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth',
+      colors: ['#E84A4A'],
+      width: 3,
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+      labels: {
+        show: false, // Hide x-axis labels
+      }
+    },
+    yaxis: {
+      labels: {
+        show: false, // Hide y-axis labels
+      }
+    },
+    grid: {
+      show: false // Hide the grid
+    },
+    plotOptions: {
+      area: {
+        fillTo: 'origin', // Fill area to the x-axis
+        opacity: 0.5,
+        colors: ['#E84A4A'],
+      }
+    }
+  });
+  
+
+
   const [series, setseries] = useState(
     [
       {
         name: 'series1',
-        data: [31, 40, 28, 51, 42, 109, 100]
+        data: [31, 40, 90, 51, 42, 109, 100, 120,]
       }
       // {
       //   name: 'series2',
@@ -162,7 +258,7 @@ function Dashboard() {
               <div className='chartouterdiv'>
                 <div className="dashbodtop_left ">
                   <h5 className="statay">
-                  Sales Report
+                    Sales Report
                   </h5>
                   <div>
                     {/* <img src="/dashboard-assets/issonns.svg" className="img-fluid custom-img" alt="Your Alt Text" /> */}
@@ -431,10 +527,14 @@ function Dashboard() {
                   </p>
                 </div>
                 <div className='dash_butmouter_chart_inertextright'>
-                  {/* <div id="chart">
-                    <ReactApexChart options={options} series={series} type="line" height={100} />
-                  </div> */}
-                  <img src="\dashboard\grnchart.svg" className=" w-100"/>
+                  <div className='onlyfordshsmalchat'>
+                    <div id="chart">
+                      <ReactApexChart options={options1} series={series} type="area" height={100} />
+                    </div>
+                    {/* <img src="\dashboard\grnchart.svg" className=" w-100"/> */}
+                  </div>
+
+
 
                   <div className='inercrt'>
                     <p className='revngggren'>
@@ -465,11 +565,15 @@ function Dashboard() {
                   </p>
                 </div>
                 <div className='dash_butmouter_chart_inertextright'>
-                  {/* <div id="chart">
-                    <ReactApexChart options={options} series={series} type="line" height={100} />
-                  </div> */}
-                  <img src="\dashboard\grnchart2.svg" className=" w-100" />
-        
+         
+             
+                  <div className='onlyfordshsmalchat'>
+                    <div id="chart">
+                      <ReactApexChart options={options2} series={series} type="area" height={100} />
+                    </div>
+                    {/* <img src="\dashboard\grnchart2.svg" className=" w-100" /> */}
+                  </div>
+
 
                   <div className='inercrt'>
                     <p className='revngggren red'>

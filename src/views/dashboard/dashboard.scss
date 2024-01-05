@@ -265,9 +265,10 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       text-align: center;
-      gap: 23%;
+
+      gap: 10%;
       .inercrt {
         border-radius: 110px;
         background: #180d20;
@@ -330,10 +331,7 @@
     }
   }
 }
-.columnreverse{
 
-  flex-direction: column-reverse;
-}
 @media (max-width: 1199px) {
   .main-dashboard .dashbrd_top_cardmaindiv {
     display: flex;
@@ -356,6 +354,9 @@
   }
 }
 @media (max-width: 600px) {
+  .columnreverse {
+    flex-direction: column-reverse;
+  }
   .main-dashboard .btumouterhdngmain .inerbutmsec .commoncardtextbutm {
     font-size: 18px;
   }
@@ -368,11 +369,12 @@
   .main-dashboard .dastoutertable .tablerow .sectblerow {
     font-size: 12px;
   }
-  .main-dashboard .dash_butmright_outer_chart .dash_butmouter_chart_inertext .cvfred {
- 
+  .main-dashboard
+    .dash_butmright_outer_chart
+    .dash_butmouter_chart_inertext
+    .cvfred {
     font-size: 26px;
- 
-}
+  }
 }
 .custom-tab-bar {
   border-radius: 5px;
