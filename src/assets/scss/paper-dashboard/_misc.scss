@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap");
 
 body {
   color: $black-color;
   font-size: $font-size-base;
-  font-family: 'Lexend', sans-serif;
+  font-family: "Lexend", sans-serif;
   -moz-osx-font-smoothing: grayscale;
   // background: #08050A !important;
   -webkit-font-smoothing: antialiased;
@@ -120,7 +120,22 @@ p {
 }
 
 .blue {
-  color: #3456D0 !important;
+  color: #3456d0 !important;
+}
+.lightgrey {
+  color: #525053 !important;
+}
+.redstatus {
+  color: #f04914 !important;
+}
+.greenstatus {
+  color: #00ae11 !important;
+}
+.orangebtnn {
+  color: #ff8300 !important;
+}
+.blluuee {
+  color: #0075ff !important;
 }
 .userdtalcntrmod {
   display: flex;
@@ -220,7 +235,7 @@ p {
 
       td {
         text-align: left;
-        font-family: 'Lexend', sans-serif;
+        font-family: "Lexend", sans-serif;
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
@@ -258,22 +273,7 @@ p {
     object-position: center;
   }
 }
-// .onlycolmflex {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: flex-start;
-//   gap: 1px;
-//   .tableimgtext_mute {
-//     color: #2E3646;
-//     font-family: Poppins;
-//     font-size: 10px;
-//     font-style: normal;
-//     font-weight: 500;
-//     line-height: 20px;
-//     letter-spacing: -0.01px;
-// }
-// }
+
 .inerimgdvide {
   width: 82px;
   height: 58px;
@@ -288,18 +288,8 @@ img.tableimgginerddvidd {
   object-fit: cover;
   object-position: center;
 }
-.redstatus {
-  color: #f04914 !important;
-}
-.greenstatus {
-  color: #00ae11 !important;
-}
-.orangebtnn {
-  color: #ff8300 !important;
-}
-.blluuee {
-  color: #0075ff !important;
-}
+
+
 .eleipiess {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -432,7 +422,7 @@ img.tableimgginerddvidd {
   justify-content: center;
   align-items: center;
   p {
-    font-family: 'Lexend', sans-serif;
+    font-family: "Lexend", sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -471,15 +461,13 @@ img.tableimgginerddvidd {
 }
 .amberpillsouterdetails_activity {
   width: 50% !important;
-
-
 }
-.newtabsstyl{
+.newtabsstyl {
   width: 25% !important;
 
   gap: 5px !important;
 }
-.inertabtask{
+.inertabtask {
   width: 49% !important;
 }
 .amberitempils_activity {
@@ -612,7 +600,7 @@ img.tableimgginerddvidd {
   .rmdp-day.rmdp-selected span:not(.highlight) {
     color: #fff;
     border-radius: 7px;
-    background: #862FC0;
+    background: #862fc0;
   }
 }
 

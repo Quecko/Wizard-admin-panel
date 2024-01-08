@@ -1,18 +1,11 @@
+import React from 'react'
+import { Dropdown, Pagination } from 'react-bootstrap';
+import './collections.scss';
 
-import "./launchpad.scss"
-import { Dropdown, Modal, Pagination } from 'react-bootstrap';
-import React, { useState } from 'react'
-
-
-const Launchpad = () => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+const Collections = () => {
 
     return (
         <>
-
 
             <div className="content">
                 <div className="container-fluid">
@@ -85,16 +78,16 @@ const Launchpad = () => {
                             <table>
                                 <thead>
                                     <th>
-                                        project name
+                                        Collections
                                         {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                     </th>
                                     <th>
-                                        Supply
+                                        Floor
                                         {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                     </th>
                                     <th>
                                         <div className='volmouter'>
-                                            Price
+                                            Volume
                                             <div className='sidearrowtb'>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                                                     <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
@@ -106,12 +99,16 @@ const Launchpad = () => {
                                         </div>
                                     </th>
                                     <th  >
-                                        expected mint date
+                                        Market cap
+                                        {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                    </th>
+                                    <th>
+                                        Floor 1d%
                                         {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                     </th>
                                     <th>
                                         <div className='volmouter'>
-                                            Email address
+                                            Volume 1d%
                                             <div className='sidearrowtb'>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                                                     <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
@@ -123,10 +120,16 @@ const Launchpad = () => {
                                         </div>
                                     </th>
                                     <th>
-                                        Referral
+                                        Vol 1d%
                                     </th>
                                     <th>
-                                        Detail
+                                        Sale 1D
+                                    </th>
+                                    <th>
+                                        Listed
+                                    </th>
+                                    <th>
+                                        Owners
                                     </th>
                                 </thead>
                                 <tbody>
@@ -138,7 +141,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -151,20 +154,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754   <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -175,7 +204,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -188,20 +217,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -212,7 +267,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -225,20 +280,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754   <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -249,7 +330,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -262,20 +343,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -286,7 +393,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -299,20 +406,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754   <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -323,7 +456,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -336,20 +469,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -360,7 +519,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -373,20 +532,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754   <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -397,7 +582,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -410,20 +595,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -434,7 +645,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -447,20 +658,46 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754   <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
                                     <tr>
@@ -471,7 +708,7 @@ const Launchpad = () => {
                                                     </img>
                                                 </div>
                                                 <p className="tableimgtext">
-                                                    Ramon
+                                                    Forganas
                                                 </p>
                                             </div>
                                         </td>
@@ -484,24 +721,181 @@ const Launchpad = () => {
                                             </span>
                                         </td>
                                         <td>
-                                            15-3-2024
+                                            9.4M USDC
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
                                         </td>
                                         <td>
-                                            <span className="eleipiess">
-                                                123@gmail.com
+                                            2,087 CORE
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
-                                        <td>
-                                            <span className="eleipiess">
-                                                twitter
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
                                             </span>
                                         </td>
+
                                         <td>
-                                            <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <div className="mainimgdiv">
+                                                <div className="inerimgd">
+                                                    <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                    </img>
+                                                </div>
+                                                <p className="tableimgtext">
+                                                    Forganas
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            30 CORE
+                                        </td>
+                                        <td>
+                                            <span className="eleipiess">
+                                                2,087 CORE
+                                            </span>
+                                        </td>
+                                        <td>
+                                            9.4M USDC
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
+                                        </td>
+                                        <td>
+                                            2,087 CORE
+                                        </td>
+                                        <td className='red'>
+                                            <span className='red' >  -1%</span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
+                                            </span>
+                                        </td>
+                                        <td className=''>
+                                            754   <span className='lightgrey'>
+                                                (6.9%)
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div className="mainimgdiv">
+                                                <div className="inerimgd">
+                                                    <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                    </img>
+                                                </div>
+                                                <p className="tableimgtext">
+                                                    Forganas
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            30 CORE
+                                        </td>
+                                        <td>
+                                            <span className="eleipiess">
+                                                2,087 CORE
+                                            </span>
+                                        </td>
+                                        <td>
+                                            9.4M USDC
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
+                                        </td>
+                                        <td>
+                                            2,087 CORE
+                                        </td>
+                                        <td className=''>
+                                            <span className='green' > +1.8% </span>
+
+                                        </td>
+                                        <td className=''>
+                                            2,448
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
+                                            </span>
+                                        </td>
+                                        <td className=''>
+                                            754  <span className='lightgrey'>
+                                                (6.9%)
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            {/* <Link to="/admin/userdetail">
+                          <button className="detailbtn" >Detail</button>
+                        </Link> */}
+                                            {/* <div className="main-outer-p">
+
+                                                <div className="main-switch-nn">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                        <label class="custom-control-label" for="customSwitches2"></label>
+                                                    </div>
+                                                </div>
+                                            </div> */}
+                                        </td>
+                                    </tr>
+
+
+
                                 </tbody>
+
                             </table>
+
                         </div>
                         <div className='Paginationlattable'>
                             <button className='leftpigbtn' >
@@ -525,101 +919,12 @@ const Launchpad = () => {
 
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>
-            <div className="gernelmodal">
-                <Modal className='gernelmodal' show={show} onHide={handleClose} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>
-
-                            Details
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className='mod_bodydiv '>
-                            <div className="topdiv">
-                                <h5 className=''>
-                                    Carolyn Wilson
-                                </h5>
-                                <div className='tommodimg'>
-                                    <img src="\launchpad\modalctr.svg" alt="" className='modinerimg' />
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'>Project name </h6>
-                                    <h6 className='namefullletf'> Forganas </h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Email  </h6>
-                                    <h6 className='namefullletf'> 123@gmail.com </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft w-100'>
-                                    <h6 className='usernnamee'>Project description </h6>
-                                    <h6 className='namefullletdestpn'> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt. </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'>Supply </h6>
-                                    <h6 className='namefullletf'> 30 CORE </h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>30 CORE </h6>
-                                    <h6 className='namefullletf'> 2,087 CORE </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Expected mint date </h6>
-                                    <h6 className='namefullletf'> 15-3-2024 </h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Referral  </h6>
-                                    <h6 className='namefullletf'> Word of mouth </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Team </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Twitter link  </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Discord link </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Discord address  </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* <div className='lastfoterbtn'>
-                            <button className='rreject'>
-                                Reject
-                            </button>
-
-                            <button className='approveeedd'>
-                                Approve
-                            </button>
-
-                        </div> */}
-                    </Modal.Body>
-                </Modal>
-            </div>
-
         </>
-    )
+    );
 }
 
-export default Launchpad
+export default Collections

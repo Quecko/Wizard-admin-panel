@@ -85,6 +85,9 @@ import Addonboarding from "views/setting/Addonboarding";
 import Support from "views/Support/Support";
 import Supporticketdetail from "views/Support/Supporticketdetail";
 import Calendar from "views/Calendar/Calendar";
+import Collections from "views/Collections/Collections";
+import Nfts from "views/Nfts/Nfts";
+import Applications from "views/Applications/Applications";
 
 
 
@@ -430,6 +433,22 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/collections",
+    name: "Collections",
+    // image: banner3,
+    component: Collections,
+    layout: "/admin",
+  },
+  {
+    path: "/nfts",
+    name: "NFTs",
+    // image: banner3,
+    component:Nfts,
+    layout: "/admin",
+  },
+
+  
+  {
     path: "/AddCoins",
     name: "Coins / Add Coin",
     // image: banner3,
@@ -758,6 +777,12 @@ var routes = [
     path: "/ambassadors",
     name: "Ambassadors Applications",
     component: Ambassadors,
+    layout: "/admin",
+  },
+  {
+    path: "/applications",
+    name: " Applications",
+    component: Applications,
     layout: "/admin",
   },
   {
