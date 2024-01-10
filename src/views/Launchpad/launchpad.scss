@@ -299,7 +299,7 @@
       border-radius: 15px;
       background: #0d0714;
       backdrop-filter: blur(2px);
-      padding: 5px 5px 30px 5px;
+      padding: 5px;
     }
     .modal-header {
       display: flex;
@@ -538,12 +538,10 @@
       display: flex;
       align-items: flex-start;
       gap: 20px;
+      margin-top: 25px;
       .rreject {
-        border-radius: 60px;
-        background: var(
-          --Red-Gradient,
-          linear-gradient(180deg, #f04914 0%, #d0390a 100%)
-        );
+        border-radius: 10px;
+        background: var(--Red, #E84A4A);
         padding: 13px 59px;
         width: 100%;
         color: var(--White, #fff);
@@ -554,8 +552,8 @@
         border: none;
       }
       .approveeedd {
-        border-radius: 60px;
-        background: linear-gradient(180deg, #15fa2c 0%, #0dd721 100%);
+        border-radius: 10px;
+        background: var(--Green, #04C182);
         color: var(--White, #fff);
         text-align: center;
         border: none;

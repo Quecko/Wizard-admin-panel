@@ -1,6 +1,6 @@
 .navbar {
   .bg-dark {
-    background-color: #fff !important;
+    background: #160323 !important;
   }
   padding-top: $navbar-padding-base;
   padding-bottom: $navbar-padding-base;
@@ -324,7 +324,7 @@
     //   border-bottom: 1px solid #ddd;
 
     a:not(.dropdown-item):not(.btn) {
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
       font-style: normal;
       font-weight: bold;
       font-size: 24px;
@@ -428,7 +428,7 @@
                 .padd-top {
                 }
                 label {
-                  font-family: 'Poppins', sans-serif;
+                  font-family: "Poppins", sans-serif;
                   font-style: normal !important;
                   font-weight: bold !important;
                   font-size: 16px !important;
@@ -444,7 +444,7 @@
                   height: 55px;
                   &::placeholder {
                     color: #cdcdcd;
-                    font-family: 'Poppins', sans-serif;
+                    font-family: "Poppins", sans-serif;
                     font-style: normal;
                     font-weight: 600;
                     font-size: 16px;
@@ -458,7 +458,7 @@
                   border-radius: 5px;
                   &::placeholder {
                     color: #cdcdcd;
-                    font-family: 'Poppins', sans-serif;
+                    font-family: "Poppins", sans-serif;
                     font-style: normal;
                     font-weight: 600;
                     font-size: 16px;
@@ -478,7 +478,7 @@
                   width: 100%;
                   height: 50px;
                   border: 1px solid #133572;
-                  font-family: 'Poppins', sans-serif;
+                  font-family: "Poppins", sans-serif;
                   font-style: normal;
                   font-weight: 600;
                   font-size: 14px;
@@ -502,7 +502,7 @@
                   width: 100%;
                   height: 50px;
                   border: 1px solid #133572;
-                  font-family: 'Poppins', sans-serif;
+                  font-family: "Poppins", sans-serif;
                   font-style: normal;
                   font-weight: 600;
                   margin-right: 10px;
@@ -523,7 +523,7 @@
                 }
               }
               p {
-                font-family: 'Poppins', sans-serif;
+                font-family: "Poppins", sans-serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 14px !important;
@@ -532,7 +532,7 @@
                 padding-bottom: 6px;
               }
               h4 {
-                font-family: 'Poppins', sans-serif;
+                font-family: "Poppins", sans-serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 20px;
@@ -542,7 +542,7 @@
               .flux-b {
                 padding-bottom: 30px;
                 h3 {
-                  font-family: 'Poppins', sans-serif;
+                  font-family: "Poppins", sans-serif;
                   font-style: normal;
                   font-weight: bold !important;
                   font-size: 30px !important;
@@ -563,21 +563,17 @@
 
 @media (max-width: 600px) {
   .navbar .newinputs .amer_dropdonfst button#dropdown-basic {
-
     width: 100%;
-
-}
+  }
   .navbar .newinputs {
-
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
-}
-.navbar .newinputs .inputoutermain {
-
-  width: 100%;
-}
+  }
+  .navbar .newinputs .inputoutermain {
+    width: 100%;
+  }
   .main-div-nav-head {
     .modal-body-main {
       padding: 30px 14px !important;

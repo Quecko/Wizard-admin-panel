@@ -231,33 +231,74 @@ const Header = (props) => {
             <span className="navbar-toggler-bar navbar-kebab" />
           </NavbarToggler>
           <Collapse isOpen={isOpen} navbar className="justify-content-end text-center">
-            {/* <form>
-              <InputGroup className="no-border">
-                <Input name="search" value={search} onChange={handleChange} className={'form-control'} placeholder="Search..." />
-                <InputGroupAddon addonType="append">
-                  <InputGroupText>
-                    <button onClick={() => dispatch(inputAction(inputs.search))} type="button" className="nav-buttonss" > <i className="nc-icon nc-zoom-split" /></button>
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </form> */}
-
-            {brandName === 'Videos / Videos' && Acls?.videos?.create && <Link to={`/admin/addvideos`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Video</button></Link>}
-            {(brandName === 'Banner / Game Banner' && Acls?.gameBanner?.create) ? <Link to={`/admin/addBanners/game`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Banner</button></Link> : null}
-            {brandName === 'Banner / News Banner' ? <Link to={`/admin/addBanners/news`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Banner</button></Link> : null}
-            {brandName === 'Other Banner' ? <Link to={`/admin/addBanners/other`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Banner</button></Link> : null}
-            {console.log('otherBanner', brandName)}
-            {brandName === 'Play To Earn' && Acls?.playToEarn?.create && <Link to={`/admin/addplaytoearn`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />Add Play to Earn</button></Link>}
-            {brandName === 'Upcoming' && Acls?.upComming?.create && <Link to={`/admin/addupcoming`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />Add Upcoming</button></Link>}
-            {brandName === 'Daily Challegne' && Acls?.dailyChallenge?.create && <Link to={`/admin/adddailychallange`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />Add Challanges</button></Link>}
 
 
-            {brandName === 'Task' && Acls?.task?.create && <Link to={`/admin/addtask`}>
+          {brandName === 'Dashboard' &&
+                <div className="newinputs m-0">
+                <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+                  <Dropdown.Toggle id="dropdown-autoclose-outside">
+                    <div className="dromdownproiner">
+                      <div className="dromdownproiner_img">
+                        <img src="\navbar\profile.png" className="dropdownarowss" />
+                      </div>
+                      <div className="dromdownproiner_text">
+                        <p className="">
+                          john doe
+                        </p>
+                      </div>
+                      <div className="dromdownproiner_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                          <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                    <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                    <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
 
-              <div className="newinputs">
+            }
+
+
+
+
+
+            {brandName === 'Ambassadors Applications' &&
+              <div className="newinputs m-0">
+
+                <div className="inputoutermain">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
+                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
+                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
+                  </svg>
+                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
+
+                </div>
+
                 <Dropdown className="amer_dropdonfst">
                   <Dropdown.Toggle id="dropdown-basic">
-                    This Week
+                    Sort by
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Dropdown className="amer_dropdonfst">
+                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    Filters
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -267,268 +308,190 @@ const Header = (props) => {
                   </Dropdown.Menu>
                 </Dropdown>
 
-                <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Task</button>
               </div>
-            </Link>
-
 
             }
 
-            {brandName === 'Rewards / LeaderBoard' && Acls?.leaderBoard?.create &&
-              <div className="custom-tab-bar d-flex justify-content-center p-0 border-0">
-                <a className='clanderdate' onClick={() => setShowCalendar4(!showcalendar4)}>
-                  <input className="cutimixwclndr" placeholder="12 Apr, 2023 -12 May, 2023" type="date">
+            {brandName === 'Ambassadors Claims' &&
+              <div className="newinputs m-0">
 
-                  </input>
-                </a>
-                {/* {showcalendar && ( */}
-                {/* {showcalendar4 && (
-                  <div className="cal set-custom-calendar-div">
-                    <Calendar
-                      numberOfMonths={2}
-                      disableMonthPicker
-                      disableYearPicker
-                    />
+                <div className="inputoutermain">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
+                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
+                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
+                  </svg>
+                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
+
+                </div>
+
+                <Dropdown className="amer_dropdonfst">
+                  <Dropdown.Toggle id="dropdown-basic">
+                    Sort by
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Dropdown className="amer_dropdonfst">
+                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    Filters
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+
+              </div>
+            }
+            {brandName === 'Leaderboards' &&
+              <div className="newinputs m-0">
+
+                <div className="inputoutermain">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
+                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
+                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
+                  </svg>
+                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
+
+                </div>
+
+                <Dropdown className="amer_dropdonfst">
+                  <Dropdown.Toggle id="dropdown-basic">
+                    Sort by
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Dropdown className="amer_dropdonfst">
+                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    Filters
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+
+              </div>
+
+            }
+            {brandName === 'Applications' &&
+              <div className="newinputs m-0">
+              <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+                <Dropdown.Toggle id="dropdown-autoclose-outside">
+                  <div className="dromdownproiner">
+                    <div className="dromdownproiner_img">
+                      <img src="\navbar\profile.png" className="dropdownarowss" />
+                    </div>
+                    <div className="dromdownproiner_text">
+                      <p className="">
+                        john doe
+                      </p>
+                    </div>
+                    <div className="dromdownproiner_icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+                      </svg>
+                    </div>
                   </div>
-                )} */}
-                <Link to={`/admin/dailyleaderboard`}>
-
-                  <button type="button" className="blue-add-category"> Past Week</button></Link>
-
-
-
-
-              </div>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
 
             }
 
-            {/* {brandName === 'Rewards / LeaderBoard' && Acls?.leaderBoard?.create && <Link to={`/admin/dailyleaderboard`}>
-              <button type="button" className="blue-add-category"> Past Week</button></Link>} */}
-
-            {brandName === 'on boarding' && <Link to={`/admin/addonboarding`}>
-
-              <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="img" />  Add On Boarding</button></Link>}
 
 
-
-            {/* {brandName === 'LeaderBoard / Detail'&& Acls?.leaderboarddetailsnew?.create &&  role === 'super-admin' &&
-
-
-  <></>
-
-            } */}
-            {brandName === 'Reward / This Week Reward' && Acls?.weeksReward?.create && <Link to={`/admin/thisweekrewardform`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Reward</button></Link>}
-
-
-
-
-
-            {brandName === 'FAQs' && Acls?.faq?.create && <Link to={`/admin/AddFaq`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add FAQ</button></Link>}
-            {brandName === 'Coins' && Acls?.coins?.create && <Link to={`/admin/AddCoins`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Coin</button></Link>}
-            {brandName === 'Meme Coins' && <Link to={`/admin/AddMemeCoins`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add MemeCoin</button></Link>}
-            {brandName === 'Push Notifications' && Acls?.notification?.create && <Link to={`/admin/sendnotification`}> <button type="button" className="blue-add-category">  Send Notification</button></Link>}
-            {/* {(window.location.href.indexOf(prop.layout + prop.path) == a} */}
-            {brandName === 'Videos / Course' && Acls?.course?.create && <Link> <button type="button" className="blue-add-category" data-toggle="modal" onClick={opeeennn} >  Add Course</button></Link>}
-            {(brandName === 'add badges' && Acls?.badges?.create) && <Link to={`/admin/sendbadges`}> <button type="button" className="blue-add-category">  ADD Badges</button></Link>}
-            {brandName === 'Social Links' && <Link to={`/admin/addsociallinks`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Links</button></Link>}
-            {brandName === 'Bolt Management' && <Link to={`/admin/addboltcategory`}> <button type="button" className="blue-add-category">  ADD Categories</button></Link>}
-            {brandName === 'Subscription' && <Link to={`/admin/addsubscription/4577432`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Subcription</button></Link>}
-            {(brandName === 'Raffles' && Acls?.raffles?.create) && <Link to={`/admin/addraffles/4577432`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Raffles</button></Link>}
-
-
-            {(brandName === 'Raffles categories' && Acls?.rafflesCategories?.create) && <Link to={`/admin/addcategoryraffle/4577432`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Categories</button></Link>}
-            {brandName === 'Categories' && <Link to={`/admin/addproductraffle`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Products</button></Link>}
-            {(brandName === 'Products' && Acls?.products?.create) && <Link to={`/admin/addproducts/4577432`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Products</button></Link>}
-            {(brandName === 'Category' && Acls?.productCategories?.create) && <Link to={`/admin/addnewcategory/4577432`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Categories</button></Link>}
-            {brandName === 'Add Category' && <Link to={`/admin/addproducts`}> <button type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Add Products</button></Link>}
-            {brandName === 'AllUserAdmin' && role === 'super-admin' && <Link to={`/admin/AddAdminUser`}> <button type="button" className="blue-add-category" data-toggle="modal" >  Add Admin User</button></Link>}
-            {brandName === 'Add role management' && role === 'super-admin' && <Link to={`/admin/addrolemanagement`}> <button type="button" className="blue-add-category" data-toggle="modal" >  Add Role</button></Link>}
-
-            {brandName === 'Ambassadors Applications' && role === 'super-admin' &&
-              <div className="newinputs">
-
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
-
+            {brandName === 'Launchpad' &&
+              <>
+                <div className="newinputs m-0">
+                  <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+                    <Dropdown.Toggle id="dropdown-autoclose-outside">
+                      <div className="dromdownproiner">
+                        <div className="dromdownproiner_img">
+                          <img src="\navbar\profile.png" className="dropdownarowss" />
+                        </div>
+                        <div className="dromdownproiner_text">
+                          <p className="">
+                            john doe
+                          </p>
+                        </div>
+                        <div className="dromdownproiner_icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+                          </svg>
+                        </div>
+                      </div>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </div>
 
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
-                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    Filters
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>
-
-            }
-            {brandName === 'Support' && role === 'super-admin' &&
-              <div className="newinputs">
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
-
-                </div>
-
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
-                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    Filters
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>
-            }
-            {brandName === "Support/Ticket Details" && role === 'super-admin' &&
-              <></>
-
-            }
-            {brandName === 'Ambassadors Claims' && role === 'super-admin' &&
-              <div className="newinputs">
-
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
-
-                </div>
-
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
-                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    Filters
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>
-            }
-            {brandName === 'Leaderboards' && role === 'super-admin' &&
-              <div className="newinputs">
-
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
-
-                </div>
-
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
-                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    Filters
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>
+              </>
 
             }
 
-
-
-
-            {brandName === 'Launchpad' && <></> }
-
-            {brandName === 'Users' && role === 'super-admin' &&
-              <></>
+            {brandName === 'Creators' &&
+              <>
+                <div className="newinputs m-0">
+                  <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+                    <Dropdown.Toggle id="dropdown-autoclose-outside">
+                      <div className="dromdownproiner">
+                        <div className="dromdownproiner_img">
+                          <img src="\navbar\profile.png" className="dropdownarowss" />
+                        </div>
+                        <div className="dromdownproiner_text">
+                          <p className="">
+                            john doe
+                          </p>
+                        </div>
+                        <div className="dromdownproiner_icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+                          </svg>
+                        </div>
+                      </div>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div></>
             }
 
 
@@ -573,257 +536,76 @@ const Header = (props) => {
               </div>
             }
 
-            {brandName === 'User / Detail' && role === 'super-admin' &&
-              <></>
 
-            }
-                    {brandName === 'Collections' && role === 'super-admin' &&
-              <></>
-            }
-                       {brandName === 'NFTs' && role === 'super-admin' &&
-              <></>
-            }
-            {brandName === 'Gifts' &&
-              <div className="newinputs">
-
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
-
+            {brandName === 'Collections' && 
+              <>
+                <div className="newinputs m-0">
+                  <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+                    <Dropdown.Toggle id="dropdown-autoclose-outside">
+                      <div className="dromdownproiner">
+                        <div className="dromdownproiner_img">
+                          <img src="\navbar\profile.png" className="dropdownarowss" />
+                        </div>
+                        <div className="dromdownproiner_text">
+                          <p className="">
+                            john doe
+                          </p>
+                        </div>
+                        <div className="dromdownproiner_icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+                          </svg>
+                        </div>
+                      </div>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </div>
-
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <button onClick={() => setShoww(true)} type="button" className="blue-add-category"> <img src={user4} className="img-fluid pr-2" alt="" />  Send Gifts</button>
-
-              </div>
-
-
+              </>
+            }
+            {brandName === 'NFTs' && 
+              <>
+                <div className="newinputs m-0">
+                  <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+                    <Dropdown.Toggle id="dropdown-autoclose-outside">
+                      <div className="dromdownproiner">
+                        <div className="dromdownproiner_img">
+                          <img src="\navbar\profile.png" className="dropdownarowss" />
+                        </div>
+                        <div className="dromdownproiner_text">
+                          <p className="">
+                            john doe
+                          </p>
+                        </div>
+                        <div className="dromdownproiner_icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+                          </svg>
+                        </div>
+                      </div>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
+              </>
             }
 
-            {/* orders navbar */}
-            {brandName === 'Orders' && <div className="ordersnavbar">
-              <div className="searchinput">
-                <input type="text" placeholder="search" className="orderinput" />
-                <img src="\dashboard-assets\Search.svg" alt="search" className="searchimg" />
-              </div>
-              <div class="dropdown droped">
-                <button class="dropbtn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  {
-                    selectedItem ? <><h6 style={{ color: "black" }}>{selectedItem}</h6></> : "Sort by"}
-                </button>
-                <div class="dropdown-menu dropmain">
-                  {items.map((item) => (
-                    <a className="dropdown-item drop" onClick={() => setSelectedItem(item)}>
-                      {item}
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div class="dropdown droped">
-                <button class="dropbtnfilter" type="button" data-toggle="dropdown" aria-expanded="false">
-                  {
-                    selectedItemfilter ? <><h6 style={{ color: "black" }}>{selectedItemfilter}</h6></> : <p><img src="\dashboard-assets\Group 17.svg" alt="filters" />Filters</p>}
-                </button>
-                <div class="dropdown-menu dropmain">
-                  {itemsfilter.map((item) => (
-                    <a className="dropdown-item drop" onClick={() => setSelectedItemfilter(item)}>
-                      {item}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>}
-            {brandName === 'staking Leaderboard' &&
-              <div className="newinputs">
 
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
 
-                </div>
 
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
-                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    Filters
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>
-            }
-            {brandName === 'Mystery Box Reward' &&
-              <div className="newinputs">
-
-                <div className="inputoutermain">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" className="ambrinputicon">
-                    <path d="M7.66927 14.5026C3.9026 14.5026 0.835938 11.4359 0.835938 7.66927C0.835938 3.9026 3.9026 0.835938 7.66927 0.835938C11.4359 0.835938 14.5026 3.9026 14.5026 7.66927C14.5026 11.4359 11.4359 14.5026 7.66927 14.5026ZM7.66927 1.83594C4.44927 1.83594 1.83594 4.45594 1.83594 7.66927C1.83594 10.8826 4.44927 13.5026 7.66927 13.5026C10.8893 13.5026 13.5026 10.8826 13.5026 7.66927C13.5026 4.45594 10.8893 1.83594 7.66927 1.83594Z" fill="#A3A3A3" />
-                    <path d="M14.6676 15.1676C14.5409 15.1676 14.4143 15.1209 14.3143 15.0209L12.9809 13.6876C12.7876 13.4943 12.7876 13.1743 12.9809 12.9809C13.1743 12.7876 13.4943 12.7876 13.6876 12.9809L15.0209 14.3143C15.2143 14.5076 15.2143 14.8276 15.0209 15.0209C14.9209 15.1209 14.7943 15.1676 14.6676 15.1676Z" fill="#A3A3A3" />
-                  </svg>
-                  <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
-
-                </div>
-
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Sort by
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className="amer_dropdonfst">
-                  <Dropdown.Toggle className="filyerbyn" id="dropdown-basic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
-                      <line x1="1" y1="1" x2="17" y2="1" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="3" y1="5" x2="15" y2="5" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="5" y1="9" x2="13" y2="9" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                      <line x1="8" y1="13" x2="10" y2="13" stroke="#4F4E69" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    Filters
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>}
 
 
           </Collapse>
         </Container>
       </Navbar>
-      {/* Add Category Modal */}
-      <div className="main-modal-one">
-        <div class="modal fade modal-zzz" id="exampleModal34" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog daily-profile-modal">
-            <div class="modal-content daily-profile-modal-inner">
-              <div class="modal-body modal-body-main">
-                <div className="main-outter">
-                  <div className="row main-cardssss">
-                    <div className="col-md-12 col-12">
-                      <div className="flux-b">
-                        <h3>Add Course</h3>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div class="form-group">
-                        <label for="example">Add Thumbnail</label>
-                        <div className="main-image-div">
-                          <div className="choose-filessssss">
-                            <form>
-                              <div className="sbhjsbd">
-                                {selectedImg ? renderPhotos(selectedImg) : null}
-                                <div className="layerss"></div>
-                              </div>
-
-                              <div className="nsjd">
-                                <label className="" for="filess"><i class="fas fa-cloud-upload-alt"></i></label>
-                                <input type="file" name="image" id="filess" onChange={handleFileSelect} className='form-control d-none' />
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div class="form-group">
-                        <label for="example">Course Name</label>
-                        <input type="text" name="category" value={category} onChange={handleChange} className={'form-control' + (submitted && !category ? ' is-invalid' : '')} placeholder="Enter Category Name" />
-
-                      </div>
-                    </div>
-                    <div className="col-md-12 col-12">
-                      <div className="button-modal-daily">
-                        <button type="button" className="button-main-daily" onClick={addCategory} >Add</button>
-                        <button type="button" className="button-main-dailys" data-dismiss="modal" aria-label="Close" onChange={close} >Cancel</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* send gift modal here......................... */}
-      <Modal className='sendgift-modal' show={showw} onHide={handleClose} centered>
-        <Modal.Header>
-          <Modal.Title>Send Gift</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="parent-field">
-            <h6>Select Item</h6>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Item
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-                <a class="dropdown-item" href="#">Select Item</a>
-              </div>
-            </div>
-          </div>
-          <div className="option-field">
-            <h6>Search with email address</h6>
-            <input type="text" placeholder='Enter email address' />
-          </div>
-          <div className="twice-btn">
-            <button onClick={handleClose} className='btn-cancel'>Cancel</button>
-            <button className='btn-send'>Send</button>
-          </div>
-        </Modal.Body>
-      </Modal>
     </div>
 
   );

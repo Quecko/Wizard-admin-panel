@@ -288,7 +288,39 @@ img.tableimgginerddvidd {
   object-fit: cover;
   object-position: center;
 }
-
+.lastfoterbtn {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  .rreject {
+    border-radius: 60px;
+    background: var(
+      --Red-Gradient,
+      linear-gradient(180deg, #f04914 0%, #d0390a 100%)
+    );
+    padding: 13px 59px;
+    width: 100%;
+    color: var(--White, #fff);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border: none;
+  }
+  .approveeedd {
+    border-radius: 10px;
+    background: var(--Green, #04c182);
+    color: var(--White, #fff);
+    text-align: center;
+    border: none;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 100%;
+    padding: 13px 59px;
+  }
+}
 
 .eleipiess {
   overflow: hidden;
@@ -305,7 +337,66 @@ img.tableimgginerddvidd {
   background: #ffd12c;
   border-radius: 30px;
 }
+
+
+.navfrofiledeopdown.dropdown {
+
+  .dropdown-toggle:after {
+    display: none !important;
+  }
+  button#dropdown-autoclose-outside {
+    .dropup .dropdown-toggle:after, .dropdown .dropdown-toggle:after {
+      display: none !important;
+    }
+
+    background: transparent;
+    outline: none !important;
+    box-shadow: none !important;
+
+    border: none;
+    .dromdownproiner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    
+      .dromdownproiner_img {
+        width: 42px;
+        height: 42px;
+        /* flex-shrink: 0; */
+        border-radius: 30px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 351px;
+        border: 2px solid #862fc0;
+        img.dropdownarowss {
+          width: 100%;
+          height: 100%;
+      }
+      }
+      .dromdownproiner_text {
+        .p {
+          display: inline-block;
+          margin: 0;
+          line-height: 1.8em;
+          font-size: 1em;
+          font-weight: 400;
+      }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 800px) {
+  .amer_dropdonfst.dropdown {
+    width: 100%;
+  }
+  .filyerbyns.dropdown {
+    width: 100%;
+  }
+}
 @media only screen and (max-width: 600px) {
+  .main-header-top-change.container-fluid {
+    background: #160323 !important;
+  }
   .nav-brand {
     margin-left: 15px;
   }

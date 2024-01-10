@@ -6,12 +6,13 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 20px;
     .new_card {
       border-radius: 5px;
       background: rgba(134, 47, 192, 0.06);
       backdrop-filter: blur(7px);
       width: 100%;
-      max-width: 206px;
+      // max-width: 206px;
       padding: 20px 15px;
       .cardinercont {
         display: flex;

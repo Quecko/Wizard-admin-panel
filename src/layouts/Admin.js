@@ -11,7 +11,7 @@ import routes from "routes.js";
 var ps;
 
 function Dashboard(props) {
-  const token = localStorage.getItem('mytoken')
+
   const [backgroundColor, setBackgroundColor] = React.useState("black");
   const [activeColor, setActiveColor] = React.useState("info");
   const mainPanel = React.useRef();
@@ -54,7 +54,7 @@ function Dashboard(props) {
   return (
     <div className="wrapper">
 
-      {token ?
+    
         <Sidebar
           {...props}
           routes={routes}
@@ -62,25 +62,15 @@ function Dashboard(props) {
           activeColor={activeColor}
           brandName={brandName}
         />
-        :
-       
-""
-      }
+ 
       <div className="main-panel" ref={mainPanel}>
-        {token ?
           <DemoNavbar {...props} />
-          :
-          <>
-          <h6>LoginRequired</h6>
-         <Link to="/adminlogin">Back to Login</Link>
-         </>
-        }
         <Switch>
-          {token ?
+       
             <>
               {routes.map((prop, key) => {
                 return (
-
+                  
                   <Route
                     path={prop.layout + prop.path}
                     component={prop.component}
@@ -90,7 +80,7 @@ function Dashboard(props) {
                 );
               })}
             </>
-            : "fdgfdfdd"}
+      
         </Switch>
         {/* <Footer fluid /> */}
       </div>

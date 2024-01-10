@@ -101,93 +101,8 @@ const Login = () => {
 
 
 
-    const formValidation = () => {
-        const emailError = {};
-        const passwordError = {};
-
-        let isValid = true;
 
 
-        if (email === '') {
-            emailError.emailError = "Email is Required";
-            isValid = false;
-        }
-        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-            emailError.emailNameError = "Invalid Email";
-            isValid = false;
-        }
-        if (password === '') {
-            passwordError.logoError = "Password is Required";
-            isValid = false;
-        }
-
-        // if(messageInputData.)
-        setEmailError(emailError)
-        setPasswordError(passwordError)
-        return isValid;
-    }
-
-    const forgot = () => {
-        axios.post(Environment.backendUrl + "/user/forgetpasswordlink", { email })
-            .then((response) => {
-                toast.success('Please check your email to reset your password.', {
-                    position: "top-center",
-                    autoClose: 3000,
-                });
-                // setOpen(true)
-                // const token = response.data.token
-                // localStorage.setItem('mytoken', token)
-                // history.push("admin/dashboard");
-
-            }).catch((err) => {
-                toast.error(err.response.data.msg, {
-                    position: "top-center",
-                    autoClose: 2000,
-                });
-            })
-    }
-
-    const Signin = (e) => {
-        e.preventDefault();
-        setSubmitted(true);
-        formValidation();
-        if (email && password) {
-            setOpen(true)
-            axios.post(Environment.backendUrl + "/user/loginadmin", { email, password })
-                .then((response) => {
-                    setLoginnRes(response?.data)
-                    const token = response?.data?.token
-                    const role = response?.data?.role?.role_name
-                    const roleId = response?.data?.role?.id
-                    const Acls = response?.data?.role?.Acls
-                    let obj = {}
-                    let a1 = Acls?.map((e, i) => {
-                        console?.log("eeeee", e)
-                        obj[`${e?.selection}`] = { ...e };
-                        // obj2[`${e.selection}`] = e.id
-                    })
-                    localStorage.setItem('mytoken', token)
-                    localStorage.setItem('myrole', role)
-                    localStorage.setItem('myroleId', roleId)
-                    localStorage.setItem('acls', JSON.stringify(obj))
-                    setOpen(false)
-                    history.push('admin/dashboard');
-                    // window.$('#qrcode').modal('show')
-
-                }).catch((err) => {
-                    // console.log("response in login", err.response?.data.doesSecretKeyFound)
-                    // window.$('#onlyinput').modal('show')
-                    setOpen(false)
-                    swal("Invalid Credentials!!!", `Password must contain a Capital Letter, Small Letter, Number and a special Character(Minimun 8 characters)`, "error",)
-                    toast.error(err.response?.data.msg, {
-                        position: "top-center",
-                        autoClose: 2000,
-                    });
-                })
-        } else {
-            swal("Invalid Credentials!", `Try Again`, "Error",)
-        }
-    }
 
 
     // const Signin2 = (e) => {
@@ -302,11 +217,11 @@ const Login = () => {
 
                                     <div className='ftrbtndiv'>
                                         <Link to="admin/dashboard">
-                                            <button type="submit" className="btn-common" onClick={Signin} >Sign In</button>
+                                            <button type="submit" className="btn-common"  >Sign In</button>
                                             <ToastContainer style={{ fontSize: 20 }} />
                                         </Link>
                                         <Link >
-                                            <p className="forgetpasssed  " onClick={forgot} >Forgot Password?
+                                            <p className="forgetpasssed  "  >Forgot Password?
                                             </p>
                                         </Link>
                                     </div>

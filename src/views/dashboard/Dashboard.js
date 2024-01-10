@@ -124,7 +124,7 @@ function Dashboard() {
       }
     }
   });
-  
+
   const [options2, setobject2] = useState({
     chart: {
       height: 350,
@@ -161,7 +161,7 @@ function Dashboard() {
       }
     }
   });
-  
+
 
 
   const [series, setseries] = useState(
@@ -196,59 +196,63 @@ function Dashboard() {
     <>
       <div className="content">
         <section className="main-dashboard">
-          <div className="dashbrd_top_cardmaindiv ">
-            <div className="new_card">
-              <div className='cardinercont'>
-                <div className="imgouterdiv">
-                  <img src="\dashboard\card1.svg" className="inoncardiner" />
+          <div className="row ">
+            <div className="col-xl-12 col-sm-12 p-0">
+              <div className="dashbrd_top_cardmaindiv ">
+                <div className="new_card">
+                  <div className='cardinercont'>
+                    <div className="imgouterdiv">
+                      <img src="\dashboard\card1.svg" className="inoncardiner" />
+                    </div>
+                    <div className="innercontent">
+                      <h6 className="inertext">Total Users</h6>
+                      <h3 className="commoncardtext">178+</h3>
+                    </div>
+                  </div>
                 </div>
-                <div className="innercontent">
-                  <h6 className="inertext">Total Users</h6>
-                  <h3 className="commoncardtext">178+</h3>
+                <div className="new_card">
+                  <div className='cardinercont'>
+                    <div className="imgouterdiv">
+                      <img src="\dashboard\card2.svg" className="inoncardiner" />
+                    </div>
+                    <div className="innercontent">
+                      <h6 className="inertext">Total NFT’s</h6>
+                      <h3 className="commoncardtext">178+</h3>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="new_card">
-              <div className='cardinercont'>
-                <div className="imgouterdiv">
-                  <img src="\dashboard\card2.svg" className="inoncardiner" />
+                <div className="new_card">
+                  <div className='cardinercont'>
+                    <div className="imgouterdiv">
+                      <img src="\dashboard\card3.svg" className="inoncardiner" />
+                    </div>
+                    <div className="innercontent">
+                      <h6 className="inertext">Total Collection’s</h6>
+                      <h3 className="commoncardtext">178+</h3>
+                    </div>
+                  </div>
                 </div>
-                <div className="innercontent">
-                  <h6 className="inertext">Total NFT’s</h6>
-                  <h3 className="commoncardtext">178+</h3>
+                <div className="new_card">
+                  <div className='cardinercont'>
+                    <div className="imgouterdiv">
+                      <img src="\dashboard\card4.svg" className="inoncardiner" />
+                    </div>
+                    <div className="innercontent">
+                      <h6 className="inertext">Total Transaction’s</h6>
+                      <h3 className="commoncardtext">178+</h3>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="new_card">
-              <div className='cardinercont'>
-                <div className="imgouterdiv">
-                  <img src="\dashboard\card3.svg" className="inoncardiner" />
-                </div>
-                <div className="innercontent">
-                  <h6 className="inertext">Total Collection’s</h6>
-                  <h3 className="commoncardtext">178+</h3>
-                </div>
-              </div>
-            </div>
-            <div className="new_card">
-              <div className='cardinercont'>
-                <div className="imgouterdiv">
-                  <img src="\dashboard\card4.svg" className="inoncardiner" />
-                </div>
-                <div className="innercontent">
-                  <h6 className="inertext">Total Transaction’s</h6>
-                  <h3 className="commoncardtext">178+</h3>
-                </div>
-              </div>
-            </div>
-            <div className="new_card">
-              <div className='cardinercont'>
-                <div className="imgouterdiv">
-                  <img src="\dashboard\card5.svg" className="inoncardiner" />
-                </div>
-                <div className="innercontent">
-                  <h6 className="inertext">Total Artist’s</h6>
-                  <h3 className="commoncardtext">178+</h3>
+                <div className="new_card">
+                  <div className='cardinercont'>
+                    <div className="imgouterdiv">
+                      <img src="\dashboard\card5.svg" className="inoncardiner" />
+                    </div>
+                    <div className="innercontent">
+                      <h6 className="inertext">Total Artist’s</h6>
+                      <h3 className="commoncardtext">178+</h3>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -565,8 +569,8 @@ function Dashboard() {
                   </p>
                 </div>
                 <div className='dash_butmouter_chart_inertextright'>
-         
-             
+
+
                   <div className='onlyfordshsmalchat'>
                     <div id="chart">
                       <ReactApexChart options={options2} series={series} type="area" height={100} />
