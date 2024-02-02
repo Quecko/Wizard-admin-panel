@@ -197,7 +197,7 @@ function Dashboard() {
       <div className="content">
         <section className="main-dashboard">
           <div className="row ">
-            <div className="col-xl-12 col-sm-12 p-0">
+            <div className="col-xl-12 col-sm-12 ">
               <div className="dashbrd_top_cardmaindiv ">
                 <div className="new_card">
                   <div className='cardinercont'>
@@ -601,10 +601,6 @@ function Dashboard() {
           </div>
         </section>
       </div>
-
-
-
-
     </>
   );
 }

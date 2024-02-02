@@ -718,3 +718,12 @@
   color: #f04914 !important;
   font-weight: 600 !important;
 }
+
+@media (max-width: 600px) {
+  .maintablea .maintablepills .amberpillsouter .amberitempils .nav-link {
+    padding: 10px;
+  }
+  .maintablea .maintablepills {
+    padding: 10px;
+  }
+}
