@@ -31,6 +31,7 @@ import Reffrel from "components/refrel/Reffrel.js";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FactorAuth from 'components/2FA/FactorAuth'
+import Signup from "components/login/Signup";
 
 //redux toolkit implementation
 // import { store } from './reduxToolkit/store'
@@ -46,6 +47,7 @@ ReactDOM.render(
           <Route exact path="/factorLogin" render={(props) => <FactorAuth {...props} />} />
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
           <Route path="/reffrel" render={(props) => <Reffrel {...props} />} />
+          <Route path="/signup" render={(props) => <Signup {...props} />} />
           <Redirect to="/adminlogin" />
         </Switch>
       </BrowserRouter>

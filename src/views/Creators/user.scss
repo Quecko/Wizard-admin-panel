@@ -2,6 +2,18 @@
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus{
   box-shadow: none !important;
 }
+
+.btn-forgotpassword {
+  color: #862FC0;
+  font-family: Lexend;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px; /* 175% */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
 .custom-control-label::before{
   background-color: transparent;
   border-radius: 3px;
@@ -16,6 +28,8 @@ box-shadow: none;
 .custom-control-input:checked ~ .custom-control-label::before{
   background-color: #862FC0;
   box-shadow: none;
+  border: 1px solid #862FC0;
+  padding: 5px;
 }
 .users {
   width: 100%;

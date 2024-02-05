@@ -1,5 +1,6 @@
-import Link from 'next/link'
+
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Signup = () => {
     return (
@@ -25,8 +26,8 @@ const Signup = () => {
                             <label>Confirm password</label>
                             <input type="text" placeholder='Your password...' />
                         </div>
-                        <Link href="/collectiondashbord" className='btn-sign'>Sign Up</Link>
-                        <Link href="/login" className='btn-forgot'><span style={{color: "#fff"}}>Already have an account? &nbsp;</span> Sign in </Link>
+                        <Link to="/collectiondashbord" className='btn-sign'>Sign Up</Link>
+                        <Link to="/login" className='btn-forgot'><span style={{color: "#fff"}}>Already have an account? &nbsp;</span> Sign in </Link>
                     </div>
                 </div>
             </section>

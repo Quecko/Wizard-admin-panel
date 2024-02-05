@@ -17,7 +17,7 @@ const ForgotPassword = () => {
                     <label>Email</label>
                     <input type="text" placeholder='Your email...' />
                 </div>
-                <Link href="/createnewpassword" className='btn-sign mb-0'>Send</Link>
+                <Link to="/createnewpassword" className='btn-sign mb-0'>Send</Link>
             </div>
         </div>
      </section>
