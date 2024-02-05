@@ -13,32 +13,67 @@ import Form from 'react-bootstrap/Form';
 
 const Login = () => {
     // const classes=useStyle();
-    const [emailError, setEmailError] = useState({});
-    const [open, setOpen] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+    const api_url = Environment.api_url;
+    
     const history = useHistory();
-    const [passwordError, setPasswordError] = useState({});
+   
 
-    const [loginres, setLoginnRes] = useState({
-        dataURL: '',
-        secretKey: '',
-    })
-    function importAll(r) {
-        let images = {};
-        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-        return images;
+
+  
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
+    const [emailerrorregister, setEmailErrorRegister] = useState("");
+    const [errorpassword, setErrorPassword] = useState("");
+    const [error, setError] = useState(null);
+
+    function isValidEmail(email) {
+        return /\S+@\S+\.\S+/.test(email);
     }
-    const [inputs, setInputs] = useState({
-        email: '',
-        password: '',
-    })
 
-    const { email, password } = inputs;
+    const userLogin = (e) => {
+        e.preventDefault();
+        if (email.length === 0) {
+            setEmailErrorRegister("Email is Required");
+        } else if (!isValidEmail(email)) {
+            setEmailErrorRegister("Email is invalid");
+        }
+        if (password.length === 0) {
+            setErrorPassword("Password is Required");
+        } else {
+            var data = JSON.stringify({
+                userEmail: email,
+                password: password,
+            });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setInputs(inputs => ({ ...inputs, [name]: value }));
-    }
+            var config = {
+                method: "post",
+                url: `${api_url}/users/admin-login`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                data: data,
+            };
+            axios(config)
+                .then(function (response) {
+                    const resData = response?.data?.data;
+                    localStorage.setItem("accessToken", resData?.accessToken);
+                    localStorage.setItem("refreshToken", resData?.refreshToken);
+                    localStorage.setItem("userId", resData?.user?._id);
+                    history.push("/admin/dashboard")
+                })
+                .catch(function (error) {
+                    if (
+                        email.length > 0 &&
+                        isValidEmail(email) &&
+                        password.length > 0
+                    ) {
+                        setError("Incorrect email or password!");
+                    }
+                });
+        }
+    };
 
     // const [verifycode, setVerifycode] = useState('')
 
@@ -134,10 +169,10 @@ const Login = () => {
     // }
 
 
-    const images = importAll(require.context('assets/img/', false, /\.(png|jpe?g|svg)$/));
+   
     return (
         <>
-            <Backdrop className="loader" sx={{ color: '#fff' }} open={open}><CircularProgress color="inherit" /></Backdrop>
+            <Backdrop className="loader" sx={{ color: '#fff' }} ><CircularProgress color="inherit" /></Backdrop>
             <section className="main-login">
                 <div className="container">
                     <div className="mainouterdiv">
@@ -186,21 +221,23 @@ const Login = () => {
                                     <div className="material-textfield">
                                         <input
                                             placeholder="Username"
-                                            type="email" name="email" value={email} onChange={handleChange}
+                                            type="email" name="email" value={email} onChange={(e) => {setEmail(e.target.value);setEmailErrorRegister("");setError("")}}
                                         />
-                                        {Object.keys(emailError).map((key) => {
-                                            return <p className="inputErrors">{emailError[key]}</p>
-                                        })}
-                                        <label>Username</label>
+                                         <div>
+                                {emailerrorregister ? (
+                                    <p className="text-danger mt-2">{emailerrorregister}</p>
+                                ) : null}
+                            </div>
+                                        <label>Email</label>
                                     </div>
                                     <div className="material-textfield ">
                                         <input
-                                            type="password" name="password" value={password} onChange={handleChange}
+                                            type="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value);setErrorPassword("");setError("")}}
                                             placeholder="Password"
                                         />
-                                        {Object.keys(passwordError).map((key) => {
-                                            return <p className="inputErrors">{passwordError[key]}</p>
-                                        })}
+                                     {errorpassword && (
+                                <p className="text-danger mt-2">{errorpassword}</p>
+                            )}
                                         <label for="exampleInputPassword1">Password</label>
                                         <svg className="eyeimg" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                                             <path d="M15.5819 12.3407C15.5819 14.3207 13.9819 15.9207 12.0019 15.9207C10.0219 15.9207 8.42188 14.3207 8.42188 12.3407C8.42188 10.3607 10.0219 8.76074 12.0019 8.76074C13.9819 8.76074 15.5819 10.3607 15.5819 12.3407Z" stroke="#BFC8D7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -209,17 +246,19 @@ const Login = () => {
                                     </div>
                                     <div class="formcheck_newwwwws">
                                         <label class="checkBox m-0">
-                                            <input type="checkbox" id="ch1" />
+                                            <input  checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} type="checkbox" id="ch1" />
                                             Remember me
 
                                         </label>
                                     </div>
-
+                                    {error ? (
+                            <p className="input-Errors pb-3 text-danger mt-2">{error}</p>
+                        ) : null}
                                     <div className='ftrbtndiv'>
-                                        <Link to="admin/dashboard">
-                                            <button type="submit" className="btn-common"  >Sign In</button>
+                                       
+                                            <button  className="btn-common" onClick={userLogin} >Sign In</button>
                                             <ToastContainer style={{ fontSize: 20 }} />
-                                        </Link>
+                                       
                                         <Link >
                                             <p className="forgetpasssed  "  >Forgot Password?
                                             </p>

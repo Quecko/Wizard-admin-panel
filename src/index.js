@@ -46,7 +46,7 @@ ReactDOM.render(
           <Route exact path="/factorLogin" render={(props) => <FactorAuth {...props} />} />
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
           <Route path="/reffrel" render={(props) => <Reffrel {...props} />} />
-          <Redirect to="/admin/dashboard" />
+          <Redirect to="/adminlogin" />
         </Switch>
       </BrowserRouter>
     </Provider>,
