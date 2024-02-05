@@ -199,7 +199,7 @@ const Login = () => {
                                     <label for="html">Remember me</label>
                                 </div>
                             </div>
-                            <Link href="/forgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
+                            <Link href="/ForgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
                         </div>
                         <Link href="/collectiondashbord" className='btn-sign'>Sign In</Link>
                         <Link href="/signup" className='btn-forgot'><span style={{ color: "#fff" }}>Don&apos;t have an account? &nbsp; </span> Sign up </Link>

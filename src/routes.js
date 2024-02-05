@@ -1,7 +1,7 @@
 import banner1 from "assets/img/side-icon/banner1.png";
 import banner2 from "assets/img/side-icon/banner2.png";
 import Dashboard from "views/dashboard/Dashboard.js";
-
+import Login from "components/login/Login";
 
 import Collections from "views/Collections/Collections";
 import Nfts from "views/Nfts/Nfts";
@@ -75,6 +75,11 @@ var routes = [
     path: "/applications",
     name: "Applications",
     component: Applications,
+    layout: "/admin",
+  },  {
+    path: "/forgotPassword",
+    name: "forgotPassword",
+    component: Login,
     layout: "/admin",
   },
 ];
