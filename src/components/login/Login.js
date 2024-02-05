@@ -14,12 +14,12 @@ import Form from 'react-bootstrap/Form';
 const Login = () => {
     // const classes=useStyle();
     const api_url = Environment.api_url;
-    
+
     const history = useHistory();
-   
 
 
-  
+
+
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -169,108 +169,43 @@ const Login = () => {
     // }
 
 
-   
+
     return (
         <>
             <Backdrop className="loader" sx={{ color: '#fff' }} ><CircularProgress color="inherit" /></Backdrop>
-            <section className="main-login">
-                <div className="container">
-                    <div className="mainouterdiv">
-                        <div className="inner-logo text-center">
-                            {/* <img src={`${images['logo.svg']['default']}`} alt="" className="img-fluid" /> */}
-                            <img src='\login-assets\logonew.svg' alt="" className="img-fluid">
 
-                            </img>
+
+            <section className="login-section">
+                <span className='gradient-linear'></span>
+                <div className="parent">
+                    <img src="\login-assets\logonew.svg" alt="img" className='img-fluid login-logo' />
+                    <div className="main-card">
+                        <div className="main-heading">
+                            <h6>Sign In</h6>
+                            <p>Enter your credentials to access your account</p>
                         </div>
-                        <div className="cmn-tile-style">
-                            <div className='topinerdiv'>
-                                <h2 className="">Sign In</h2>
-                                <h6 className='loginpara'>Enter your credentials to access your account</h6>
-
-                            </div>
-
-                            {/* <form>
-                                        <div className="form-group">
-                                            <label for="exampleInputEmail1">Email</label>
-                                            <input type="email" name="email" value={email} onChange={handleChange} className={'form-control' + (submitted && !email ? ' is-invalid' : '')} placeholder="Enter Your Email" />
-                                            {Object.keys(emailError).map((key) => {
-                                                return <p className="inputErrors">{emailError[key]}</p>
-                                            })}
-                              
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" name="password" value={password} onChange={handleChange} className={'form-control' + (submitted && !password ? ' is-invalid' : '')} placeholder="Enter Password" />
-                                            {Object.keys(passwordError).map((key) => {
-                                                return <p className="inputErrors">{passwordError[key]}</p>
-                                            })}
-                                        </div>
-                            
-                                        <Link to="admin/dashboard">
-                                            <button type="submit" className="btn-common" onClick={Signin} >Sign In</button>
-                                            <ToastContainer style={{ fontSize: 20 }} />
-                                        </Link>
-                                        <div className="row">
-                                            <div className="col-sm-12 text-center">
-                                                <Link className="blue" onClick={forgot} >Forgot Password?</Link>
-                                            </div>
-                                        </div>
-                                    </form> */}
-                            <form>
-                                <div className='butmdivmain'>
-                                    <div className="material-textfield">
-                                        <input
-                                            placeholder="Username"
-                                            type="email" name="email" value={email} onChange={(e) => {setEmail(e.target.value);setEmailErrorRegister("");setError("")}}
-                                        />
-                                         <div>
-                                {emailerrorregister ? (
-                                    <p className="text-danger mt-2">{emailerrorregister}</p>
-                                ) : null}
-                            </div>
-                                        <label>Email</label>
-                                    </div>
-                                    <div className="material-textfield ">
-                                        <input
-                                            type="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value);setErrorPassword("");setError("")}}
-                                            placeholder="Password"
-                                        />
-                                     {errorpassword && (
-                                <p className="text-danger mt-2">{errorpassword}</p>
-                            )}
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <svg className="eyeimg" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                                            <path d="M15.5819 12.3407C15.5819 14.3207 13.9819 15.9207 12.0019 15.9207C10.0219 15.9207 8.42188 14.3207 8.42188 12.3407C8.42188 10.3607 10.0219 8.76074 12.0019 8.76074C13.9819 8.76074 15.5819 10.3607 15.5819 12.3407Z" stroke="#BFC8D7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M11.9998 20.6105C15.5298 20.6105 18.8198 18.5305 21.1098 14.9305C22.0098 13.5205 22.0098 11.1505 21.1098 9.74055C18.8198 6.14055 15.5298 4.06055 11.9998 4.06055C8.46984 4.06055 5.17984 6.14055 2.88984 9.74055C1.98984 11.1505 1.98984 13.5205 2.88984 14.9305C5.17984 18.5305 8.46984 20.6105 11.9998 20.6105Z" stroke="#BFC8D7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </div>
-                                    <div class="formcheck_newwwwws">
-                                        <label class="checkBox m-0">
-                                            <input  checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} type="checkbox" id="ch1" />
-                                            Remember me
-
-                                        </label>
-                                    </div>
-                                    {error ? (
-                            <p className="input-Errors pb-3 text-danger mt-2">{error}</p>
-                        ) : null}
-                                    <div className='ftrbtndiv'>
-                                       
-                                            <button  className="btn-common" onClick={userLogin} >Sign In</button>
-                                            <ToastContainer style={{ fontSize: 20 }} />
-                                       
-                                        <Link >
-                                            <p className="forgetpasssed  "  >Forgot Password?
-                                            </p>
-                                        </Link>
-                                    </div>
-
+                        <div className="option-field">
+                            <label>Email</label>
+                            <input type="text" placeholder='Your email...' />
+                        </div>
+                        <div className="option-field">
+                            <label>Password</label>
+                            <input type="text" placeholder='Your password...' />
+                        </div>
+                        <div className="twice-items">
+                            <div className="custom-check-style">
+                                <div class="form-group">
+                                    <input type="checkbox" id="html" />
+                                    <label for="html">Remember me</label>
                                 </div>
-                            </form>
+                            </div>
+                            <Link href="/forgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
                         </div>
+                        <Link href="/collectiondashbord" className='btn-sign'>Sign In</Link>
+                        <Link href="/signup" className='btn-forgot'><span style={{ color: "#fff" }}>Don&apos;t have an account? &nbsp; </span> Sign up </Link>
                     </div>
                 </div>
-            </section >
+            </section>
             {/* <div className="main-modal-one">
                 <div class="modal fade" id="qrcode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog daily-profile-modal modal-dialog-centered">

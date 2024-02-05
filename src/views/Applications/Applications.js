@@ -29,16 +29,14 @@ const Applications = () => {
                 <div className="container-fluid">
                     <div className='maintablea'>
                         <div className='applicationpills'>
-                            <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className='applicationpills_inernavtabs'>
+                            {/* <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className='applicationpills_inernavtabs'>
                                 <Nav.Item className='app_tabs_items'>
                                     <Nav.Link className='ineramb' eventKey="link-1">Launchpads</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item className='app_tabs_items'>
                                     <Nav.Link className='ineramb' eventKey="link-2">Collections</Nav.Link>
                                 </Nav.Item>
-
-                            </Nav>
-
+                            </Nav> */}
                         </div>
                         <div className="newinputs">
                             <div className="inputoutermain onlyformobilemain">
@@ -70,7 +68,7 @@ const Applications = () => {
 
                                 </Dropdown.Menu>
                             </Dropdown>
-                            <Dropdown className="amer_dropdonfst ">
+                            {/* <Dropdown className="amer_dropdonfst ">
                                 <Dropdown.Toggle id="dropdown-basic">
                                     Sort by
                                 </Dropdown.Toggle>
@@ -82,27 +80,55 @@ const Applications = () => {
                                     <Dropdown.Item href="#/action-1">Followers</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2">Following</Dropdown.Item>
                                 </Dropdown.Menu>
-                            </Dropdown>
-                            {/* <Dropdown className="filyerbyns ">
+                            </Dropdown> */}
+                            <Dropdown className="filyerbyns ">
                                 <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none">
-                                        <g clip-path="url(#clip0_267_7989)">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.50137 15.7501C7.50137 15.2661 7.89512 14.8765 8.375 14.8765H13.625C14.109 14.8765 14.4986 15.2702 14.4986 15.7501C14.4986 16.23 14.1049 16.6237 13.625 16.6237H8.375C7.89102 16.6237 7.50137 16.2341 7.50137 15.7501ZM3.99863 10.5001C3.99863 10.0161 4.39238 9.62646 4.87227 9.62646H17.1236C17.6076 9.62646 17.9973 10.0202 17.9973 10.5001C17.9973 10.98 17.6035 11.3737 17.1236 11.3737H4.87637C4.39238 11.3737 3.99863 10.9841 3.99863 10.5001ZM0.5 5.2501C0.5 4.76611 0.89375 4.37646 1.37363 4.37646H20.6223C21.1063 4.37646 21.4959 4.77021 21.4959 5.2501C21.4959 5.72998 21.1021 6.12373 20.6223 6.12373H1.37363C0.89375 6.12373 0.5 5.73408 0.5 5.2501Z" fill="white" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_267_7989">
-                                                <rect width="21" height="21" fill="white" transform="translate(0.5)" />
-                                            </clipPath>
-                                        </defs>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                        <path d="M9.49329 18.875C9.09329 18.875 8.70163 18.775 8.33496 18.575C7.60163 18.1667 7.15996 17.425 7.15996 16.5917V12.175C7.15996 11.7583 6.88496 11.1333 6.62663 10.8167L3.50996 7.51666C2.98496 6.99167 2.58496 6.09167 2.58496 5.41667V3.5C2.58496 2.16667 3.59329 1.125 4.87663 1.125H15.8766C17.1433 1.125 18.1683 2.15 18.1683 3.41667V5.25C18.1683 6.125 17.6433 7.11666 17.1516 7.60833L13.5433 10.8C13.1933 11.0917 12.9183 11.7333 12.9183 12.25V15.8333C12.9183 16.575 12.4516 17.4333 11.8683 17.7833L10.7183 18.525C10.3433 18.7583 9.91829 18.875 9.49329 18.875ZM4.87663 2.375C4.29329 2.375 3.83496 2.86667 3.83496 3.5V5.41667C3.83496 5.725 4.08496 6.325 4.40163 6.64166L7.57663 9.98333C8.00163 10.5083 8.41829 11.3833 8.41829 12.1667V16.5833C8.41829 17.125 8.79329 17.3917 8.95163 17.475C9.30163 17.6667 9.72663 17.6667 10.0516 17.4667L11.21 16.725C11.4433 16.5833 11.6766 16.1333 11.6766 15.8333V12.25C11.6766 11.3583 12.11 10.375 12.735 9.85L16.3016 6.69166C16.585 6.40833 16.9266 5.73333 16.9266 5.24167V3.41667C16.9266 2.84167 16.46 2.375 15.885 2.375H4.87663Z" fill="#862FC0" />
+                                        <path d="M5.37652 8.95839C5.25985 8.95839 5.15152 8.92506 5.04319 8.86672C4.75152 8.68339 4.65986 8.29172 4.84319 8.00006L8.95152 1.41672C9.13485 1.12506 9.51819 1.03339 9.80985 1.21672C10.1015 1.40006 10.1932 1.78339 10.0099 2.07506L5.90152 8.65839C5.78486 8.85006 5.58485 8.95839 5.37652 8.95839Z" fill="#862FC0" />
                                     </svg>
                                     Filters
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">All</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Blocked</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">Verified</Dropdown.Item>
+                                    <div className="inneritem">
+                                        All
+                                        <div className="main-outer-p">
+
+                                            <div className="main-switch-nns">
+                                                <div class="custom-control custom-switchs">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                    <label class="custom-control-label" for="customSwitches2"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="inneritem">
+                                        Limited Edition
+                                        <div className="main-outer-p">
+
+                                            <div className="main-switch-nns">
+                                                <div class="custom-control custom-switchs">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                    <label class="custom-control-label" for="customSwitches2"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="inneritem">
+
+                                        Open Edition
+                                        <div className="main-outer-p">
+
+                                            <div className="main-switch-nns">
+                                                <div class="custom-control custom-switchs">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                    <label class="custom-control-label" for="customSwitches2"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </Dropdown.Menu>
-                            </Dropdown> */}
+                            </Dropdown>
                         </div>
 
 
@@ -114,9 +140,9 @@ const Applications = () => {
                                             <Nav.Item className='amberitempils'>
                                                 <Nav.Link className='ineramb' eventKey="link-2222">Pending</Nav.Link>
                                             </Nav.Item>
-                                            <Nav.Item className='amberitempils'>
+                                            {/* <Nav.Item className='amberitempils'>
                                                 <Nav.Link className='ineramb' eventKey="link-3333">Approved</Nav.Link>
-                                            </Nav.Item>
+                                            </Nav.Item> */}
                                             <Nav.Item className='amberitempils'>
                                                 <Nav.Link className='ineramb' eventKey="link-4444">
                                                     Rejected
@@ -134,30 +160,50 @@ const Applications = () => {
                                                     <table>
                                                         <thead>
                                                             <th>
-                                                                Collections
+                                                                project name
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
                                                             <th>
-                                                                symbol
+                                                                Supply
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
                                                             <th>
                                                                 <div className='volmouter'>
-                                                                    Artwork link
+                                                                    Price
+                                                                    <div className='sidearrowtb'>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                        </svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                        </svg>
+                                                                    </div>
 
                                                                 </div>
+
                                                             </th>
                                                             <th  >
-                                                                Category
+                                                                expected mint date
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
 
                                                             <th>
-                                                                Supply
+                                                                <div className='volmouter'>
+                                                                    Email address
+                                                                    <div className='sidearrowtb'>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                        </svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                        </svg>
+                                                                    </div>
+
+                                                                </div>
 
                                                             </th>
                                                             <th>
-                                                                mint date
+                                                                Referral
                                                             </th>
                                                             <th>
                                                                 Detail
@@ -177,61 +223,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -251,61 +258,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -325,61 +293,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -399,61 +328,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -473,24 +363,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
                                                                     <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -510,30 +398,169 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
                                                                     <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <button className="detailbtn" onClick={handleShow}>Detail</button>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+
 
                                                         </tbody>
                                                     </table>
@@ -570,30 +597,50 @@ const Applications = () => {
                                                     <table>
                                                         <thead>
                                                             <th>
-                                                                Collections
+                                                                project name
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
                                                             <th>
-                                                                symbol
+                                                                Supply
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
                                                             <th>
                                                                 <div className='volmouter'>
-                                                                    Artwork link
+                                                                    Price
+                                                                    <div className='sidearrowtb'>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                        </svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                        </svg>
+                                                                    </div>
 
                                                                 </div>
+
                                                             </th>
                                                             <th  >
-                                                                Category
+                                                                expected mint date
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
 
                                                             <th>
-                                                                Supply
+                                                                <div className='volmouter'>
+                                                                    Email address
+                                                                    <div className='sidearrowtb'>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                        </svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                        </svg>
+                                                                    </div>
+
+                                                                </div>
 
                                                             </th>
                                                             <th>
-                                                                mint date
+                                                                Referral
                                                             </th>
                                                             <th>
                                                                 Detail
@@ -613,61 +660,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -687,61 +695,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -761,61 +730,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -835,61 +765,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -909,24 +800,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
                                                                     <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -946,30 +835,169 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
                                                                     <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <button className="detailbtn" onClick={handleShow}>Detail</button>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+
 
                                                         </tbody>
                                                     </table>
@@ -1006,30 +1034,50 @@ const Applications = () => {
                                                     <table>
                                                         <thead>
                                                             <th>
-                                                                Collections
+                                                                project name
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
                                                             <th>
-                                                                symbol
+                                                                Supply
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
                                                             <th>
                                                                 <div className='volmouter'>
-                                                                    Artwork link
+                                                                    Price
+                                                                    <div className='sidearrowtb'>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                        </svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                        </svg>
+                                                                    </div>
 
                                                                 </div>
+
                                                             </th>
                                                             <th  >
-                                                                Category
+                                                                expected mint date
                                                                 {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                             </th>
 
                                                             <th>
-                                                                Supply
+                                                                <div className='volmouter'>
+                                                                    Email address
+                                                                    <div className='sidearrowtb'>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                        </svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                        </svg>
+                                                                    </div>
+
+                                                                </div>
 
                                                             </th>
                                                             <th>
-                                                                mint date
+                                                                Referral
                                                             </th>
                                                             <th>
                                                                 Detail
@@ -1049,61 +1097,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -1123,61 +1132,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -1197,61 +1167,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -1271,61 +1202,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -1345,24 +1237,22 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
                                                                     <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -1382,30 +1272,169 @@ const Applications = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    FGR
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
                                                                 </td>
                                                                 <td>
                                                                     <span className="eleipiess">
-                                                                        i.me/johndoe
+                                                                        123@gmail.com
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
                                                                     <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
+                                                                        twitter
                                                                     </span>
                                                                 </td>
                                                                 <td>
                                                                     <button className="detailbtn" onClick={handleShow}>Detail</button>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="mainimgdiv">
+                                                                        <div className="inerimgd">
+                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                            </img>
+                                                                        </div>
+                                                                        <p className="tableimgtext">
+                                                                            Forganas
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    30 CORE
+                                                                </td>
+                                                                <td>
+                                                                    2,087 CORE
+                                                                </td>
+                                                                <td>
+                                                                    15-3-2024
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        123@gmail.com
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="eleipiess">
+                                                                        twitter
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                </td>
+                                                            </tr>
+
 
                                                         </tbody>
                                                     </table>
@@ -1438,1338 +1467,7 @@ const Applications = () => {
                                 </div>
                             </>
                         )}
-                        {activeTab === 'link-2' && (
-                            <>
-                                <div className='maintablea onlybdrfor'>
-                                    <div className='maintablepills'>
-                                        <Nav variant="pills" activeKey={activeTab2} onSelect={handleSelect2} className='amberpillsouter'>
-                                            <Nav.Item className='amberitempils'>
-                                                <Nav.Link className='ineramb' eventKey="link-666">Pending</Nav.Link>
-                                            </Nav.Item>
-                                            <Nav.Item className='amberitempils'>
-                                                <Nav.Link className='ineramb' eventKey="link-777">Approved</Nav.Link>
-                                            </Nav.Item>
-                                            <Nav.Item className='amberitempils'>
-                                                <Nav.Link className='ineramb' eventKey="link-888">
-                                                    Rejected
-                                                </Nav.Link>
-                                            </Nav.Item>
-                                        </Nav>
-                                    </div>
 
-
-
-                                    {activeTab2 === 'link-666' && (
-                                        <>
-                                            <div className="maintablecreater">
-                                                <div className="innertable_user table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <th>
-                                                                Collections
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                symbol
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Artwork link
-
-                                                                </div>
-                                                            </th>
-                                                            <th  >
-                                                                Category
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-
-                                                            <th>
-                                                                Supply
-
-                                                            </th>
-                                                            <th>
-                                                                mint date
-                                                            </th>
-                                                            <th>
-                                                                Detail
-                                                            </th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div className='Paginationlattable'>
-                                                    <button className='leftpigbtn' >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-                                                        Prev
-                                                    </button>
-                                                    <Pagination>
-                                                        <Pagination.Item>{1}</Pagination.Item>
-                                                        <Pagination.Item>{2}</Pagination.Item>
-                                                        <Pagination.Ellipsis />
-                                                        <Pagination.Item active>{5}</Pagination.Item>
-                                                        <Pagination.Item>{6}</Pagination.Item>
-                                                    </Pagination>
-                                                    <button className='leftpigbtn' >
-                                                        Next
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-                                    {activeTab2 === 'link-777' && (
-                                        <>
-                                            <div className="maintablecreater">
-                                                <div className="innertable_user table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <th>
-                                                                Collections
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                symbol
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Artwork link
-
-                                                                </div>
-                                                            </th>
-                                                            <th  >
-                                                                Category
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-
-                                                            <th>
-                                                                Supply
-
-                                                            </th>
-                                                            <th>
-                                                                mint date
-                                                            </th>
-                                                            <th>
-                                                                Detail
-                                                            </th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div className='Paginationlattable'>
-                                                    <button className='leftpigbtn' >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-                                                        Prev
-                                                    </button>
-                                                    <Pagination>
-                                                        <Pagination.Item>{1}</Pagination.Item>
-                                                        <Pagination.Item>{2}</Pagination.Item>
-                                                        <Pagination.Ellipsis />
-                                                        <Pagination.Item active>{5}</Pagination.Item>
-                                                        <Pagination.Item>{6}</Pagination.Item>
-                                                    </Pagination>
-                                                    <button className='leftpigbtn' >
-                                                        Next
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-                                    {activeTab2 === 'link-888' && (
-                                        <>
-                                            <div className="maintablecreater">
-                                                <div className="innertable_user table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <th>
-                                                                Collections
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                symbol
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Artwork link
-
-                                                                </div>
-                                                            </th>
-                                                            <th  >
-                                                                Category
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-
-                                                            <th>
-                                                                Supply
-
-                                                            </th>
-                                                            <th>
-                                                                mint date
-                                                            </th>
-                                                            <th>
-                                                                Detail
-                                                            </th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    FGR
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        i.me/johndoe
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    Pfps
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        30 Core
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        15-3-2024
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
-                                                                </td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div className='Paginationlattable'>
-                                                    <button className='leftpigbtn' >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-                                                        Prev
-                                                    </button>
-                                                    <Pagination>
-                                                        <Pagination.Item>{1}</Pagination.Item>
-                                                        <Pagination.Item>{2}</Pagination.Item>
-                                                        <Pagination.Ellipsis />
-                                                        <Pagination.Item active>{5}</Pagination.Item>
-                                                        <Pagination.Item>{6}</Pagination.Item>
-                                                    </Pagination>
-                                                    <button className='leftpigbtn' >
-                                                        Next
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-                            </>
-                        )}
 
                     </div>
 
@@ -2786,8 +1484,11 @@ const Applications = () => {
                     <Modal.Body>
                         <div className='mod_bodydiv '>
                             <div className="topdiv">
+                                <h3 className='launchpadinfo'>
+                                    Launchpad Info
+                                </h3>
                                 <h5 className=''>
-                                    Carolyn Wilson
+                                    Project Image
                                 </h5>
                                 <div className='tommodimg'>
                                     <img src="\launchpad\modalctr.svg" alt="" className='modinerimg' />
@@ -2795,59 +1496,183 @@ const Applications = () => {
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'>Project name </h6>
-                                    <h6 className='namefullletf'> Forganas </h6>
+                                    <h6 className='usernnamee'>
+                                        Launchpad Name
+                                    </h6>
+                                    <h6 className='namefullletf'>
+                                        Spiritual but not religious
+                                    </h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Email  </h6>
-                                    <h6 className='namefullletf'> 123@gmail.com </h6>
+                                    <h6 className='usernnamee'>Launchpad  </h6>
+                                    <h6 className='namefullletf'> Limited edition </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft w-100'>
-                                    <h6 className='usernnamee'>Project description </h6>
+                                    <h6 className='usernnamee'>Limited edition </h6>
                                     <h6 className='namefullletdestpn'> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt. </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'>Supply </h6>
-                                    <h6 className='namefullletf'> 30 CORE </h6>
+                                    <h6 className='usernnamee'>Total Supply </h6>
+                                    <h6 className='namefullletf'> 4,444 </h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>30 CORE </h6>
-                                    <h6 className='namefullletf'> 2,087 CORE </h6>
+                                    <h6 className='usernnamee'>Price </h6>
+                                    <h6 className='namefullletf'> Games </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'> Expected mint date </h6>
-                                    <h6 className='namefullletf'> 15-3-2024 </h6>
+                                    <h6 className='usernnamee'> Team member 1</h6>
+                                    <h6 className='namefullletf'> john Doe</h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Referral  </h6>
-                                    <h6 className='namefullletf'> Word of mouth </h6>
+                                    <h6 className='usernnamee'>Team member 2  </h6>
+                                    <h6 className='namefullletf'> Damon Holland </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'> Team </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'> Mint Start date </h6>
+                                    <h6 className='namefullletf'>Mint Start date </h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Twitter link  </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'>Mint Start date  </h6>
+                                    <h6 className='namefullletf'> 3 </h6>
+                                </div>
+                            </div>
+                            <div className='onlyforbdrre'>
+
+                            </div>
+
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxx'>
+                                    Team Info
+                                </h5>
+                                <h5 className='launchpadinfosssxxsmall'>
+                                    Team Member 1
+                                </h5>
+
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Name </h6>
+                                    <h6 className='namefullletf'> John Doe </h6>
+                                </div>
+                                <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Designation  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'> Discord link </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'> Twitter </h6>
+                                    <h6 className='namefullletf'> http://me.xn--c6h </h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Designation  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className='onlyforbdrre'>
+
+                            </div>
+
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxx'>
+                                    Mint info
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Mint Start Date </h6>
+                                    <h6 className='namefullletf'> 01/02/2024 2:44 PM</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Designation  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxxsmall'>
+                                    Mint Stage 1
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Name </h6>
+                                    <h6 className='namefullletf'>Presale 1</h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Discord address  </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> 1d 2h 23m </h6>
                                 </div>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Sale Price </h6>
+                                    <h6 className='namefullletf'>15.258 CORE</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxxsmall'>
+                                    Mint Stage 2
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Name </h6>
+                                    <h6 className='namefullletf'>Presale 1</h6>
+                                </div>
+                                <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> 1d 2h 23m </h6>
+                                </div>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Sale Price </h6>
+                                    <h6 className='namefullletf'>15.258 CORE</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className='onlyforbdrre'>
+
+                            </div>
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxx'>
+                                    Earnings
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> earnings address </h6>
+                                    <h6 className='namefullletf eleipiess'>0xab6fd6074782c805933...</h6>
+                                </div>
+                                <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Platfrom Fees  </h6>
+                                    <h6 className='namefullletf'> 10% </h6>
+                                </div>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Your Earning </h6>
+                                    <h6 className='namefullletf'>90%</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
                             </div>
                         </div>
 

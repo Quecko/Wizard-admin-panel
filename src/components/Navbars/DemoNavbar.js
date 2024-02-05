@@ -235,32 +235,34 @@ const Header = (props) => {
 
 
           {brandName === 'Dashboard' &&
-                <div className="newinputs m-0">
-                <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
-                  <Dropdown.Toggle id="dropdown-autoclose-outside">
-                    <div className="dromdownproiner">
-                      <div className="dromdownproiner_img">
-                        <img src="\navbar\profile.png" className="dropdownarowss" />
-                      </div>
-                      <div className="dromdownproiner_text">
-                        <p className="">
-                          john doe
-                        </p>
-                      </div>
-                      <div className="dromdownproiner_icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                          <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
-                        </svg>
-                      </div>
-                    </div>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                    <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                    <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
+              //   <div className="newinputs m-0">
+              //   <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+              //     <Dropdown.Toggle id="dropdown-autoclose-outside">
+              //       <div className="dromdownproiner">
+              //         <div className="dromdownproiner_img">
+              //           <img src="\navbar\profile.png" className="dropdownarowss" />
+              //         </div>
+              //         <div className="dromdownproiner_text">
+              //           <p className="">
+              //             john doe
+              //           </p>
+              //         </div>
+              //         <div className="dromdownproiner_icon">
+              //           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              //             <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+              //           </svg>
+              //         </div>
+              //       </div>
+              //     </Dropdown.Toggle>
+              //     <Dropdown.Menu>
+              //       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              //       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              //       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+              //     </Dropdown.Menu>
+              //   </Dropdown>
+              // </div>
+              <>
+              </>
 
             }
 
@@ -401,32 +403,33 @@ const Header = (props) => {
 
             }
             {brandName === 'Applications' &&
-              <div className="newinputs m-0">
-              <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
-                <Dropdown.Toggle id="dropdown-autoclose-outside">
-                  <div className="dromdownproiner">
-                    <div className="dromdownproiner_img">
-                      <img src="\navbar\profile.png" className="dropdownarowss" />
-                    </div>
-                    <div className="dromdownproiner_text">
-                      <p className="">
-                        john doe
-                      </p>
-                    </div>
-                    <div className="dromdownproiner_icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
-                      </svg>
-                    </div>
-                  </div>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
+            //   <div className="newinputs m-0">
+            //   <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
+            //     <Dropdown.Toggle id="dropdown-autoclose-outside">
+            //       <div className="dromdownproiner">
+            //         <div className="dromdownproiner_img">
+            //           <img src="\navbar\profile.png" className="dropdownarowss" />
+            //         </div>
+            //         <div className="dromdownproiner_text">
+            //           <p className="">
+            //             john doe
+            //           </p>
+            //         </div>
+            //         <div className="dromdownproiner_icon">
+            //           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            //             <path d="M4.94867 6L9.01286 10.0642L13.0771 6L14.3255 7.25733L9.01286 12.57L3.7002 7.25733L4.94867 6Z" fill="#862FC0" />
+            //           </svg>
+            //         </div>
+            //       </div>
+            //     </Dropdown.Toggle>
+            //     <Dropdown.Menu>
+            //       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            //       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            //       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+            //     </Dropdown.Menu>
+            //   </Dropdown>
+            // </div>
+            <></>
 
             }
 
@@ -434,7 +437,7 @@ const Header = (props) => {
 
             {brandName === 'Launchpad' &&
               <>
-                <div className="newinputs m-0">
+                {/* <div className="newinputs m-0">
                   <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
                     <Dropdown.Toggle id="dropdown-autoclose-outside">
                       <div className="dromdownproiner">
@@ -459,7 +462,7 @@ const Header = (props) => {
                       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </div>
+                </div> */}
 
               </>
 
@@ -467,7 +470,7 @@ const Header = (props) => {
 
             {brandName === 'Creators' &&
               <>
-                <div className="newinputs m-0">
+                {/* <div className="newinputs m-0">
                   <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
                     <Dropdown.Toggle id="dropdown-autoclose-outside">
                       <div className="dromdownproiner">
@@ -492,7 +495,8 @@ const Header = (props) => {
                       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </div></>
+                </div> */}
+                </>
             }
 
 
@@ -540,7 +544,7 @@ const Header = (props) => {
 
             {brandName === 'Collections' && 
               <>
-                <div className="newinputs m-0">
+                {/* <div className="newinputs m-0">
                   <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
                     <Dropdown.Toggle id="dropdown-autoclose-outside">
                       <div className="dromdownproiner">
@@ -565,12 +569,12 @@ const Header = (props) => {
                       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </div>
+                </div> */}
               </>
             }
             {brandName === 'NFTs' && 
               <>
-                <div className="newinputs m-0">
+                {/* <div className="newinputs m-0">
                   <Dropdown className="d-inline  navfrofiledeopdown" autoClose="outside">
                     <Dropdown.Toggle id="dropdown-autoclose-outside">
                       <div className="dromdownproiner">
@@ -595,7 +599,7 @@ const Header = (props) => {
                       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </div>
+                </div> */}
               </>
             }
 
