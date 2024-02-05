@@ -258,7 +258,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="row ">
-            <div className="col-xl-8 col-sm-12">
+            <div className="col-xl-8 col-sm-12 p0">
               <div className='chartouterdiv'>
                 <div className="dashbodtop_left ">
                   <h5 className="statay">
@@ -424,8 +424,8 @@ function Dashboard() {
 
             </div>
           </div>
-          <div className="row my-4 columnreverse">
-            <div className="col-xl-8 col-sm-12 ">
+          <div className="row my-4 columnreverse ">
+            <div className="col-xl-8 col-sm-12 p0">
               <div className='chartouterdiv'>
                 <div className="dashbodtop_left mb-0">
                   <h5 className="statay">

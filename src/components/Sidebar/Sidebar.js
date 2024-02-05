@@ -7,7 +7,6 @@ import banner10 from "assets/img/userflow/logout-icon.svg";
 import profile from "assets/img/userflow/avatar-03.png";
 import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
 import logo from "logo.png";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -42,19 +41,19 @@ function Sidebar(props) {
       })
   }
 
-  React.useEffect(() => {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(sidebar.current, {
-        suppressScrollX: true,
-        suppressScrollY: false,
-      });
-    }
-    return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
-        ps.destroy();
-      }
-    };
-  });
+  // React.useEffect(() => {
+  //   if (navigator.platform.indexOf("Win") > -1) {
+  //     ps = new PerfectScrollbar(sidebar.current, {
+  //       suppressScrollX: true,
+  //       suppressScrollY: false,
+  //     });
+  //   }
+  //   return function cleanup() {
+  //     if (navigator.platform.indexOf("Win") > -1) {
+  //       ps.destroy();
+  //     }
+  //   };
+  // });
 
 
   return (
@@ -63,6 +62,8 @@ function Sidebar(props) {
       data-color={props.bgColor}
       data-active-color={props.activeColor}
     >
+
+      <div className="sidebar-wrapper" ref={sidebar}>
       <div className="logo">
         <Link
           to="/admin/dashboard"
@@ -123,7 +124,6 @@ function Sidebar(props) {
           </div>
         </Link>
       </div>
-      <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
           <li className='nav-item'>
             <Link
@@ -227,7 +227,9 @@ function Sidebar(props) {
 
 
 
-              <div className="edit-page-profile">
+           
+            </Nav>
+            <div className="edit-page-profile">
                 {/* <div className="logo-imgss d-flex justify-content-start align-items-center">
               <Link onClick={logout}><img src={banner10} className="pad-rihgt" alt="" /></Link>
               <div className="images-right ml-2">
@@ -251,7 +253,6 @@ function Sidebar(props) {
                   Log out
                 </button>
               </div>
-            </Nav>
           </div>
       </div >
       );

@@ -2,6 +2,7 @@
   .bg-dark {
     background: #160323 !important;
   }
+
   padding-top: $navbar-padding-base;
   padding-bottom: $navbar-padding-base;
   min-height: 53px;
@@ -20,6 +21,7 @@
   }
 
   &.bg-white {
+
     .input-group .form-control,
     .input-group.no-border .form-control {
       color: $default-color;
@@ -28,6 +30,7 @@
       //   color: $default-color;
       // };
     }
+
     .input-group-prepend .input-group-text i,
     .input-group-append .input-group-text i {
       color: $default-color;
@@ -56,22 +59,26 @@
         .form-control {
           box-shadow: 0 0.1rem 0.5rem rgb(194, 194, 199);
         }
+
         .input-group-append {
           .input-group-text {
             box-shadow: 0 0.1rem 0.5rem rgb(194, 194, 199);
           }
         }
       }
+
       .input-group-append {
         .input-group-text {
           background-color: #ffffff;
           border: none !important;
           border-radius: 0px 10px 10px 0px;
+
           &:hover {
             box-shadow: none;
           }
         }
       }
+
       .form-control {
         color: $default-color;
         border: none !important;
@@ -84,6 +91,7 @@
       }
     }
   }
+
   p {
     display: inline-block;
     margin: 0;
@@ -108,8 +116,10 @@
   }
 
   .navbar-wrapper {
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
 
     .navbar-minimize {
       padding-right: 10px;
@@ -137,6 +147,7 @@
     align-items: flex-start;
     justify-content: flex-end;
     gap: 20px;
+
     //  padding-top: 30px;
     .amer_dropdonfst {
       button#dropdown-basic {
@@ -156,6 +167,7 @@
         line-height: 100%;
         border: 1px solid transparent;
       }
+
       .filyerbyn {
         border-radius: 60px;
         background: var(--White, #fff) !important;
@@ -173,6 +185,7 @@
         border: 1px solid transparent;
         outline: none !important;
         box-shadow: none !important;
+
         &:after {
           display: none;
         }
@@ -182,6 +195,7 @@
     .inputoutermain {
       position: relative;
       width: 285px;
+
       .ambassadorinput {
         width: 100%;
         padding: 12px 15px;
@@ -205,6 +219,7 @@
           opacity: 0.5;
         }
       }
+
       .ambrinputicon {
         position: absolute;
         right: 15px;
@@ -225,9 +240,11 @@
 
     .nav-link.btn {
       padding: $padding-btn-vertical $padding-btn-horizontal;
+
       &.btn-lg {
         padding: $padding-large-vertical $padding-large-horizontal;
       }
+
       &.btn-sm {
         padding: $padding-small-vertical $padding-small-horizontal;
       }
@@ -240,8 +257,8 @@
       line-height: $line-height-nav-link;
       margin-right: 3px;
 
-      i.fa + p,
-      i.nc-icon + p {
+      i.fa+p,
+      i.nc-icon+p {
         margin-left: 3px;
       }
 
@@ -312,6 +329,7 @@
       margin: 0 auto;
     }
   }
+
   .button-dropdown {
     .navbar-toggler-bar:nth-child(2) {
       width: 17px;
@@ -330,6 +348,7 @@
       font-size: 24px;
       line-height: 33px;
       color: #ffffff;
+
       &.disabled {
         opacity: 0.5;
         color: $default-color;
@@ -343,6 +362,7 @@
     .nav-item .nav-link:not(.btn) {
       color: $default-color;
     }
+
     .nav-item.active .nav-link:not(.btn),
     .nav-item .nav-link:not(.btn):focus,
     .nav-item .nav-link:not(.btn):hover,
@@ -420,13 +440,15 @@
     .daily-profile-modal {
       .daily-profile-modal-inner {
         border-radius: 10px;
+
         .modal-body-main {
           padding: 50px 40px;
+
           .main-outter {
             .main-cardssss {
               .form-group {
-                .padd-top {
-                }
+                .padd-top {}
+
                 label {
                   font-family: "Poppins", sans-serif;
                   font-style: normal !important;
@@ -436,12 +458,14 @@
                   color: #000000 !important;
                   padding-top: 15px;
                 }
+
                 input {
                   background: #fafafb;
                   border: 1px solid #efefef;
                   box-sizing: border-box;
                   border-radius: 5px;
                   height: 55px;
+
                   &::placeholder {
                     color: #cdcdcd;
                     font-family: "Poppins", sans-serif;
@@ -451,11 +475,13 @@
                     line-height: 22px;
                   }
                 }
+
                 textarea {
                   background: #fafafb;
                   border: 1px solid #efefef;
                   box-sizing: border-box;
                   border-radius: 5px;
+
                   &::placeholder {
                     color: #cdcdcd;
                     font-family: "Poppins", sans-serif;
@@ -466,9 +492,11 @@
                   }
                 }
               }
+
               .button-modal-daily {
                 display: flex;
                 justify-content: space-between;
+
                 .button-main-daily {
                   margin-top: 30px;
                   outline: none;
@@ -487,12 +515,14 @@
                   margin-left: 10px;
                   color: #ffffff;
                   transition: 0.4s ease-in-out;
+
                   &:hover {
                     background: transparent;
                     border: 1px solid #3568c1;
                     color: #3568c1;
                   }
                 }
+
                 .button-main-dailys {
                   margin-top: 30px;
                   outline: none;
@@ -511,17 +541,17 @@
                   line-height: 19px;
                   color: #133572;
                   transition: 0.4s ease-in-out;
+
                   &:hover {
-                    background: linear-gradient(
-                      180deg,
-                      #133572 0%,
-                      #3568c1 100%
-                    );
+                    background: linear-gradient(180deg,
+                        #133572 0%,
+                        #3568c1 100%);
                     border: 1px solid #3568c1;
                     color: #ffffff;
                   }
                 }
               }
+
               p {
                 font-family: "Poppins", sans-serif;
                 font-style: normal;
@@ -531,6 +561,7 @@
                 color: #818094 !important;
                 padding-bottom: 6px;
               }
+
               h4 {
                 font-family: "Poppins", sans-serif;
                 font-style: normal;
@@ -539,8 +570,10 @@
                 line-height: 27px;
                 color: #030229;
               }
+
               .flux-b {
                 padding-bottom: 30px;
+
                 h3 {
                   font-family: "Poppins", sans-serif;
                   font-style: normal;
@@ -550,6 +583,7 @@
                   color: #222222;
                 }
               }
+
               .flux-r {
                 padding-left: 39px;
               }
@@ -565,21 +599,26 @@
   .navbar .newinputs .amer_dropdonfst button#dropdown-basic {
     width: 100%;
   }
+
   .navbar .newinputs {
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
   .navbar .newinputs .inputoutermain {
     width: 100%;
   }
+
   .main-div-nav-head {
     .modal-body-main {
       padding: 30px 14px !important;
+
       .main-cardssss .button-modal-daily .button-main-dailys {
         margin-top: 10px !important;
       }
+
       .main-cardssss .button-modal-daily .button-main-daily {
         margin-top: 10px !important;
       }
@@ -591,20 +630,14 @@
   .main-div-nav-head {
     .modal-body-main {
       padding: 30px 3px !important;
+
       .flux-b {
         padding-bottom: 18px !important;
       }
     }
   }
-  .main-div-nav-head
-    .main-modal-one
-    .daily-profile-modal
-    .daily-profile-modal-inner
-    .modal-body-main
-    .main-outter
-    .main-cardssss
-    .flux-b
-    h3 {
+
+  .main-div-nav-head .main-modal-one .daily-profile-modal .daily-profile-modal-inner .modal-body-main .main-outter .main-cardssss .flux-b h3 {
     font-size: 24px !important;
   }
 }
@@ -624,6 +657,7 @@
   // align-items: center;
   width: 100%;
   height: 250px;
+
   i {
     color: rgb(168, 166, 166);
     font-size: 36px;
@@ -643,6 +677,7 @@
 
 .sbhjsbd {
   position: relative;
+
   img {
     width: 100%;
     object-fit: cover;
@@ -651,6 +686,7 @@
     border-radius: 30px;
   }
 }
+
 .choose-filessssss:hover .layerss {
   width: 89%;
   height: 210px;
@@ -667,4 +703,29 @@
 
 .modal-zzz {
   z-index: 10000 !important;
+}
+
+
+.mydots {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  width: unset !important;
+  height: unset !important;
+  padding: 0px;
+  margin: 0;
+}
+
+@media(max-width:992px){
+  .newinputs{
+    justify-content: center !important;
+  }
+  .newinputs .navfrofiledeopdown {
+    position: absolute !important;
+    width: 200px;
+    .dropdown-menu{
+      background-color: #10091a !important;
+      width: 100% !important;
+    }
+  }
 }

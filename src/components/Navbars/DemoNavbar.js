@@ -211,6 +211,8 @@ const Header = (props) => {
       >
         <Container fluid className="main-header-top-change">
           <div className="navbar-wrapper">
+
+            <NavbarBrand >{brandName}</NavbarBrand>
             <div className="navbar-toggle">
               <button
                 type="button"
@@ -223,9 +225,8 @@ const Header = (props) => {
                 <span className="navbar-toggler-bar bar3" />
               </button>
             </div>
-            <NavbarBrand >{brandName}</NavbarBrand>
           </div>
-          <NavbarToggler onClick={toggle}>
+          <NavbarToggler onClick={toggle} className="mydots">
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
