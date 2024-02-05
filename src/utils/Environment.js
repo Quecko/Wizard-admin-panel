@@ -1,9 +1,6 @@
 let Environment = {
-  backendUrl: "https://legionapi.quecko.com/admin" //staging url
-  // backendUrl: "https://api.legionnetwork.io/admin" //production url
-  // backendUrl: "http://192.168.20.141:3027/admin"
-  // backendUrl : "http://192.168.0.207:3004/admin"
-  // http://54.191.140.38:38451
+  // api_url: "http://192.168.20.66:8080",
+  api_url: "http://ec2-18-236-118-29.us-west-2.compute.amazonaws.com:8088",
 };
 
 export default Environment;
