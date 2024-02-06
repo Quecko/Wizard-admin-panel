@@ -1,27 +1,83 @@
 
 import "./launchpad.scss"
 // import { Dropdown, Modal, Pagination } from 'react-bootstrap';
-import React, { useState } from 'react'
+import Environment from 'utils/Environment';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 
 import { Dropdown, Modal, Nav, Pagination } from 'react-bootstrap'
 
 
 const Launchpad = () => {
-
-    const [activeTab1, setActiveTab1] = useState('link-1');
-
-    const handleSelect1 = (eventKey) => {
-        setActiveTab1(eventKey);
-    }
+    const api_url = Environment.api_url;
+    const val = localStorage.getItem("accessToken");
+    const [offset, setOffset] = useState(1);
+    const [limit, setLimit] = useState(100);
+    const [activeTab, setActiveTab] = useState('live');
+    const [block, setBlock] = useState(false);
+    const [verify, setVerify] = useState(false);
+    const [all, setAll] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [activeTab, setActiveTab] = useState('link-1');
 
-    const handleSelect = (eventKey) => {
-        setActiveTab(eventKey);
+    const handleVerifyFilter = (e) => {
+        if (e.target.checked) {
+          setVerify(true);
+          setBlock(false);
+        } else if (!e.target.checked) {
+          setVerify(false);
+        }
+      };
+    
+      const handleBlockFilter = (e) => {
+        if (e.target.checked) {
+          setBlock(true);
+          setVerify(false);
+        } else if (!e.target.checked) {
+          setBlock(false);
+        }
+      };
+    
+      const handleRemoveFilter = (e) => {
+        if (e.target.checked) {
+          setBlock(false);
+          setVerify(false);
+        }
+      };
+
+
+    const handleSelect = (selectedTab) => {
+        setActiveTab(selectedTab);
     };
+
+    const getLaunchpads = async (val, duration) =>{
+        let apiUrl = api_url + "/launchpads/approved?limit=" + limit + "&offset=" + offset+ "&duration=" + duration;
+        
+        if (searchQuery) {
+          apiUrl += "&search=" + searchQuery;
+        }
+      
+        apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
+      
+        const config = {
+          method: "get",
+          url: apiUrl,
+          headers: {
+            Authorization: "Bearer " + val,
+          },
+        };
+      
+        const response = await axios(config);
+        console.log(response?.data?.data?.creators);
+        // setCreator(response?.data?.data?.creators);
+      };
+
+    useEffect(() => {
+        getLaunchpads(val, activeTab);
+    }, [activeTab,searchQuery,verify,block,all])
 
     return (
         <>
@@ -35,7 +91,8 @@ const Launchpad = () => {
                                 <path d="M9.58317 18.125C4.87484 18.125 1.0415 14.2916 1.0415 9.58329C1.0415 4.87496 4.87484 1.04163 9.58317 1.04163C14.2915 1.04163 18.1248 4.87496 18.1248 9.58329C18.1248 14.2916 14.2915 18.125 9.58317 18.125ZM9.58317 2.29163C5.55817 2.29163 2.2915 5.56663 2.2915 9.58329C2.2915 13.6 5.55817 16.875 9.58317 16.875C13.6082 16.875 16.8748 13.6 16.8748 9.58329C16.8748 5.56663 13.6082 2.29163 9.58317 2.29163Z" fill="#862FC0" />
                                 <path d="M18.3335 18.9583C18.1752 18.9583 18.0169 18.9 17.8919 18.775L16.2252 17.1083C15.9835 16.8666 15.9835 16.4666 16.2252 16.225C16.4669 15.9833 16.8669 15.9833 17.1085 16.225L18.7752 17.8916C19.0169 18.1333 19.0169 18.5333 18.7752 18.775C18.6502 18.9 18.4919 18.9583 18.3335 18.9583Z" fill="#862FC0" />
                             </svg>
-                            <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
+                            <input  value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)} type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
 
                         </div>
                         <Dropdown className="amer_dropdonfstnew onlyformobile d-none " autoClose={false}>
@@ -86,20 +143,9 @@ const Launchpad = () => {
 
                                         <div className="main-switch-nns">
                                             <div class="custom-control custom-switchs">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                <label class="custom-control-label" for="customSwitches2"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="inneritem">
-                                    Limited Edition
-                                    <div className="main-outer-p">
-
-                                        <div className="main-switch-nns">
-                                            <div class="custom-control custom-switchs">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                <label class="custom-control-label" for="customSwitches2"></label>
+                                                <input checked={all}
+                                                    onChange={(e) => handleRemoveFilter(e)} type="checkbox" class="custom-control-input" id="customSwitches1" />
+                                                <label class="custom-control-label" for="customSwitches1"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -110,8 +156,22 @@ const Launchpad = () => {
 
                                         <div className="main-switch-nns">
                                             <div class="custom-control custom-switchs">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                                <input checked={verify}
+                                                    onChange={(e) => handleVerifyFilter(e)} type="checkbox" class="custom-control-input" id="customSwitches2" />
                                                 <label class="custom-control-label" for="customSwitches2"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="inneritem">
+                                    limited Edition
+                                    <div className="main-outer-p">
+
+                                        <div className="main-switch-nns">
+                                            <div class="custom-control custom-switchs">
+                                                <input checked={block}
+                                                    onChange={(e) => handleBlockFilter(e)} type="checkbox" class="custom-control-input" id="customSwitches3" />
+                                                <label class="custom-control-label" for="customSwitches3"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -122,15 +182,15 @@ const Launchpad = () => {
 
                     <div className='maintablea  onlybdrfor'>
                         <div className='maintablepills'>
-                            <Nav variant="pills" activeKey={activeTab1} onSelect={handleSelect1} className='amberpillsouter'>
+                            <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className='amberpillsouter'>
                                 <Nav.Item className='amberitempils'>
-                                    <Nav.Link className='ineramb' eventKey="link-2222">Live</Nav.Link>
+                                    <Nav.Link className='ineramb' eventKey="live" onSelect={() => getLaunchpads(val, 'live')}>Live</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item className='amberitempils'>
-                                    <Nav.Link className='ineramb' eventKey="link-3333">Upcoming</Nav.Link>
+                                    <Nav.Link className='ineramb' eventKey="upcoming" onSelect={() => getLaunchpads(val, 'upcoming')}>Upcoming</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item className='amberitempils'>
-                                    <Nav.Link className='ineramb' eventKey="link-4444">
+                                    <Nav.Link className='ineramb' eventKey="past" onSelect={() => getLaunchpads(val, 'past')}>
                                         Ended
                                     </Nav.Link>
                                 </Nav.Item>
@@ -139,14 +199,14 @@ const Launchpad = () => {
 
 
 
-                        {activeTab1 === 'link-2222' && (
+                        {activeTab === 'live' && (
                             <>
                                 <div className="maintablecreater">
                                     <div className="innertable_user table-responsive">
                                         <table>
                                             <thead>
                                                 <th>
-                                                    project name
+                                                    project two
                                                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
@@ -589,14 +649,14 @@ const Launchpad = () => {
                                 </div>
                             </>
                         )}
-                        {activeTab1 === 'link-3333' && (
+                        {activeTab === 'upcoming' && (
                             <>
                                 <div className="maintablecreater">
                                     <div className="innertable_user table-responsive">
                                         <table>
                                             <thead>
                                                 <th>
-                                                    project name
+                                                    project
                                                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
@@ -1039,7 +1099,7 @@ const Launchpad = () => {
                                 </div>
                             </>
                         )}
-                        {activeTab1 === 'link-4444' && (
+                        {activeTab === 'past' && (
                             <>
                                 <div className="maintablecreater">
                                     <div className="innertable_user table-responsive">
