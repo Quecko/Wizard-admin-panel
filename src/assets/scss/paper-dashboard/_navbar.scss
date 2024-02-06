@@ -342,12 +342,13 @@
     //   border-bottom: 1px solid #ddd;
 
     a:not(.dropdown-item):not(.btn) {
-      font-family: "Poppins", sans-serif;
+      color: var(--On-Surface, #FFF);
+      font-family: Lexend;
+      font-size: 28px;
       font-style: normal;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 33px;
-      color: #ffffff;
+      font-weight: 500;
+      line-height: 120%; /* 33.6px */
+      text-transform: uppercase;
 
       &.disabled {
         opacity: 0.5;

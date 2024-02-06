@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
   return (
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
                     <label>Email</label>
                     <input type="text" placeholder='Your email...' />
                 </div>
-                <Link to="/createnewpassword" className='btn-sign mb-0'>Send</Link>
+                <Link to="/Create" className='btn-sign mb-0'>Send</Link>
             </div>
         </div>
      </section>

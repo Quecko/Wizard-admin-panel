@@ -16,7 +16,7 @@ import Creators from "views/Creators/Creators";
 var routes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Hello! john doe",
     image: banner1,
     component: Dashboard,
     layout: "/admin",
@@ -49,7 +49,7 @@ var routes = [
   },
   {
     path: "/launchpad",
-    name: "Launchpad",
+    name: "Launchpads",
     component: Launchpad,
     layout: "/admin",
   },

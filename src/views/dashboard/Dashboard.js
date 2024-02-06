@@ -216,7 +216,7 @@ function Dashboard() {
                       <img src="\dashboard\card2.svg" className="inoncardiner" />
                     </div>
                     <div className="innercontent">
-                      <h6 className="inertext">Total NFT’s</h6>
+                      <h6 className="inertext">Total NFTs</h6>
                       <h3 className="commoncardtext">178+</h3>
                     </div>
                   </div>
@@ -224,10 +224,14 @@ function Dashboard() {
                 <div className="new_card">
                   <div className='cardinercont'>
                     <div className="imgouterdiv">
-                      <img src="\dashboard\card3.svg" className="inoncardiner" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.35714 2C3.06488 2 2 3.06488 2 4.35714V15.3571C2 16.6494 3.06488 17.7143 4.35714 17.7143H5.14286V18.5C5.14286 19.7923 6.20774 20.8571 7.5 20.8571H8.28571V21.6429C8.28571 22.9351 9.35059 24 10.6429 24H21.6429C22.9351 24 24 22.9351 24 21.6429V10.6429C24 9.35059 22.9351 8.28571 21.6429 8.28571H20.8571V7.5C20.8571 6.20774 19.7923 5.14286 18.5 5.14286H17.7143V4.35714C17.7143 3.06488 16.6494 2 15.3571 2H4.35714ZM4.35714 3.57143H15.3571C15.806 3.57143 16.1429 3.90827 16.1429 4.35714V5.14286H7.5C6.20774 5.14286 5.14286 6.20774 5.14286 7.5V16.1429H4.35714C3.90827 16.1429 3.57143 15.806 3.57143 15.3571V4.35714C3.57143 3.90827 3.90827 3.57143 4.35714 3.57143ZM7.5 6.71429H18.5C18.9489 6.71429 19.2857 7.05113 19.2857 7.5V8.28571H10.6429C9.35059 8.28571 8.28571 9.35059 8.28571 10.6429V19.2857H7.5C7.05113 19.2857 6.71429 18.9489 6.71429 18.5V7.5C6.71429 7.05113 7.05113 6.71429 7.5 6.71429ZM10.6429 9.85714H21.6429C22.0917 9.85714 22.4286 10.194 22.4286 10.6429V21.6429C22.4286 22.0917 22.0917 22.4286 21.6429 22.4286H10.6429C10.194 22.4286 9.85714 22.0917 9.85714 21.6429C9.85714 17.9762 9.85714 14.3095 9.85714 10.6429C9.85714 10.194 10.194 9.85714 10.6429 9.85714Z" fill="#862FC0" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.143 11.4286C15.9346 11.4286 15.7348 11.5114 15.5874 11.6587C15.4401 11.8061 15.3573 12.0059 15.3573 12.2143V15.3572H12.2144C12.006 15.3572 11.8062 15.4399 11.6588 15.5873C11.5115 15.7346 11.4287 15.9345 11.4287 16.1429C11.4287 16.3513 11.5115 16.5511 11.6588 16.6985C11.8062 16.8458 12.006 16.9286 12.2144 16.9286H15.3573V20.0714C15.3573 20.2798 15.4401 20.4797 15.5874 20.627C15.7348 20.7744 15.9346 20.8572 16.143 20.8572C16.3514 20.8572 16.5512 20.7744 16.6986 20.627C16.8459 20.4797 16.9287 20.2798 16.9287 20.0714V16.9286H20.0716C20.28 16.9286 20.4798 16.8458 20.6272 16.6985C20.7745 16.5511 20.8573 16.3513 20.8573 16.1429C20.8573 15.9345 20.7745 15.7346 20.6272 15.5873C20.4798 15.4399 20.28 15.3572 20.0716 15.3572H16.9287V12.2143C16.9287 12.0059 16.8459 11.8061 16.6986 11.6587C16.5512 11.5114 16.3514 11.4286 16.143 11.4286Z" fill="#862FC0" />
+                      </svg>
+                      {/* <img src="\dashboard\card3.svg" className="inoncardiner" /> */}
                     </div>
                     <div className="innercontent">
-                      <h6 className="inertext">Total Collection’s</h6>
+                      <h6 className="inertext">Total Collections</h6>
                       <h3 className="commoncardtext">178+</h3>
                     </div>
                   </div>
@@ -238,7 +242,7 @@ function Dashboard() {
                       <img src="\dashboard\card4.svg" className="inoncardiner" />
                     </div>
                     <div className="innercontent">
-                      <h6 className="inertext">Total Transaction’s</h6>
+                      <h6 className="inertext">Total Transactions</h6>
                       <h3 className="commoncardtext">178+</h3>
                     </div>
                   </div>
@@ -249,7 +253,7 @@ function Dashboard() {
                       <img src="\dashboard\card5.svg" className="inoncardiner" />
                     </div>
                     <div className="innercontent">
-                      <h6 className="inertext">Total Artist’s</h6>
+                      <h6 className="inertext">Total Artists</h6>
                       <h3 className="commoncardtext">178+</h3>
                     </div>
                   </div>

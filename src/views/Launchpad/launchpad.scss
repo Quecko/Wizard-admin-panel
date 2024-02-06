@@ -343,7 +343,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 25px;
-        max-height: 800px;
+        max-height: 700px;
         overflow-y: scroll;
         &::-webkit-scrollbar {
           display: none;
@@ -388,12 +388,12 @@
         }
 
           h5 {
-            color: var(--Light-Text-Color, #4c3764);
-
+            color: var(--Light-Text-Color, #745F8C);
+            font-family: Lexend;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
-            line-height: 100%;
+            line-height: 100%; /* 14px */
           }
           .tommodimg {
             width: 136px;
@@ -463,21 +463,21 @@
             width: 100%;
           }
           h6.usernnamee {
-            color: var(--Light-Text-Color, #4c3764);
-
+            color: var(--Light-Text-Color, #745F8C);
+            font-family: Lexend;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
             line-height: 100%; /* 14px */
           }
           .namefullletdestpn {
-            color: #fff;
-
+            color: #FFF;
+            font-family: Lexend;
             font-size: 14px;
             font-style: normal;
-            font-weight: 500;
-            line-height: 140%; /* 14px */
-            letter-spacing: 0.14px;
+            font-weight: 400;
+            line-height: 140%; /* 19.6px */
+            text-transform: capitalize;
           }
           .namefullletf {
             color: #fff;

@@ -110,6 +110,7 @@ box-shadow: none;
   margin-bottom: 30px;
   .amer_dropdonfst {
     button#dropdown-basic {
+      // background-image: url("../..//dropdownarow.png");
       border-radius: 10px;
       border: 1px solid #862fc0b3;
       background: #230a34;
@@ -144,7 +145,13 @@ box-shadow: none;
         padding: 14px 18px;
         align-items: center;
         gap: 24px;
-        align-self: stretch;
+        color: var(--Light-Text-Color, #745F8C);
+        font-family: Lexend;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%; /* 14px */
+        text-transform: capitalize;
         &:hover {
           background: #1f112d;
           color: #862fc0;
@@ -389,7 +396,7 @@ box-shadow: none;
 }
 .main-switch-nn .custom-control-label::before {
   background-color: #4a4a4a !important;
-  width: 34px;
+  width: 30px;
   height: 18.7px;
   border: none !important;
   box-shadow: none;
@@ -400,7 +407,18 @@ box-shadow: none;
   width: calc(1rem - 1px);
   height: calc(1rem - 1px);
 }
+.dropdown-toggle::after {
+display: none !important;
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
 
+}
 // pagination
 
 .pagination {
