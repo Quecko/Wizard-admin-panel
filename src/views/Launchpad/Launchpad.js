@@ -82,7 +82,7 @@ const Launchpad = () => {
                             <Dropdown.Menu>
                                 <div className="inneritem">
                                     All
-                                    <div className="main-outer-p">
+                                    {/* <div className="main-outer-p">
 
                                         <div className="main-switch-nns">
                                             <div class="custom-control custom-switchs">
@@ -90,30 +90,36 @@ const Launchpad = () => {
                                                 <label class="custom-control-label" for="customSwitches2"></label>
                                             </div>
                                         </div>
+                                    </div> */}
+                                    <div class="content">
+                                        <label class="checkBox">
+                                            <input id="ch1" type="checkbox" />
+                                            <div class="transition"></div>
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="inneritem">
                                     Limited Edition
-                                    <div className="main-outer-p">
 
-                                        <div className="main-switch-nns">
-                                            <div class="custom-control custom-switchs">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                <label class="custom-control-label" for="customSwitches2"></label>
-                                            </div>
-                                        </div>
+
+                                    <div class="content">
+                                        <label class="checkBox">
+                                            <input id="ch1" type="checkbox" />
+                                            <div class="transition"></div>
+                                        </label>
                                     </div>
+
                                 </div>
                                 <div className="inneritem">
                                     Open Edition
-                                    <div className="main-outer-p">
 
-                                        <div className="main-switch-nns">
-                                            <div class="custom-control custom-switchs">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                <label class="custom-control-label" for="customSwitches2"></label>
-                                            </div>
-                                        </div>
+
+                                    <div class="content">
+                                        <label class="checkBox">
+                                            <input id="ch1" type="checkbox" />
+                                            <div class="transition"></div>
+                                        </label>
+
                                     </div>
                                 </div>
                             </Dropdown.Menu>
