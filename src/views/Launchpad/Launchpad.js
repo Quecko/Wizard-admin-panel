@@ -225,7 +225,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -262,7 +262,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -299,7 +299,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -336,7 +336,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -373,7 +373,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -410,7 +410,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -447,7 +447,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -484,7 +484,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -521,7 +521,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -558,7 +558,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -675,7 +675,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -712,7 +712,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -749,7 +749,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -786,7 +786,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -823,7 +823,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -860,7 +860,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -897,7 +897,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -934,7 +934,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -971,7 +971,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1008,7 +1008,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1125,7 +1125,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1162,7 +1162,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1199,7 +1199,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1236,7 +1236,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1273,7 +1273,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1310,7 +1310,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1347,7 +1347,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1384,7 +1384,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1421,7 +1421,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1458,7 +1458,7 @@ const Launchpad = () => {
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                        <button className="detailbtn" onClick={handleShow}>Details</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1505,8 +1505,11 @@ const Launchpad = () => {
                     <Modal.Body>
                         <div className='mod_bodydiv '>
                             <div className="topdiv">
+                                <h3 className='launchpadinfo'>
+                                    Launchpad Info
+                                </h3>
                                 <h5 className=''>
-                                    Carolyn Wilson
+                                    Project Image
                                 </h5>
                                 <div className='tommodimg'>
                                     <img src="\launchpad\modalctr.svg" alt="" className='modinerimg' />
@@ -1514,63 +1517,187 @@ const Launchpad = () => {
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'>Project name </h6>
-                                    <h6 className='namefullletf'> Forganas </h6>
+                                    <h6 className='usernnamee'>
+                                        Launchpad Name
+                                    </h6>
+                                    <h6 className='namefullletf'>
+                                        Spiritual but not religious
+                                    </h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Email  </h6>
-                                    <h6 className='namefullletf'> 123@gmail.com </h6>
+                                    <h6 className='usernnamee'>Launchpad  </h6>
+                                    <h6 className='namefullletf'> Limited edition </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft w-100'>
-                                    <h6 className='usernnamee'>Project description </h6>
+                                    <h6 className='usernnamee'>Limited edition </h6>
                                     <h6 className='namefullletdestpn'> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt. </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'>Supply </h6>
-                                    <h6 className='namefullletf'> 30 CORE </h6>
+                                    <h6 className='usernnamee'>Total Supply </h6>
+                                    <h6 className='namefullletf'> 4,444 </h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>30 CORE </h6>
-                                    <h6 className='namefullletf'> 2,087 CORE </h6>
+                                    <h6 className='usernnamee'>Price </h6>
+                                    <h6 className='namefullletf'> Games </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'> Expected mint date </h6>
-                                    <h6 className='namefullletf'> 15-3-2024 </h6>
+                                    <h6 className='usernnamee'> Team member 1</h6>
+                                    <h6 className='namefullletf'> john Doe</h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Referral  </h6>
-                                    <h6 className='namefullletf'> Word of mouth </h6>
+                                    <h6 className='usernnamee'>Team member 2  </h6>
+                                    <h6 className='namefullletf'> Damon Holland </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'> Team </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'> Mint Start date </h6>
+                                    <h6 className='namefullletf'>Mint Start date </h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Twitter link  </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'>Mint Start date  </h6>
+                                    <h6 className='namefullletf'> 3 </h6>
+                                </div>
+                            </div>
+                            <div className='onlyforbdrre'>
+
+                            </div>
+
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxx'>
+                                    Team Info
+                                </h5>
+                                <h5 className='launchpadinfosssxxsmall'>
+                                    Team Member 1
+                                </h5>
+
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Name </h6>
+                                    <h6 className='namefullletf'> John Doe </h6>
+                                </div>
+                                <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Designation  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'> Discord link </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'> Twitter </h6>
+                                    <h6 className='namefullletf'> http://me.xn--c6h </h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Designation  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className='onlyforbdrre'>
+
+                            </div>
+
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxx'>
+                                    Mint info
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Mint Start Date </h6>
+                                    <h6 className='namefullletf'> 01/02/2024 2:44 PM</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Designation  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxxsmall'>
+                                    Mint Stage 1
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Name </h6>
+                                    <h6 className='namefullletf'>Presale 1</h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Discord address  </h6>
-                                    <h6 className='namefullletf'> i.me/johndoe </h6>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> 1d 2h 23m </h6>
                                 </div>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Sale Price </h6>
+                                    <h6 className='namefullletf'>15.258 CORE</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxxsmall'>
+                                    Mint Stage 2
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Name </h6>
+                                    <h6 className='namefullletf'>Presale 1</h6>
+                                </div>
+                                <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> 1d 2h 23m </h6>
+                                </div>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Sale Price </h6>
+                                    <h6 className='namefullletf'>15.258 CORE</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
+                            </div>
+                            <div className='onlyforbdrre'>
+
+                            </div>
+                            <div className="topdivfds">
+                                <h5 className='launchpadinfosssxx'>
+                                    Earnings
+                                </h5>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> earnings address </h6>
+                                    <h6 className='namefullletf eleipiess'>0xab6fd6074782c805933...</h6>
+                                </div>
+                                <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Platfrom Fees  </h6>
+                                    <h6 className='namefullletf'> 10% </h6>
+                                </div>
+                            </div>
+                            <div className='modfsrflex'>
+                                <div className='fsteft'>
+                                    <h6 className='usernnamee'> Your Earning </h6>
+                                    <h6 className='namefullletf'>90%</h6>
+                                </div>
+                                {/* <div className='fsteftsec'>
+                                    <h6 className='usernnamee'>Duration  </h6>
+                                    <h6 className='namefullletf'> Designer </h6>
+                                </div> */}
                             </div>
                         </div>
 
-                        {/* <div className='lastfoterbtn'>
+                        <div className='lastfoterbtn'>
                             <button className='rreject'>
                                 Reject
                             </button>
@@ -1579,7 +1706,7 @@ const Launchpad = () => {
                                 Approve
                             </button>
 
-                        </div> */}
+                        </div>
                     </Modal.Body>
                 </Modal>
             </div>

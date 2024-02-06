@@ -45,14 +45,16 @@ const Collections = () => {
                         <Dropdown className="amer_dropdonfst ">
                             <Dropdown.Toggle id="dropdown-basic">
                                 Sort by
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none">
+                                    <path d="M11.1308 0.634033H6.12637H1.61997C0.848825 0.634033 0.463251 1.50403 1.00948 2.01403L5.17046 5.89903C5.83719 6.52153 6.92161 6.52153 7.58833 5.89903L9.17079 4.42153L11.7493 2.01403C12.2875 1.50403 11.9019 0.634033 11.1308 0.634033Z" fill="#862FC0" />
+                                </svg>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item href="#/action-1">Sort By</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Name</Dropdown.Item>
-                                <Dropdown.Item href="#/action-1">Item Created</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Item Sold</Dropdown.Item>
-                                <Dropdown.Item href="#/action-1">Followers</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Following</Dropdown.Item>
+                                <Dropdown.Item href="#/action-1">Price: Hight to Low</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">Price: Low to High</Dropdown.Item>
+                   
                             </Dropdown.Menu>
                         </Dropdown>
                         {/* <Dropdown className="filyerbyns ">
@@ -997,13 +999,147 @@ const Collections = () => {
                                                     <td>
                                                         100,000 CORE
                                                     </td>
-
-
-                                            
                                                 </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className="mainimgdiv">
+                                                            <div className="inerimgd">
+                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                </img>
+                                                            </div>
+                                                            <p className="tableimgtext">
+                                                                Forganas
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        5,145
+                                                    </td>
 
+                                                    <td>
+                                                        100,000 CORE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className="mainimgdiv">
+                                                            <div className="inerimgd">
+                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                </img>
+                                                            </div>
+                                                            <p className="tableimgtext">
+                                                                Forganas
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        5,145
+                                                    </td>
 
+                                                    <td>
+                                                        100,000 CORE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className="mainimgdiv">
+                                                            <div className="inerimgd">
+                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                </img>
+                                                            </div>
+                                                            <p className="tableimgtext">
+                                                                Forganas
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        5,145
+                                                    </td>
 
+                                                    <td>
+                                                        100,000 CORE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className="mainimgdiv">
+                                                            <div className="inerimgd">
+                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                </img>
+                                                            </div>
+                                                            <p className="tableimgtext">
+                                                                Forganas
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        5,145
+                                                    </td>
+
+                                                    <td>
+                                                        100,000 CORE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className="mainimgdiv">
+                                                            <div className="inerimgd">
+                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                </img>
+                                                            </div>
+                                                            <p className="tableimgtext">
+                                                                Forganas
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        5,145
+                                                    </td>
+
+                                                    <td>
+                                                        100,000 CORE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className="mainimgdiv">
+                                                            <div className="inerimgd">
+                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                </img>
+                                                            </div>
+                                                            <p className="tableimgtext">
+                                                                Forganas
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        5,145
+                                                    </td>
+
+                                                    <td>
+                                                        100,000 CORE
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className="mainimgdiv">
+                                                            <div className="inerimgd">
+                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
+                                                                </img>
+                                                            </div>
+                                                            <p className="tableimgtext">
+                                                                Forganas
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        5,145
+                                                    </td>
+
+                                                    <td>
+                                                        100,000 CORE
+                                                    </td>
+                                                </tr>
 
                                             </tbody>
 

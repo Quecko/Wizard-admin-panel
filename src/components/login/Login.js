@@ -208,7 +208,7 @@ const Login = () => {
                         ) : null}
                         <Link  onClick={userLogin} className='btn-sign'>Sign In</Link>
                         {/* <Link to="/signup" className='btn-forgot'><span style={{ color: "#fff" }}>Don&apos;t have an account? &nbsp; </span> Sign up </Link> */}
-                        <Link to="/forgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
+                        <Link to="/ForgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
                     </div>
                 </div>
             </section>
