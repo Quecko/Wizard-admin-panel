@@ -1,6 +1,6 @@
 
 import "./launchpad.scss"
-// import { Dropdown, Modal, Pagination } from 'react-bootstrap';
+ import { Dropdown, Modal, Pagination } from 'react-bootstrap';
 import Environment from 'utils/Environment';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
@@ -115,7 +115,7 @@ const Launchpad = () => {
 
                             </Dropdown.Menu>
                         </Dropdown>
-                        {/* <Dropdown className="amer_dropdonfst ">
+                        <Dropdown className="amer_dropdonfst ">
                             <Dropdown.Toggle id="dropdown-basic">
                                 Sort by
                             </Dropdown.Toggle>
@@ -127,7 +127,7 @@ const Launchpad = () => {
                                 <Dropdown.Item href="#/action-1">Followers</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Following</Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown> */}
+                        </Dropdown>
                         <Dropdown className="filyerbyns ">
                             <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -149,10 +149,10 @@ const Launchpad = () => {
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div className="inneritem">
                                     Open Edition
-                                    <div className="main-outer-p">
 
                                         <div className="main-switch-nns">
                                             <div class="custom-control custom-switchs">
@@ -162,7 +162,7 @@ const Launchpad = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                             
                                 <div className="inneritem">
                                     limited Edition
                                     <div className="main-outer-p">
@@ -176,7 +176,7 @@ const Launchpad = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </Dropdown.Menu>
+                          </Dropdown.Menu>
                         </Dropdown>
                     </div>
 
@@ -199,7 +199,7 @@ const Launchpad = () => {
 
 
 
-                        {activeTab === 'live' && (
+                        // {activeTab === 'live' && (
                             <>
                                 <div className="maintablecreater">
                                     <div className="innertable_user table-responsive">
@@ -207,11 +207,11 @@ const Launchpad = () => {
                                             <thead>
                                                 <th>
                                                     project two
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    // <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     Supply
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
@@ -228,7 +228,7 @@ const Launchpad = () => {
                                                 </th>
                                                 <th  >
                                                     expected mint date
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
@@ -657,11 +657,11 @@ const Launchpad = () => {
                                             <thead>
                                                 <th>
                                                     project
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     Supply
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
@@ -678,7 +678,7 @@ const Launchpad = () => {
                                                 </th>
                                                 <th  >
                                                     expected mint date
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
@@ -1107,11 +1107,11 @@ const Launchpad = () => {
                                             <thead>
                                                 <th>
                                                     project name
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     Supply
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
@@ -1128,7 +1128,7 @@ const Launchpad = () => {
                                                 </th>
                                                 <th  >
                                                     expected mint date
-                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
@@ -1653,10 +1653,10 @@ const Launchpad = () => {
                                     <h6 className='usernnamee'> Twitter </h6>
                                     <h6 className='namefullletf'> http://me.xn--c6h </h6>
                                 </div>
-                                {/* <div className='fsteftsec'>
+                                <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Designation  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
-                                </div> */}
+                                </div>
                             </div>
                             <div className='onlyforbdrre'>
 
@@ -1672,10 +1672,10 @@ const Launchpad = () => {
                                     <h6 className='usernnamee'> Mint Start Date </h6>
                                     <h6 className='namefullletf'> 01/02/2024 2:44 PM</h6>
                                 </div>
-                                {/* <div className='fsteftsec'>
+                                <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Designation  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
-                                </div> */}
+                                </div>
                             </div>
                             <div className="topdivfds">
                                 <h5 className='launchpadinfosssxxsmall'>
@@ -1697,10 +1697,10 @@ const Launchpad = () => {
                                     <h6 className='usernnamee'> Sale Price </h6>
                                     <h6 className='namefullletf'>15.258 CORE</h6>
                                 </div>
-                                {/* <div className='fsteftsec'>
+                                <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Duration  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
-                                </div> */}
+                                </div>
                             </div>
                             <div className="topdivfds">
                                 <h5 className='launchpadinfosssxxsmall'>
@@ -1722,10 +1722,10 @@ const Launchpad = () => {
                                     <h6 className='usernnamee'> Sale Price </h6>
                                     <h6 className='namefullletf'>15.258 CORE</h6>
                                 </div>
-                                {/* <div className='fsteftsec'>
+                                <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Duration  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
-                                </div> */}
+                                </div>
                             </div>
                             <div className='onlyforbdrre'>
 
@@ -1750,10 +1750,10 @@ const Launchpad = () => {
                                     <h6 className='usernnamee'> Your Earning </h6>
                                     <h6 className='namefullletf'>90%</h6>
                                 </div>
-                                {/* <div className='fsteftsec'>
+                                 <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Duration  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
 
