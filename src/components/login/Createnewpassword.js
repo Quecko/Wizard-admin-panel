@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import React from 'react'
+import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 const Create = () => {
     return (
@@ -37,7 +37,7 @@ const Create = () => {
                                 <path d="M11.9998 21.2468C15.5298 21.2468 18.8198 19.1668 21.1098 15.5668C22.0098 14.1568 22.0098 11.7868 21.1098 10.3768C18.8198 6.77678 15.5298 4.69678 11.9998 4.69678C8.46984 4.69678 5.17984 6.77678 2.88984 10.3768C1.98984 11.7868 1.98984 14.1568 2.88984 15.5668C5.17984 19.1668 8.46984 21.2468 11.9998 21.2468Z" stroke="#745F8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
-                        <Link href="/successpassword" className='btn-sign mb-0'>Confirm</Link>
+                        <Link to="/successpassword" className='btn-sign mb-0'>Confirm</Link>
                     </div>
                 </div>
             </section>
@@ -45,4 +45,4 @@ const Create = () => {
     )
 }
 
-export default Create
+export default Create;

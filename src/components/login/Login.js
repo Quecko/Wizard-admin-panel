@@ -14,13 +14,7 @@ import Form from 'react-bootstrap/Form';
 const Login = () => {
     // const classes=useStyle();
     const api_url = Environment.api_url;
-
     const history = useHistory();
-
-
-
-
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
@@ -43,13 +37,14 @@ const Login = () => {
             setErrorPassword("Password is Required");
         } else {
             var data = JSON.stringify({
-                userEmail: email,
+                email: email,
                 password: password,
+                rememberMe:rememberMe,
             });
 
             var config = {
                 method: "post",
-                url: `${api_url}/users/admin-login`,
+                url: `${api_url}/auth/admins/signin`,
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -186,23 +181,34 @@ const Login = () => {
                         </div>
                         <div className="option-field">
                             <label>Email</label>
-                            <input type="text" placeholder='Your email...' />
+                            <input  value={email} onChange={(e) => { setEmail(e.target.value); setEmailErrorRegister(""); setError("") }} type="text" placeholder='Your email...' />
+                            <div>
+                                {emailerrorregister ? (
+                                    <p className="text-danger mt-2">{emailerrorregister}</p>
+                                ) : null}
+                            </div>
                         </div>
                         <div className="option-field">
                             <label>Password</label>
-                            <input type="text" placeholder='Your password...' />
+                            <input  value={password} onChange={(e) => { setPassword(e.target.value); setErrorPassword(""); setError("") }} type="password" placeholder='Your password...' />
+                            {errorpassword && (
+                                <p className="text-danger mt-2">{errorpassword}</p>
+                            )}
                         </div>
                         <div className="twice-items">
                             <div className="custom-check-style">
                                 <div class="form-group">
-                                    <input type="checkbox" id="html" />
+                                    <input  checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} type="checkbox" id="html" />
                                     <label for="html">Remember me</label>
                                 </div>
                             </div>
-                            <Link href="/ForgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
                         </div>
-                        <Link href="/collectiondashbord" className='btn-sign'>Sign In</Link>
-                        <Link href="/signup" className='btn-forgot'><span style={{ color: "#fff" }}>Don&apos;t have an account? &nbsp; </span> Sign up </Link>
+                        {error ? (
+                            <p className="input-Errors pb-3 text-danger mt-2">{error}</p>
+                        ) : null}
+                        <Link  onClick={userLogin} className='btn-sign'>Sign In</Link>
+                        {/* <Link to="/signup" className='btn-forgot'><span style={{ color: "#fff" }}>Don&apos;t have an account? &nbsp; </span> Sign up </Link> */}
+                        <Link to="/forgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
                     </div>
                 </div>
             </section>

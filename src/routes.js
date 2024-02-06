@@ -76,12 +76,7 @@ var routes = [
     name: "Applications",
     component: Applications,
     layout: "/admin",
-  },  {
-    path: "/forgotPassword",
-    name: "forgotPassword",
-    component: Login,
-    layout: "/admin",
-  },
+  }, 
 ];
 
 export default routes;

@@ -5,9 +5,124 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Backdrop } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { Dropdown, Pagination } from "react-bootstrap";
+import Environment from 'utils/Environment';
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+
+
+
 const Creators = () => {
   const [open, setOpen] = useState(false);
-  const [page, setPage] = useState(0);
+  const [offset, setOffset] = useState(1);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [limit, setLimit] = useState(100);
+  const [block, setBlock] = useState(false);
+  const [verify, setVerify] = useState(false);
+  const val = localStorage.getItem("accessToken");
+  const api_url = Environment.api_url;
+  const [creator, setCreator] = useState([]);
+
+  const handleVerifyFilter = (e) => {
+    if (e.target.checked) {
+      setVerify(true);
+      setBlock(false);
+    } else if (!e.target.checked) {
+      setVerify(false);
+    }
+  };
+
+  const handleBlockFilter = (e) => {
+    if (e.target.checked) {
+      setBlock(true);
+      setVerify(false);
+    } else if (!e.target.checked) {
+      setBlock(false);
+    }
+  };
+
+  const handleRemoveFilter = (e) => {
+    if (e.target.checked) {
+      setBlock(false);
+      setVerify(false);
+    }
+  };
+
+  const getCreater = async (val) => {
+    const config = {
+      method: "get",
+      url: `${api_url}/creators?limit=10&offset=1`,
+      headers: {
+        Authorization: "Bearer " + val,
+      },
+    };
+    const response = await axios(config);
+    console.log(response?.data?.data?.creators);
+    setCreator(response?.data?.data?.creators);
+  };
+
+
+  useEffect(() => {
+    getCreater(val);
+  }, [])
+
+  const verifiedCreator = async (id) => {
+    // setLoader(true);
+    const config = {
+      method: "patch",
+      url: api_url + "/creators/" + id + "/is-verified",
+      headers: {
+        Authorization: "Bearer " + val,
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        // setLoader(false);
+      })
+      .catch((err) => {
+        if (err?.response?.status == 501) {
+          // history.push("/");
+        } else {
+          console.log("error meessage: ", err?.response?.data?.message);
+          toast.error(err?.response?.data?.message, {
+            position: "top-right",
+            autoClose: 2000,
+          });
+        }
+
+      });
+  };
+
+  const blockCreator = async (id) => {
+    // setLoader(true);
+    const config = {
+      method: "patch",
+      url: api_url + "/creators/" + id + "/is-blocked",
+      headers: {
+        Authorization: "Bearer " + val,
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        // setLoader(false);
+      })
+      .catch((err) => {
+        if (err?.response?.status == 501) {
+          // history.push("/");
+        } else {
+          console.log("error meessage: ", err?.response?.data?.message);
+          toast.error(err?.response?.data?.message, {
+            position: "top-right",
+            autoClose: 2000,
+          });
+        }
+
+      });
+  };
+
+
+
+
   return (
     <>
       <Backdrop className="loader" sx={{ color: '#0000' }} open={open}><CircularProgress color="inherit" /></Backdrop>
@@ -48,12 +163,8 @@ const Creators = () => {
                 Sort by
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Sort By</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Name</Dropdown.Item>
-                <Dropdown.Item href="#/action-1">Item Created</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Item Sold</Dropdown.Item>
-                <Dropdown.Item href="#/action-1">Followers</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Following</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">Name</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">itemsCreated</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
             <Dropdown className="filyerbyns ">
@@ -87,7 +198,7 @@ const Creators = () => {
                   <th>items created
                     <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                   </th>
-                  <th>Items sold
+                  {/* <th>Items sold
                     <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                   </th>
                   <th>Followers
@@ -95,7 +206,7 @@ const Creators = () => {
                   </th>
                   <th>Following
                     <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
-                  </th>
+                  </th> */}
                   <th>Verified
                     <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                   </th>
@@ -104,293 +215,59 @@ const Creators = () => {
                   </th>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div className="mainimgdiv">
-                        <div className="inerimgd">
-                          <img src="\users-assets\admin-img.png" className="tableimgginer">
-                          </img>
-                        </div>
-                        <p className="tableimgtext">
-                          Ramon
-                        </p>
-                      </div>
-                    </td>
-                    <td>54 items</td>
-                    <td>
+                  {creator.map((item, index) => {
+                    return (
+                      <>
+                        <tr key={index}>
+                          <td>
+                            <div className="mainimgdiv">
+                              <div className="inerimgd">
+                                <img src={item?.profileImageUrl} className="tableimgginer">
+                                </img>
+                              </div>
+                              <p className="tableimgtext">
+                                Ramon
+                              </p>
+                            </div>
+                          </td>
+                          <td>{item?.itemsCreated} items</td>
+                          {/* <td>
                       <span className="eleipiess">
                         25 items
                       </span>
                     </td>
                     <td>3.7K</td>
-                    <td>1.5K</td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches1" />
-                            <label class="custom-control-label" for="customSwitches1"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                            <label class="custom-control-label" for="customSwitches2"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className="mainimgdiv">
-                        <div className="inerimgd">
-                          <img src="\users-assets\admin-img.png" className="tableimgginer">
-                          </img>
-                        </div>
-                        <p className="tableimgtext">
-                          Ramon
-                        </p>
-                      </div>
-                    </td>
-                    <td>54 items</td>
-                    <td>
-                      <span className="eleipiess">
-                        25 items
-                      </span>
-                    </td>
-                    <td>3.7K</td>
-                    <td>1.5K</td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitchesd" />
-                            <label class="custom-control-label" for="customSwitchesd"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches3" />
-                            <label class="custom-control-label" for="customSwitches3"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className="mainimgdiv">
-                        <div className="inerimgd">
-                          <img src="\users-assets\admin-img.png" className="tableimgginer">
-                          </img>
-                        </div>
-                        <p className="tableimgtext">
-                          Ramon
-                        </p>
-                      </div>
-                    </td>
-                    <td>54 items</td>
-                    <td>
-                      <span className="eleipiess">
-                        25 items
-                      </span>
-                    </td>
-                    <td>3.7K</td>
-                    <td>1.5K</td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches4" />
-                            <label class="custom-control-label" for="customSwitches4"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches5" />
-                            <label class="custom-control-label" for="customSwitches5"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className="mainimgdiv">
-                        <div className="inerimgd">
-                          <img src="\users-assets\admin-img.png" className="tableimgginer">
-                          </img>
-                        </div>
-                        <p className="tableimgtext">
-                          Ramon
-                        </p>
-                      </div>
-                    </td>
-                    <td>54 items</td>
-                    <td>
-                      <span className="eleipiess">
-                        25 items
-                      </span>
-                    </td>
-                    <td>3.7K</td>
-                    <td>1.5K</td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className="mainimgdiv">
-                        <div className="inerimgd">
-                          <img src="\users-assets\admin-img.png" className="tableimgginer">
-                          </img>
-                        </div>
-                        <p className="tableimgtext">
-                          Ramon
-                        </p>
-                      </div>
-                    </td>
-                    <td>54 items</td>
-                    <td>
-                      <span className="eleipiess">
-                        25 items
-                      </span>
-                    </td>
-                    <td>3.7K</td>
-                    <td>1.5K</td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className="mainimgdiv">
-                        <div className="inerimgd">
-                          <img src="\users-assets\admin-img.png" className="tableimgginer">
-                          </img>
-                        </div>
-                        <p className="tableimgtext">
-                          Ramon
-                        </p>
-                      </div>
-                    </td>
-                    <td>54 items</td>
-                    <td>
-                      <span className="eleipiess">
-                        25 items
-                      </span>
-                    </td>
-                    <td>3.7K</td>
-                    <td>1.5K</td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div className="mainimgdiv">
-                        <div className="inerimgd">
-                          <img src="\users-assets\admin-img.png" className="tableimgginer">
-                          </img>
-                        </div>
-                        <p className="tableimgtext">
-                          Ramon
-                        </p>
-                      </div>
-                    </td>
-                    <td>54 items</td>
-                    <td>
-                      <span className="eleipiess">
-                        25 items
-                      </span>
-                    </td>
-                    <td>3.7K</td>
-                    <td>1.5K</td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="main-outer-p">
-                        <div className="main-switch-nn">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                            <label class="custom-control-label" for="customSwitches"></label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                    <td>1.5K</td> */}
+                          <td>
+                            <div className="main-outer-p">
+                              <div className="main-switch-nn">
+                                <div class="custom-control custom-switch">
+                                  <input defaultChecked={item?.isVerified} onChange={() =>
+                                    verifiedCreator(item?._id)
+                                  } type="checkbox" class="custom-control-input" id="customSwitches1" />
+                                  <label class="custom-control-label" for="customSwitches1"></label>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="main-outer-p">
+                              <div className="main-switch-nn">
+                                <div class="custom-control custom-switch">
+                                  <input defaultChecked={item?.isBlocked} onChange={() =>
+                                    blockCreator(item?._id)
+                                  } type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                  <label class="custom-control-label" for="customSwitches2"></label>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )
+                  })}
+
+
                 </tbody>
               </table>
             </div>
