@@ -214,7 +214,7 @@ const Login = () => {
                         {error ? (
                             <p className="input-Errors pb-3 text-danger mt-2">{error}</p>
                         ) : null}
-                        <Link to="/admin/Dashboard" className='btn-sign'>Sign In</Link>
+                        <Link onClick={userLogin} className='btn-sign'>Sign In</Link>
                         {/* <Link to="/signup" className='btn-forgot'><span style={{ color: "#fff" }}>Don&apos;t have an account? &nbsp; </span> Sign up </Link> */}
                         <Link to="/ForgotPassword" className='btn-forgotpassword'>Forgot Password?</Link>
                     </div>

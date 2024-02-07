@@ -179,13 +179,13 @@ const Creators = () => {
                 </svg>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">  Sort by</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">  Sort by</Dropdown.Item>
                 <Dropdown.Item href="#/action-1">Name</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">items Created</Dropdown.Item>
                 <Dropdown.Item href="#/action-1">Item Sold</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Followers</Dropdown.Item>
                 <Dropdown.Item href="#/action-1">Following</Dropdown.Item>
-       
+
               </Dropdown.Menu>
             </Dropdown>
             <Dropdown className="filyerbyns ">
@@ -292,20 +292,25 @@ const Creators = () => {
                     </td>
                     <td>3.7K</td>
                     <td>1.5K</td> */}
-                          <td>
-                            <div className="main-outer-p">
+                          <td className=""> 
+                            <div className="main-outer-ps">
                               <div className="main-switch-nn">
-                                <div class="custom-control custom-switch">
-                                  <input defaultChecked={item?.isVerified} onChange={() =>
+                                <div class="custom-controlcustomswitch createrswitch">
+                                  {/* <input defaultChecked={item?.isVerified} onChange={() =>
                                     verifiedCreator(item?._id)
                                   } type="checkbox" class="custom-control-input" id="customSwitches1" />
-                                  <label class="custom-control-label" for="customSwitches1"></label>
+                                  <label class="custom-control-label" for="customSwitches1"></label> */}
+
+                                  <label class="switch">
+                                    <input type="checkbox"  />
+                                    <span class="slider round"></span>
+                                  </label>
                                 </div>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <div className="main-outer-p">
+                            <div className="main-outer-ps">
                               <div className="main-switch-nn">
                                 <div class="custom-control custom-switch">
                                   <input defaultChecked={item?.isBlocked} onChange={() =>
