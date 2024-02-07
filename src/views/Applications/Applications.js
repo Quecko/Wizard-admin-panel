@@ -300,7 +300,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -335,7 +335,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -370,7 +370,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -405,7 +405,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -440,7 +440,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -475,7 +475,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -510,7 +510,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -545,7 +545,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -580,7 +580,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -615,7 +615,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
 
@@ -737,7 +737,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -772,7 +772,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -807,7 +807,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -842,7 +842,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -877,7 +877,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -912,7 +912,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -947,7 +947,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -982,7 +982,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1017,7 +1017,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1052,7 +1052,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
 
@@ -1174,7 +1174,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1209,7 +1209,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1244,7 +1244,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1279,7 +1279,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1314,7 +1314,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1349,7 +1349,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1384,7 +1384,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1419,7 +1419,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1454,7 +1454,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1489,7 +1489,7 @@ useEffect(() => {
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Detail</button>
+                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
                                                                 </td>
                                                             </tr>
 
@@ -1568,7 +1568,7 @@ useEffect(() => {
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft w-100'>
-                                    <h6 className='usernnamee'>Limited edition </h6>
+                                    <h6 className='usernnamee'>Launchpad Description </h6>
                                     <h6 className='namefullletdestpn'> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt. </h6>
                                 </div>
                             </div>
@@ -1714,7 +1714,7 @@ useEffect(() => {
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
-                                    <h6 className='usernnamee'> earnings address </h6>
+                                    <h6 className='usernnamee'> Earnings Address </h6>
                                     <h6 className='namefullletf eleipiess'>0xab6fd6074782c805933...</h6>
                                 </div>
                                 <div className='fsteftsec'>

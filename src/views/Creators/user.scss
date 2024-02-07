@@ -124,6 +124,7 @@
       text-transform: capitalize;
       margin-top: 5px !important;
       inset: 0px auto auto 0px !important;
+      border-radius: 10px;
       a.dropdown-item {
         display: flex;
         padding: 14px 18px;
@@ -136,9 +137,16 @@
         font-weight: 400;
         line-height: 100%; /* 14px */
         text-transform: capitalize;
+        border-radius: 7px;
+        margin: -9px -1px 0px -1px;
         &:hover {
           background: #1f112d;
           color: #862fc0;
+          margin: -9px -1px 0px -1px;
+    // border-top-left-radius: 10px;
+    // border-top-right-radius: 10px;
+    width: 184px;
+    border-radius: 7px;
         }
       }
     }
@@ -192,7 +200,7 @@
         text-transform: capitalize;
         display: flex;
         justify-content: space-between;
-        align-items: self-start;
+        // align-items: center;
         padding: 14px 18px;
         &:hover {
           background: #1f112d;
@@ -749,6 +757,7 @@ a:not([href]):not([class]) {
       width: 100%;
       thead {
         padding: 0px;
+        border-bottom: 1px solid #1b1b1b;
         th {
           color: #fff;
           font-family: Lexend;
@@ -1751,7 +1760,9 @@ a:not([href]):not([class]) {
     }
   }
 }
-
+.forgtedpesaw {
+  font-size: 15px ;
+}
 .outertabsnewdesign {
   max-width: 425px !important;
   gap: 0px !important;

@@ -39,7 +39,7 @@ const Login = () => {
             var data = JSON.stringify({
                 email: email,
                 password: password,
-                rememberMe:rememberMe,
+                rememberMe: rememberMe,
             });
 
             var config = {
@@ -181,7 +181,7 @@ const Login = () => {
                         </div>
                         <div className="option-field">
                             <label>Email</label>
-                            <input  value={email} onChange={(e) => { setEmail(e.target.value); setEmailErrorRegister(""); setError("") }} type="text" placeholder='Your email...' />
+                            <input value={email} onChange={(e) => { setEmail(e.target.value); setEmailErrorRegister(""); setError("") }} type="text" placeholder='Your email...' />
                             <div>
                                 {emailerrorregister ? (
                                     <p className="text-danger mt-2">{emailerrorregister}</p>
@@ -190,16 +190,24 @@ const Login = () => {
                         </div>
                         <div className="option-field">
                             <label>Password</label>
-                            <input  value={password} onChange={(e) => { setPassword(e.target.value); setErrorPassword(""); setError("") }} type="password" placeholder='Your password...' />
+                            <input value={password} onChange={(e) => { setPassword(e.target.value); setErrorPassword(""); setError("") }} type="password" placeholder='Your password...' />
                             {errorpassword && (
                                 <p className="text-danger mt-2">{errorpassword}</p>
                             )}
                         </div>
                         <div className="twice-items">
                             <div className="custom-check-style">
-                                <div class="form-group">
-                                    <input  checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} type="checkbox" id="html" />
-                                    <label for="html">Remember me</label>
+                                <div class="form-group adasdsadasdasdsadsad">
+                                    {/* <input className='chrreeddgtrer' checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} type="checkbox" id="html" />
+                                    <label for="html">Remember me</label> */}
+
+                                    <label class="containersssss">Remember me
+                                        <input type="checkbox" checked="checked"/>
+                                            <span class="checkmark"></span>
+                                    </label>
+
+
+
                                 </div>
                             </div>
                         </div>

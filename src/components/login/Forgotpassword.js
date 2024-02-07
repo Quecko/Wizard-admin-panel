@@ -70,7 +70,8 @@ const ForgotPassword = () => {
             <div className="main-card">
                 <div className="main-heading">
                     <h6>Forgot your Password?</h6>
-                    <p>Enter your registered email to receive password reset instructions.</p>
+                    <p className='forgtedpesaw'>Enter your registered email to receive password reset instructions.</p>
+                    {/* <p>Enter your registered email to receive password reset instructions.</p> */}
                 </div>
                 <div className="option-field">
                     <label>Email</label>

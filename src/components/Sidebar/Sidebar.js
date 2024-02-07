@@ -211,15 +211,13 @@ function Sidebar(props) {
               <p className="">Collections</p>
             </Link>
           </li>
-
-  
           <li className='nav-item'>
             <Link
               to={`/admin/launchpad`}
               className={props.brandName == "Launchpad" ? "nav-link activecustomclasss" : "nav-link"}
             >
 
-              <svg xmlns="http://www.w3.org/2000/svg" className="iconns" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" className="iconns" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <g clip-path="url(#clip0_267_8464)">
                   <path d="M12 24C5.38581 24 0 18.6142 0 12C0 5.38581 5.38581 0 12 0C18.6142 0 24 5.38581 24 12C24 18.6142 18.6142 24 12 24ZM12 1.14279C6.01423 1.14279 1.14279 6.01423 1.14279 12C1.14279 17.9858 6.01423 22.8572 12 22.8572C17.9858 22.8572 22.8572 17.9858 22.8572 12C22.8572 6.01423 17.9858 1.14279 12 1.14279Z" fill="#725196" />
                   <path d="M13.143 13.1428C11.8807 13.1428 10.8574 12.1195 10.8574 10.8572C10.8574 9.59471 11.8807 8.57141 13.143 8.57141C14.4055 8.57141 15.4288 9.59471 15.4288 10.8572C15.4288 12.1195 14.4055 13.1428 13.143 13.1428ZM13.143 9.7142C12.5119 9.7142 12.0002 10.2258 12.0002 10.8572C12.0002 11.4883 12.5119 12 13.143 12C13.7743 12 14.286 11.4883 14.286 10.8572C14.286 10.2258 13.7743 9.7142 13.143 9.7142Z" fill="#725196" />
@@ -237,6 +235,9 @@ function Sidebar(props) {
               <p className="">Launchpads</p>
             </Link>
           </li>
+
+  
+     
           <li className='nav-item'>
             <Link
               to={`/admin/applications`}
@@ -252,7 +253,7 @@ function Sidebar(props) {
               <p className="">Applications</p>
             </Link>
           </li>
-          : ''
+       
 
 
 
