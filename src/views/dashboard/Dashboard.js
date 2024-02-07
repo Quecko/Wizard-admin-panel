@@ -1,21 +1,55 @@
-import React, { useState } from 'react';
-
+import Environment from 'utils/Environment';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import arrowdown from "assets/img/userflow/arrow-down.png";
 import ReactApexChart from "react-apexcharts";
 import './dashboard.scss';
+import { useHistory } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import DatePicker, { Calendar, DateObject } from "react-multi-date-picker";
 
 function Dashboard() {
-
+  const api_url = Environment.api_url;
+  const val = localStorage.getItem("accessToken");
+  const history = useHistory();
   const [setalllset, setSetalllset] = useState();
   const [setDataTime, setSetDataTime] = useState();
+  const [stats, setStats] = useState([]);
   const [alllset, setAlllset] = useState();
   const [showcalendar2, setShowCalendar2] = useState(false);
   const [showcalendar1, setShowCalendar1] = useState(false);
   const [showcalendar3, setShowCalendar3] = useState(false);
   const [showcalendar4, setShowCalendar4] = useState(false);
   const Acls = JSON.parse(localStorage.getItem('acls'))
+
+
+  const getOrderStats = async () => {
+   
+    setStats([]);
+    const config = {
+      method: "get",
+      url: api_url + "/admins/stats",
+      headers: {
+        Authorization: "Bearer " + val,
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        const resData = res?.data?.data;
+        console.log("order stats: ", resData);
+        setStats(resData);
+      })
+      .catch((error) => {
+        if (error?.response?.status == 501) {
+          localStorage.removeItem("accessToken");
+          history.push("/");
+        }
+      });
+  };
+
+  useEffect(() => {
+      getOrderStats();
+  }, []);
 
   const [options, setobject] = useState({
     chart: {
@@ -206,7 +240,14 @@ function Dashboard() {
                     </div>
                     <div className="innercontent">
                       <h6 className="inertext">Total Users</h6>
-                      <h3 className="commoncardtext">178+</h3>
+                      {stats?.users &&
+                        Object.keys(stats).length > 0 ? (
+                      <h3 className="commoncardtext">   {" "}
+                      {stats?.users}</h3>
+                      ) : (
+                        <h3 className="commoncardtext">   {" "}
+                        0</h3>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -217,7 +258,14 @@ function Dashboard() {
                     </div>
                     <div className="innercontent">
                       <h6 className="inertext">Total NFTs</h6>
-                      <h3 className="commoncardtext">178+</h3>
+                      {stats?.nfts  &&
+                        Object.keys(stats).length > 0 ? (
+                      <h3 className="commoncardtext">   {" "}
+                      {stats?.nfts}</h3>
+                      ) : (
+                        <h3 className="commoncardtext">   {" "}
+                      0</h3>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -232,7 +280,14 @@ function Dashboard() {
                     </div>
                     <div className="innercontent">
                       <h6 className="inertext">Total Collections</h6>
-                      <h3 className="commoncardtext">178+</h3>
+                      {stats?.collections &&
+                        Object.keys(stats).length > 0 ? (
+                      <h3 className="commoncardtext">   {" "}
+                      {stats?.collections}</h3>
+                      ) : (
+                        <h3 className="commoncardtext">   {" "}
+                        0</h3>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -243,7 +298,14 @@ function Dashboard() {
                     </div>
                     <div className="innercontent">
                       <h6 className="inertext">Total Transactions</h6>
-                      <h3 className="commoncardtext">178+</h3>
+                      {stats?.transactions &&
+                        Object.keys(stats).length > 0 ? (
+                      <h3 className="commoncardtext">   {" "}
+                      {stats?.transactions}</h3>
+                      ) : (
+                        <h3 className="commoncardtext">   {" "}
+                        0</h3>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -254,7 +316,14 @@ function Dashboard() {
                     </div>
                     <div className="innercontent">
                       <h6 className="inertext">Total Artists</h6>
-                      <h3 className="commoncardtext">178+</h3>
+                      {stats?.creators &&
+                        Object.keys(stats).length > 0 ? (
+                      <h3 className="commoncardtext">   {" "}
+                      {stats?.creators}</h3>
+                      ) : (
+                        <h3 className="commoncardtext">   {" "}
+                        0</h3>
+                      )}
                     </div>
                   </div>
                 </div>
