@@ -202,7 +202,7 @@ const Launchpad = () => {
 
 
 
-                        // {activeTab === 'live' && (
+                         {activeTab === 'live' && (
                             <>
                                 <div className="maintablecreater">
                                     <div className="innertable_user table-responsive">
@@ -210,7 +210,7 @@ const Launchpad = () => {
                                             <thead>
                                                 <th>
                                                     project two
-                                                    // <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                     <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                                                 </th>
                                                 <th>
                                                     Supply
