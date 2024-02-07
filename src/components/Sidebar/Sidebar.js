@@ -182,7 +182,7 @@ function Sidebar(props) {
               <p className="">Creators</p>
             </Link>
           </li>
-
+{/* 
           <li className='nav-item'>
             <Link
               to={`/admin/nfts`}
@@ -197,7 +197,7 @@ function Sidebar(props) {
               </svg>
               <p className="">NFTs</p>
             </Link>
-          </li>
+          </li> */}
           <li className='nav-item'>
             <Link
               to={`/admin/collections`}
