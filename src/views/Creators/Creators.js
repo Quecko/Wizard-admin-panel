@@ -47,6 +47,8 @@ const Creators = () => {
     if (e.target.checked) {
       setBlock(false);
       setVerify(false);
+    } else if (!e.target.checked) {
+      setAll(true);
     }
   };
 
@@ -210,19 +212,19 @@ const Creators = () => {
                                     </div> */}
                   <div class="content">
                     <label class="checkBox">
-                      <input id="ch1" type="checkbox" />
+                      <input checked={all} onChange={(e) => handleRemoveFilter(e)}id="ch1" type="checkbox" />
                       <div class="transition"></div>
                     </label>
                   </div>
                 </div>
                 <div className="inneritem">
-                  Limited Edition
+                  Verify
 
 
                   <div class="content">
                     <label class="checkBox">
-                      <input id="ch1" type="checkbox" />
-                      <div class="transition"></div>
+                      <input checked={verify} onChange={(e) => handleVerifyFilter(e)} id="ch1" type="checkbox" />
+                      <div  class="transition"></div>
                     </label>
                   </div>
 
@@ -233,7 +235,7 @@ const Creators = () => {
 
                   <div class="content">
                     <label class="checkBox">
-                      <input id="ch1" type="checkbox" />
+                      <input checked={block} onChange={(e) => handleBlockFilter(e)} id="ch1" type="checkbox" />
                       <div class="transition"></div>
                     </label>
 
@@ -302,7 +304,9 @@ const Creators = () => {
                                   <label class="custom-control-label" for="customSwitches1"></label> */}
 
                                   <label class="switch">
-                                    <input type="checkbox"  />
+                                    <input defaultChecked={item?.isVerified} onChange={() =>
+                                    verifiedCreator(item?._id)
+                                  } type="checkbox"  />
                                     <span class="slider round"></span>
                                   </label>
                                 </div>
@@ -317,6 +321,7 @@ const Creators = () => {
                                     blockCreator(item?._id)
                                   } type="checkbox" class="custom-control-input" id="customSwitches2" />
                                   <label class="custom-control-label" for="customSwitches2"></label>
+                                  
                                 </div>
                               </div>
                             </div>

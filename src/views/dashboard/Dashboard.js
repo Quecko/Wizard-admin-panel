@@ -251,7 +251,7 @@ function Dashboard() {
                     </div>
                   </div>
                 </div>
-                <div className="new_card">
+                {/* <div className="new_card">
                   <div className='cardinercont'>
                     <div className="imgouterdiv">
                       <img src="\dashboard\card2.svg" className="inoncardiner" />
@@ -268,7 +268,7 @@ function Dashboard() {
                       )}
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="new_card">
                   <div className='cardinercont'>
                     <div className="imgouterdiv">
