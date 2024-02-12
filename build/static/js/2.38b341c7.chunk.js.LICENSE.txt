@@ -11,8 +11,8 @@ object-assign
 */
 
 /*!
- * ApexCharts v3.44.0
- * (c) 2018-2023 ApexCharts
+ * ApexCharts v3.45.2
+ * (c) 2018-2024 ApexCharts
  * Released under the MIT License.
  */
 
@@ -91,3 +91,5 @@ object-assign
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
+//! moment.js
