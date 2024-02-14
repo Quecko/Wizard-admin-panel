@@ -18,6 +18,8 @@ const Creators = () => {
   const [block, setBlock] = useState(false);
   const [verify, setVerify] = useState(false);
   const [all, setAll] = useState(false);
+  const [item, setItem] = useState(false);
+  const [name, setName] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const val = localStorage.getItem("accessToken");
   const api_url = Environment.api_url;
@@ -69,44 +71,49 @@ const Creators = () => {
   };
 
 
-  const getCreater = async () => {
+  const getCreater = async (orderField = 'createdAt', orderDirection = -1) => {
     setLoader(true);
-    let apiUrl = api_url + "/creators?limit=" + limit + "&offset=" + page+ "&orderField=createdAt"+ "&orderDirection=-1";
+    let apiUrl = api_url + "/creators?limit=" + limit + "&offset=" + page + "&orderField=" + orderField + "&orderDirection=" + orderDirection;
 
     if (searchQuery) {
-      apiUrl += "&search=" + searchQuery;
+        apiUrl += "&search=" + searchQuery;
     }
 
     apiUrl += verify ? "&isVerified=true" : block ? "&isBlocked=true" : "";
 
     const config = {
-      method: "get",
-      url: apiUrl,
-      headers: {
-        Authorization: "Bearer " + val,
-      },
+        method: "get",
+        url: apiUrl,
+        headers: {
+            Authorization: "Bearer " + val,
+        },
     };
 
     axios(config)
-      .then(response => {
-        console.log(response?.data?.data?.creators);
-        setCreator(response?.data?.data?.creators);
-        setPageCount(response?.data?.data?.count);
-        window.scroll(0, 0);
-        setLoader(false);
-      })
-      .catch(error => {
-        console.error('Error fetching creators:', error);
-        // Handle error here
-        setLoader(false);
-      });
-  };
+        .then(response => {
+            console.log(response?.data?.data?.creators);
+            setCreator(response?.data?.data?.creators);
+            setPageCount(response?.data?.data?.count);
+            window.scroll(0, 0);
+            setLoader(false);
+        })
+        .catch(error => {
+            console.error('Error fetching creators:', error);
+            // Handle error here
+            setLoader(false);
+        });
+};
   useEffect(() => {
     getCreater();
   }, [page, verify, searchQuery, block, all])
 
 
-
+  const changeSortingOrder = (orderField, orderDirection) => {
+    // Logic to toggle the sorting order
+    const newOrderDirection = orderDirection === 1 ? 1 : -1;
+    // Call getCreater function with new sorting parameters
+    getCreater(orderField, newOrderDirection);
+};
 
 
 
@@ -293,11 +300,11 @@ const Creators = () => {
                     <div className='volmouter'>
                       Artist name
                       <div className='sidearrowtb'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                        <svg onClick={() => (changeSortingOrder('name', 1),setName(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!name ? "white":"#2C253E"} />
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                        <svg onClick={() => (changeSortingOrder('name', -1),setName(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={name ? "white":"#2C253E"} />
                         </svg>
                       </div>
                     </div>
@@ -307,11 +314,11 @@ const Creators = () => {
                     <div className='volmouter'>
                       items created
                       <div className='sidearrowtb'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                        <svg onClick={() => (changeSortingOrder('itemsCreated', 1),setItem(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!item ? "white":"#2C253E"} />
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                        <svg onClick={() => (changeSortingOrder('itemsCreated', -1),setItem(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={item ? "white":"#2C253E"} />
                         </svg>
                       </div>
                     </div>
@@ -332,14 +339,14 @@ const Creators = () => {
                   <th>
                     <div className='volmouter'>
                       Verified
-                      <div className='sidearrowtb'>
+                      {/* <div className='sidearrowtb'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                           <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                           <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
                         </svg>
-                      </div>
+                      </div> */}
                     </div>
                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                   </th>
@@ -347,14 +354,14 @@ const Creators = () => {
 
                     <div className='volmouter'>
                       Block artist
-                      <div className='sidearrowtb'>
+                      {/* <div className='sidearrowtb'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                           <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                           <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
                         </svg>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
