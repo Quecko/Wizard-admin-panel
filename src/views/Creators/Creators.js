@@ -25,7 +25,7 @@ const Creators = () => {
 
   // pagination ============
 
-  const [limit] = useState(3);
+  const [limit] = useState(10);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState([]);
 
@@ -71,7 +71,7 @@ const Creators = () => {
 
   const getCreater = async () => {
     setLoader(true);
-    let apiUrl = api_url + "/creators?limit=" + limit + "&offset=" + page;
+    let apiUrl = api_url + "/creators?limit=" + limit + "&offset=" + page+ "&orderField=createdAt"+ "&orderDirection=-1";
 
     if (searchQuery) {
       apiUrl += "&search=" + searchQuery;
@@ -92,6 +92,7 @@ const Creators = () => {
         console.log(response?.data?.data?.creators);
         setCreator(response?.data?.data?.creators);
         setPageCount(response?.data?.data?.count);
+        window.scroll(0, 0);
         setLoader(false);
       })
       .catch(error => {
@@ -289,8 +290,8 @@ const Creators = () => {
               <table>
                 <thead>
                   <th>
-                  <div className='volmouter'>
-                  Artist name
+                    <div className='volmouter'>
+                      Artist name
                       <div className='sidearrowtb'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                           <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
@@ -303,8 +304,8 @@ const Creators = () => {
                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                   </th>
                   <th>
-                  <div className='volmouter'>
-                  items created
+                    <div className='volmouter'>
+                      items created
                       <div className='sidearrowtb'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                           <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
@@ -314,9 +315,9 @@ const Creators = () => {
                         </svg>
                       </div>
                     </div>
-                    
-                    
-                  
+
+
+
                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                   </th>
                   {/* <th>Items sold
@@ -385,13 +386,13 @@ const Creators = () => {
                     <td>3.7K</td>
                     <td>1.5K</td> */}
                             <td className="">
-                              <div className="main-outer-ps">
+                              {/* <div className="main-outer-ps">
                                 <div className="main-switch-nn">
                                   <div class="custom-controlcustomswitch createrswitch">
-                                    {/* <input defaultChecked={item?.isVerified} onChange={() =>
+                                    <input defaultChecked={item?.isVerified} onChange={() =>
                                     verifiedCreator(item?._id)
                                   } type="checkbox" class="custom-control-input" id="customSwitches1" />
-                                  <label class="custom-control-label" for="customSwitches1"></label> */}
+                                  <label class="custom-control-label" for="customSwitches1"></label>
 
                                     <label class="switch">
                                       <input defaultChecked={item?.isVerified} onChange={() =>
@@ -401,19 +402,21 @@ const Creators = () => {
                                     </label>
                                   </div>
                                 </div>
-                              </div>
+                              </div> */}
                               <div className="main-outer-p">
 
                                 <div className="main-switch-nn">
                                   <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                                    <label class="custom-control-label" for="customSwitches"></label>
+                                    <input type="checkbox" class="custom-control-input" id={`customSwitches-${item._id}`}
+                                      defaultChecked={item.isVerified}
+                                      onChange={() => verifiedCreator(item._id)} />
+                                    <label class="custom-control-label" htmlFor={`customSwitches-${item._id}`} ></label>
                                   </div>
                                 </div>
                               </div>
                             </td>
                             <td>
-                              <div className="main-outer-ps">
+                              {/* <div className="main-outer-ps">
                                 <div className="main-switch-nn">
                                   <div class="custom-control createrswitch">
                                     <label class="switch">
@@ -424,9 +427,20 @@ const Creators = () => {
 
                                   </div>
                                 </div>
+                              </div> */}
+                              <div className="main-outer-p">
+
+                                <div className="main-switch-nn">
+                                  <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id={`customSwitche-${item._id}`}
+                                      defaultChecked={item.isBlocked}
+                                      onChange={() => blockCreator(item._id)} />
+                                    <label class="custom-control-label" htmlFor={`customSwitche-${item._id}`} ></label>
+                                  </div>
+                                </div>
                               </div>
                             </td>
-                          </tr>
+                          </tr >
                         </>
                       )
                     })
@@ -497,7 +511,7 @@ const Creators = () => {
 
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }

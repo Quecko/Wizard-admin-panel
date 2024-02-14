@@ -122,6 +122,7 @@ const Launchpad = () => {
 
     const getLaunchpads = async (duration) => {
         setLoader(true);
+        setApplications([]);
         let apiUrl = api_url + "/launchpads/approved?limit=" + limit + "&offset=" + page + "&duration=" + duration;
     
         if (searchQuery) {
@@ -143,6 +144,7 @@ const Launchpad = () => {
             console.log(response?.data?.data?.creators);
             setApplications(response?.data?.data?.launchpads);
             setPageCount(response?.data?.data?.count);
+            window.scroll(0,0);
             setLoader(false);
         } catch (error) {
             // Handle error
@@ -193,7 +195,7 @@ const Launchpad = () => {
 
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Dropdown className="amer_dropdonfst ">
+                        {/* <Dropdown className="amer_dropdonfst ">
                             <Dropdown.Toggle id="dropdown-basic">
                                 Sort by
                             </Dropdown.Toggle>
@@ -205,7 +207,7 @@ const Launchpad = () => {
                                 <Dropdown.Item href="#/action-1">Followers</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Following</Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                         <Dropdown className="filyerbyns ">
                             <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">

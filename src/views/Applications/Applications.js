@@ -211,6 +211,7 @@ const Applications = () => {
             console.log(response?.data?.data?.applications);
             setApplications(response?.data?.data?.applications);
             setPageCount(response?.data?.data?.count);
+            window.scroll(0,0);
             setLoader(false);
         } catch (error) {
             // Handle error
@@ -910,7 +911,7 @@ const Applications = () => {
                                 </div> */}
                             </div>
                         </div>
-
+                       {details?.status !== "rejected" &&
                         <div className='lastfoterbtn'>
                             <button onClick={() => rejectApp(details?._id)} className='rreject'>
                                 Reject
@@ -920,7 +921,7 @@ const Applications = () => {
                                 Approve
                             </button>
 
-                        </div>
+                        </div>}
                     </Modal.Body>
                 </Modal>
             </div>
