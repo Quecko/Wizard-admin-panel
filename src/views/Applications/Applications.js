@@ -8,13 +8,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import moment from "moment";
 import Spinner from "react-bootstrap/Spinner";
 import { useHistory } from 'react-router-dom';
+import ReactPaginate from "react-paginate";
 
 
 const Applications = () => {
     const api_url = Environment.api_url;
     const val = localStorage.getItem("accessToken");
-    const [offset, setOffset] = useState(1);
-    const [limit, setLimit] = useState(100);
+    // const [offset, setOffset] = useState(1);
+    // const [limit, setLimit] = useState(100);
     const history = useHistory();
     const [activeTab, setActiveTab] = useState('submitted');
     const [loader, setLoader] = useState(false);
@@ -24,127 +25,133 @@ const Applications = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
     const [applications, setApplications] = useState([]);
-    const [details,setDetails] = useState({});
-    const [teamNames,setTeamNames] = useState([]);
-    const [mintStages,setMintStages] = useState([]);
+    const [details, setDetails] = useState({});
+    const [teamNames, setTeamNames] = useState([]);
+    const [mintStages, setMintStages] = useState([]);
 
     const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
 
+    // pagination ============
+
+    const [limit] = useState(10);
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState([]);
+
+    console.log(page, pageCount, "asd pageee");
+
+    const handlePageChange = (e) => {
+        const selectedPage = e.selected;
+        setPage(selectedPage + 1);
+    };
+
+    // pagination ============
+
     const applicationDetails = async (id) => {
         setShow(true);
         const config = {
-          method: "get",
-          url: api_url + "/launchpads/" + id+ "/application-details",
-          headers: {
-            Authorization: "Bearer " + val,
-          },
+            method: "get",
+            url: api_url + "/launchpads/" + id + "/application-details",
+            headers: {
+                Authorization: "Bearer " + val,
+            },
         };
         await axios(config)
-          .then((res) => {
-            const resData = res?.data;
-            console.log("details: ", resData?.data);
-            setDetails( resData?.data);
-            setTeamNames(resData?.data?.teamMembers);
-            setMintStages(resData?.data?.mintStages);
+            .then((res) => {
+                const resData = res?.data;
+                console.log("details: ", resData?.data);
+                setDetails(resData?.data);
+                setTeamNames(resData?.data?.teamMembers);
+                setMintStages(resData?.data?.mintStages);
 
-         
-          })
-          .catch((err) => {
-            if (err?.response?.status == 501) {
-              localStorage.removeItem("accessToken");
-              history.push("/");
-            } else if (err?.response?.status == 401) {
-              localStorage.removeItem("accessToken");
-              history.push("/");
-              // FetchRefreshToken();
-              console.log("refresh token: ", err?.response);
-            }
-            console.log("error meessage: ", err?.response?.data?.message);
-            toast.error(err?.response?.data?.message, {
-              position: "top-right",
-              autoClose: 2000,
+
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                } else if (err?.response?.status == 401) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                    // FetchRefreshToken();
+                    console.log("refresh token: ", err?.response);
+                }
+                console.log("error meessage: ", err?.response?.data?.message);
+                toast.error(err?.response?.data?.message, {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+
             });
-        
-          });
-      };
+    };
 
-      const approveApp = async (id) => {
-        setShow(true);
+    const approveApp = async (id) => {
         setLoader(true);
         const config = {
-          method: "patch",
-          url: api_url + "/launchpads/" + id+ "/application-status",
-          data: {
-            status: "approved",
-          },
-          headers: {
-            Authorization: "Bearer " + val,
-          },
+            method: "patch",
+            url: api_url + "/launchpads/" + id + "/application-status",
+            data: {
+                status: "approved",
+            },
+            headers: {
+                Authorization: "Bearer " + val,
+            },
         };
         await axios(config)
-          .then((res) => {
-            getLaunchpads();
-            toast.success(res?.data?.message);
-            handleClose();
-          })
-          .catch((err) => {
-            if (err?.response?.status == 501) {
-              localStorage.removeItem("accessToken");
-              history.push("/");
-            } else if (err?.response?.status == 401) {
-              localStorage.removeItem("accessToken");
-              history.push("/");
-              // FetchRefreshToken();
-              console.log("refresh token: ", err?.response);
-            }
-            console.log("error meessage: ", err?.response?.data?.message);
-            toast.error(err?.response?.data?.message, {
-              position: "top-right",
-              autoClose: 2000,
-            });
-        
-          });
-      };
+            .then((res) => {
+                handleClose();
+                toast.success(res?.data?.message);
+                getLaunchpads();
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                } else if (err?.response?.status == 401) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                    // FetchRefreshToken();
+                    console.log("refresh token: ", err?.response);
+                }
+                console.log("error meessage: ", err?.response?.data?.message);
+                toast.error(err?.response?.data?.message, {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
 
-      const rejectApp = async (id) => {
-
-        setShow(true);
-        setLoader(true);
-        const config = {
-          method: "patch",
-          url: api_url + "/launchpads/" + id+ "/application-status",
-          data: {
-            status: "rejected",
-          },
-          headers: {
-            Authorization: "Bearer " + val,
-          },
-        };
-        await axios(config)
-          .then((res) => {
-            getLaunchpads();
-            toast.success(res?.data?.message);
-            handleClose();
-          })
-          .catch((err) => {
-            if (err?.response?.status == 501) {
-              localStorage.removeItem("accessToken");
-              history.push("/");
-            } else if (err?.response?.status == 401) {
-              localStorage.removeItem("accessToken");
-              history.push("/");
-              // FetchRefreshToken();
-              console.log("refresh token: ", err?.response);
-            }
-            console.log("error meessage: ", err?.response?.data?.message);
-            toast.error(err?.response?.data?.message, {
-              position: "top-right",
-              autoClose: 2000,
             });
-        
-          });
-      };
+    };
+
+    const rejectApp = async (id) => {
+        try {
+            const config = {
+                method: "patch",
+                url: api_url + "/launchpads/" + id + "/application-status",
+                data: {
+                    status: "rejected",
+                },
+                headers: {
+                    Authorization: "Bearer " + val,
+                },
+            };
+            const res = await axios(config);
+            handleClose();
+            toast.success(res?.data?.message);
+            getLaunchpads();
+        } catch (err) {
+            // Error handling
+            console.log("Error:", err);
+            if (err?.response?.status === 501 || err?.response?.status === 401) {
+                localStorage.removeItem("accessToken");
+                history.push("/");
+            }
+            toast.error(err?.response?.data?.message, {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
 
     const handleVerifyFilter = (e) => {
         setLoader(true);
@@ -180,16 +187,17 @@ const Applications = () => {
         setActiveTab(selectedTab);
     };
 
-    const getLaunchpads = async (val, status) => {
+    const getLaunchpads = async (status) => {
         setLoader(true);
-        let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + offset + "&status=" + status;
-
+        setApplications({});
+        let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + page + "&status=" + status;
+    
         if (searchQuery) {
             apiUrl += "&search=" + searchQuery;
         }
-
+    
         apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
-
+    
         const config = {
             method: "get",
             url: apiUrl,
@@ -197,16 +205,25 @@ const Applications = () => {
                 Authorization: "Bearer " + val,
             },
         };
-
-        const response = await axios(config);
-        console.log(response?.data?.data?.applications);
-        setApplications(response?.data?.data?.applications);
-        setShow(false);
+    
+        try {
+            const response = await axios(config);
+            console.log(response?.data?.data?.applications);
+            setApplications(response?.data?.data?.applications);
+            setPageCount(response?.data?.data?.count);
+            setLoader(false);
+        } catch (error) {
+            // Handle error
+            console.error("Error fetching launchpads:", error);
+            setLoader(false);
+        }
     };
+    
+
 
     useEffect(() => {
-        getLaunchpads(val, activeTab);
-    }, [activeTab, searchQuery, verify, block, all])
+        getLaunchpads(activeTab);
+    }, [searchQuery, verify, block, all], page)
     return (
         <>
             <div className='content'>
@@ -328,13 +345,13 @@ const Applications = () => {
                                 <div className='maintablepills'>
                                     <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className='amberpillsouter'>
                                         <Nav.Item className='amberitempils'>
-                                            <Nav.Link className='ineramb' eventKey="submitted" onSelect={() => getLaunchpads(val, 'submitted')}>Pending</Nav.Link>
+                                            <Nav.Link className='ineramb' eventKey="submitted" onSelect={() => getLaunchpads('submitted')}>Pending</Nav.Link>
                                         </Nav.Item>
                                         {/* <Nav.Item className='amberitempils'>
                                                 <Nav.Link className='ineramb' eventKey="link-3333">Approved</Nav.Link>
                                             </Nav.Item> */}
                                         <Nav.Item className='amberitempils'>
-                                            <Nav.Link eventKey="rejected" onSelect={() => getLaunchpads(val, 'rejected')} className='ineramb' >
+                                            <Nav.Link eventKey="rejected" onSelect={() => getLaunchpads('rejected')} className='ineramb' >
                                                 Rejected
                                             </Nav.Link>
                                         </Nav.Item>
@@ -400,71 +417,71 @@ const Applications = () => {
                                                         </th>
                                                     </thead>
                                                     <tbody>
-                                            {applications.length > 0 ? (
-                                                    applications?.map((item, index) => {
-                                                            return (
-                                                                <>
+                                                        {applications.length > 0 ? (
+                                                            applications?.map((item, index) => {
+                                                                return (
+                                                                    <>
 
-                                                                    <tr key={index}>
-                                                                        <td>
-                                                                            <div className="mainimgdiv">
-                                                                                <div className="inerimgd">
-                                                                                    <img src={item?.imageUrl} className="tableimgginer">
-                                                                                    </img>
+                                                                        <tr key={index}>
+                                                                            <td>
+                                                                                <div className="mainimgdiv">
+                                                                                    <div className="inerimgd">
+                                                                                        <img src={item?.imageUrl} className="tableimgginer">
+                                                                                        </img>
+                                                                                    </div>
+                                                                                    <p className="tableimgtext">
+                                                                                        {item?.name}
+                                                                                    </p>
                                                                                 </div>
-                                                                                <p className="tableimgtext">
-                                                                                    {item?.name}
-                                                                                </p>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            {item?.totalSupply}
-                                                                        </td>
-                                                                        <td>
-                                                                            {item?.price}
-                                                                        </td>
-                                                                        <td>
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.totalSupply}
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.price}
+                                                                            </td>
+                                                                            <td>
 
-                                                                            {moment(item?.mintStartTime)
-                                                                                .format(
-                                                                                    "DD-MMM-YYYY HH:mm:ss"
-                                                                                )}
-                                                                        </td>
-                                                                        <td>
-                                                                            <span className="eleipiess">
-                                                                                {item?.email}
-                                                                            </span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <span className="eleipiess">
-                                                                                {item?.twitterUrl}
-                                                                            </span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <button className="detailbtn"  onClick={() => applicationDetails(item?._id)}>Details</button>
-                                                                        </td>
-                                                                    </tr>
-                                                                </>
-                                                            )
-                                                        })
+                                                                                {moment(item?.mintStartTime)
+                                                                                    .format(
+                                                                                        "DD-MMM-YYYY HH:mm:ss"
+                                                                                    )}
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.email}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.twitterUrl}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button className="detailbtn" onClick={() => applicationDetails(item?._id)}>Details</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </>
+                                                                )
+                                                            })
                                                         ) : loader ? (
                                                             <tr>
-                                                              <td colSpan="8" className="text-center">
-                                                                <div className="text-center">
-                                                                  {<Spinner animation="border" variant="info" />}
-                                                                  {/* <h4>No Categories</h4> */}
-                                                                </div>
-                                                              </td>
+                                                                <td colSpan="8" className="text-center">
+                                                                    <div className="text-center">
+                                                                        {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                                                                        {/* <h4>No Categories</h4> */}
+                                                                    </div>
+                                                                </td>
                                                             </tr>
-                                                          ) : (
+                                                        ) : (
                                                             <p class="text-center text-white mt-3">No Records</p>
-                                                          )}
+                                                        )}
 
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div className='Paginationlattable'>
-                                                <button className='leftpigbtn' >
+                                                {/* <button className='leftpigbtn' >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                         <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                                     </svg>
@@ -483,7 +500,29 @@ const Applications = () => {
                                                         <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                                     </svg>
 
-                                                </button>
+                                                </button> */}
+                                                {page >= 1 ?
+                                                    <ReactPaginate
+                                                        previousLabel="Previous"
+                                                        nextLabel="Next"
+                                                        pageClassName="page-item"
+                                                        pageLinkClassName="page-link"
+                                                        previousClassName="page-item"
+                                                        previousLinkClassName="page-link"
+                                                        nextClassName="page-item"
+                                                        nextLinkClassName="page-link"
+                                                        breakLabel="..."
+                                                        breakClassName="page-item"
+                                                        breakLinkClassName="page-link"
+                                                        pageCount={Math.ceil(pageCount / limit)}
+                                                        marginPagesDisplayed={2}
+                                                        pageRangeDisplayed={5}
+                                                        onPageChange={handlePageChange}
+                                                        containerClassName="pagination"
+                                                        activeClassName="active"
+                                                        forcePage={page - 1}
+                                                    />
+                                                    : ''}
                                             </div>
                                         </div>
                                     </>
@@ -545,71 +584,71 @@ const Applications = () => {
                                                         </th>
                                                     </thead>
                                                     <tbody>
-                                            {applications.length > 0 ? (
-                                                    applications?.map((item, index) => {
-                                                            return (
-                                                                <>
+                                                        {applications.length > 0 ? (
+                                                            applications?.map((item, index) => {
+                                                                return (
+                                                                    <>
 
-                                                                    <tr key={index}>
-                                                                        <td>
-                                                                            <div className="mainimgdiv">
-                                                                                <div className="inerimgd">
-                                                                                    <img src={item?.imageUrl} className="tableimgginer">
-                                                                                    </img>
+                                                                        <tr key={index}>
+                                                                            <td>
+                                                                                <div className="mainimgdiv">
+                                                                                    <div className="inerimgd">
+                                                                                        <img src={item?.imageUrl} className="tableimgginer">
+                                                                                        </img>
+                                                                                    </div>
+                                                                                    <p className="tableimgtext">
+                                                                                        {item?.name}
+                                                                                    </p>
                                                                                 </div>
-                                                                                <p className="tableimgtext">
-                                                                                    {item?.name}
-                                                                                </p>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            {item?.totalSupply}
-                                                                        </td>
-                                                                        <td>
-                                                                            {item?.price}
-                                                                        </td>
-                                                                        <td>
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.totalSupply}
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.price}
+                                                                            </td>
+                                                                            <td>
 
-                                                                            {moment(item?.mintStartTime)
-                                                                                .format(
-                                                                                    "DD-MMM-YYYY HH:mm:ss"
-                                                                                )}
-                                                                        </td>
-                                                                        <td>
-                                                                            <span className="eleipiess">
-                                                                                {item?.email}
-                                                                            </span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <span className="eleipiess">
-                                                                                {item?.twitterUrl}
-                                                                            </span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <button className="detailbtn"  onClick={() => applicationDetails(item?._id)}>Details</button>
-                                                                        </td>
-                                                                    </tr>
-                                                                </>
-                                                            )
-                                                        })
+                                                                                {moment(item?.mintStartTime)
+                                                                                    .format(
+                                                                                        "DD-MMM-YYYY HH:mm:ss"
+                                                                                    )}
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.email}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.twitterUrl}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button className="detailbtn" onClick={() => applicationDetails(item?._id)}>Details</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </>
+                                                                )
+                                                            })
                                                         ) : loader ? (
                                                             <tr>
-                                                              <td colSpan="8" className="text-center">
-                                                                <div className="text-center">
-                                                                  {<Spinner animation="border" variant="info" />}
-                                                                  {/* <h4>No Categories</h4> */}
-                                                                </div>
-                                                              </td>
+                                                                <td colSpan="8" className="text-center">
+                                                                    <div className="text-center">
+                                                                        {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                                                                        {/* <h4>No Categories</h4> */}
+                                                                    </div>
+                                                                </td>
                                                             </tr>
-                                                          ) : (
+                                                        ) : (
                                                             <p class="text-center text-white mt-3">No Records</p>
-                                                          )}
+                                                        )}
 
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <div className='Paginationlattable'>
-                                                <button className='leftpigbtn' >
+                                                {/* <button className='leftpigbtn' >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                         <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                                     </svg>
@@ -628,7 +667,29 @@ const Applications = () => {
                                                         <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                                     </svg>
 
-                                                </button>
+                                                </button> */}
+                                                {page >= 1 ?
+                                                    <ReactPaginate
+                                                        previousLabel="Previous"
+                                                        nextLabel="Next"
+                                                        pageClassName="page-item"
+                                                        pageLinkClassName="page-link"
+                                                        previousClassName="page-item"
+                                                        previousLinkClassName="page-link"
+                                                        nextClassName="page-item"
+                                                        nextLinkClassName="page-link"
+                                                        breakLabel="..."
+                                                        breakClassName="page-item"
+                                                        breakLinkClassName="page-link"
+                                                        pageCount={Math.ceil(pageCount / limit)}
+                                                        marginPagesDisplayed={2}
+                                                        pageRangeDisplayed={5}
+                                                        onPageChange={handlePageChange}
+                                                        containerClassName="pagination"
+                                                        activeClassName="active"
+                                                        forcePage={page - 1}
+                                                    />
+                                                    : ''}
                                             </div>
                                         </div>
                                     </>
@@ -674,7 +735,7 @@ const Applications = () => {
                                 </div>
                                 <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Launchpad  </h6>
-                                    <h6 className='namefullletf'> {details?.limitedEddition? "Limited edition " : "Open edition "}</h6>
+                                    <h6 className='namefullletf'> {details?.limitedEddition ? "Limited edition " : "Open edition "}</h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
@@ -693,28 +754,28 @@ const Applications = () => {
                                     <h6 className='namefullletf'> {details?.price} </h6>
                                 </div>
                             </div>
-                           
-                             
+
+
                             <div className='modfsrflex'>
-                            {teamNames?.map((item,index) => {
-                                return(
-                                    <>
-                                <div key={index} className='fsteft'>
-                                    <h6 className='usernnamee'> Team member {index+1}</h6>
-                                    <h6 className='namefullletf'> {item?.name}</h6>
-                                </div>
-                                </>
-                                )
-                            })}
+                                {teamNames?.map((item, index) => {
+                                    return (
+                                        <>
+                                            <div key={index} className='fsteft'>
+                                                <h6 className='usernnamee'> Team member {index + 1}</h6>
+                                                <h6 className='namefullletf'> {item?.name}</h6>
+                                            </div>
+                                        </>
+                                    )
+                                })}
                             </div>
-                           
+
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'> Mint Start date </h6>
                                     <h6 className='namefullletf'> {moment(details?.mintStartTime)
-                                                                                .format(
-                                                                                    "DD-MMM-YYYY HH:mm:ss"
-                                                                                )} </h6>
+                                        .format(
+                                            "DD-MMM-YYYY HH:mm:ss"
+                                        )} </h6>
                                 </div>
                                 <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Mint Stages</h6>
@@ -724,42 +785,42 @@ const Applications = () => {
                             <div className='onlyforbdrre'>
 
                             </div>
-                            {teamNames?.map((item,index) => {
-                                return(
+                            {teamNames?.map((item, index) => {
+                                return (
                                     <>
-                          
-                            <div className="topdivfds">
-                                {/* <h5 className='launchpadinfosssxx'>
+
+                                        <div className="topdivfds">
+                                            {/* <h5 className='launchpadinfosssxx'>
                                     Team Info
                                 </h5> */}
-                                <h5 className='launchpadinfosssxxsmall'>
-                                    Team Member {index+1}
-                                </h5>
+                                            <h5 className='launchpadinfosssxxsmall'>
+                                                Team Member {index + 1}
+                                            </h5>
 
-                            </div>
-                       
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Name </h6>
-                                    <h6 className='namefullletf'> {item?.name}</h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Designation  </h6>
-                                    <h6 className='namefullletf'> {item?.designation}</h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Twitter </h6>
-                                    <h6 className='namefullletf'> {item?.twitterUrl} </h6>
-                                </div>
-                                {/* <div className='fsteftsec'>
+                                        </div>
+
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Name </h6>
+                                                <h6 className='namefullletf'> {item?.name}</h6>
+                                            </div>
+                                            <div className='fsteftsec'>
+                                                <h6 className='usernnamee'>Designation  </h6>
+                                                <h6 className='namefullletf'> {item?.designation}</h6>
+                                            </div>
+                                        </div>
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Twitter </h6>
+                                                <h6 className='namefullletf'> {item?.twitterUrl} </h6>
+                                            </div>
+                                            {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Designation  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
                                 </div> */}
-                            </div>
-                         
-                            </>
+                                        </div>
+
+                                    </>
                                 )
                             })}
                             <div className='onlyforbdrre'>
@@ -775,51 +836,51 @@ const Applications = () => {
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'> Mint Start Date </h6>
                                     <h6 className='namefullletf'>   {moment(details?.mintStartTime)
-                                                                                .format(
-                                                                                    "DD-MMM-YYYY HH:mm:ss"
-                                                                                )}</h6>
+                                        .format(
+                                            "DD-MMM-YYYY HH:mm:ss"
+                                        )}</h6>
                                 </div>
                                 {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Designation  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
                                 </div> */}
                             </div>
-                            {mintStages?.map((item,index) => {
-                                return(
+                            {mintStages?.map((item, index) => {
+                                return (
                                     <>
 
-                            <div className="topdivfds">
-                                <h5 className='launchpadinfosssxxsmall'>
-                                    Mint Stage {index+1}
-                                </h5>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Name </h6>
-                                    <h6 className='namefullletf'>{item?.name}</h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Duration  </h6>
-                                    <h6 className='namefullletf'> {moment(item?.mintStartTime)
-                                                                                .format(
-                                                                                    "DD-MMM-YYYY HH:mm:ss"
-                                                                                )} </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Sale Price </h6>
-                                    <h6 className='namefullletf'>{item?.price}</h6>
-                                </div>
-                                {/* <div className='fsteftsec'>
+                                        <div className="topdivfds">
+                                            <h5 className='launchpadinfosssxxsmall'>
+                                                Mint Stage {index + 1}
+                                            </h5>
+                                        </div>
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Name </h6>
+                                                <h6 className='namefullletf'>{item?.name}</h6>
+                                            </div>
+                                            <div className='fsteftsec'>
+                                                <h6 className='usernnamee'>Duration  </h6>
+                                                <h6 className='namefullletf'> {moment(item?.mintStartTime)
+                                                    .format(
+                                                        "DD-MMM-YYYY HH:mm:ss"
+                                                    )} </h6>
+                                            </div>
+                                        </div>
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Sale Price </h6>
+                                                <h6 className='namefullletf'>{item?.price}</h6>
+                                            </div>
+                                            {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Duration  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
                                 </div> */}
-                            </div>
-                            </>
+                                        </div>
+                                    </>
                                 )
                             })}
-                        
+
                             <div className='onlyforbdrre'>
 
                             </div>
