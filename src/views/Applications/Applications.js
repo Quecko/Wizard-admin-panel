@@ -25,6 +25,8 @@ const Applications = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
     const [applications, setApplications] = useState([]);
+    const [price, setPrice] = useState(false);
+    const [email, setEmail] = useState(false);
     const [details, setDetails] = useState({});
     const [teamNames, setTeamNames] = useState([]);
     const [mintStages, setMintStages] = useState([]);
@@ -187,7 +189,7 @@ const Applications = () => {
         setActiveTab(selectedTab);
     };
 
-    const getLaunchpads = async (status) => {
+    const getLaunchpads = async (status, orderField, orderDirection) => {
         setLoader(true);
         setApplications({});
         let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + page + "&status=" + status;
@@ -197,6 +199,10 @@ const Applications = () => {
         }
     
         apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
+    
+        if (orderField && orderDirection) {
+            apiUrl += "&orderField=" + orderField + "&orderDirection=" + orderDirection;
+        }
     
         const config = {
             method: "get",
@@ -211,6 +217,7 @@ const Applications = () => {
             console.log(response?.data?.data?.applications);
             setApplications(response?.data?.data?.applications);
             setPageCount(response?.data?.data?.count);
+            window.scroll(0, 0);
             setLoader(false);
         } catch (error) {
             // Handle error
@@ -224,6 +231,14 @@ const Applications = () => {
     useEffect(() => {
         getLaunchpads(activeTab);
     }, [searchQuery, verify, block, all], page)
+
+    const changeSortingOrder = async (status,orderField, orderDirection) => {
+        try {
+            await getLaunchpads(status, orderField, orderDirection);
+        } catch (error) {
+            console.error("Error changing sorting order:", error);
+        }
+    };
     return (
         <>
             <div className='content'>
@@ -378,11 +393,11 @@ const Applications = () => {
                                                             <div className='volmouter'>
                                                                 Price
                                                                 <div className='sidearrowtb'>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    <svg onClick={() => (changeSortingOrder('submitted','price', 1),setPrice(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill={!price ? "white":"#2C253E"} />
                                                                     </svg>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    <svg onClick={() => (changeSortingOrder('submitted','price', -1),setPrice(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill={price ? "white":"#2C253E"} />
                                                                     </svg>
                                                                 </div>
 
@@ -398,11 +413,11 @@ const Applications = () => {
                                                             <div className='volmouter'>
                                                                 Email address
                                                                 <div className='sidearrowtb'>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    <svg onClick={() => (changeSortingOrder('submitted','email', 1),setEmail(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill={!email ? "white":"#2C253E"} />
                                                                     </svg>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    <svg  onClick={() => (changeSortingOrder('submitted','email', -1),setEmail(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill={email ? "white":"#2C253E"} />
                                                                     </svg>
                                                                 </div>
 
@@ -529,12 +544,12 @@ const Applications = () => {
                                 )}
                                 {activeTab === 'rejected' && (
                                     <>
-                                        <div className="maintablecreater">
+                                          <div className="maintablecreater">
                                             <div className="innertable_user table-responsive">
                                                 <table>
                                                     <thead>
                                                         <th>
-                                                            project rejected
+                                                            project name
                                                             {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                         </th>
                                                         <th>
@@ -545,11 +560,11 @@ const Applications = () => {
                                                             <div className='volmouter'>
                                                                 Price
                                                                 <div className='sidearrowtb'>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    <svg onClick={() => (changeSortingOrder('rejected','price', 1),setPrice(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill={!price ? "white":"#2C253E"} />
                                                                     </svg>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    <svg onClick={() => (changeSortingOrder('rejected','price', -1),setPrice(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill={price ? "white":"#2C253E"} />
                                                                     </svg>
                                                                 </div>
 
@@ -565,11 +580,11 @@ const Applications = () => {
                                                             <div className='volmouter'>
                                                                 Email address
                                                                 <div className='sidearrowtb'>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    <svg onClick={() => (changeSortingOrder('rejected','email', 1),setEmail(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill={!email ? "white":"#2C253E"} />
                                                                     </svg>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    <svg  onClick={() => (changeSortingOrder('rejected','email', -1),setEmail(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill={email ? "white":"#2C253E"} />
                                                                     </svg>
                                                                 </div>
 
@@ -910,7 +925,7 @@ const Applications = () => {
                                 </div> */}
                             </div>
                         </div>
-
+                       {details?.status !== "rejected" &&
                         <div className='lastfoterbtn'>
                             <button onClick={() => rejectApp(details?._id)} className='rreject'>
                                 Reject
@@ -920,7 +935,7 @@ const Applications = () => {
                                 Approve
                             </button>
 
-                        </div>
+                        </div>}
                     </Modal.Body>
                 </Modal>
             </div>

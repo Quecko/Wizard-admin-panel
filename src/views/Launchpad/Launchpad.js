@@ -23,6 +23,8 @@ const Launchpad = () => {
     const [block, setBlock] = useState(false);
     const [verify, setVerify] = useState(false);
     const [all, setAll] = useState(false);
+    const [price, setPrice] = useState(false);
+    const [email, setEmail] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
     const [applications, setApplications] = useState([]);
@@ -120,14 +122,18 @@ const Launchpad = () => {
         setActiveTab(selectedTab);
     };
 
-    const getLaunchpads = async (duration) => {
+    const getLaunchpads = async (duration, orderField, orderDirection) => {
         setLoader(true);
+        setApplications([]);
         let apiUrl = api_url + "/launchpads/approved?limit=" + limit + "&offset=" + page + "&duration=" + duration;
     
         if (searchQuery) {
             apiUrl += "&search=" + searchQuery;
         }
-    
+
+        if (orderField && orderDirection) {
+            apiUrl += "&orderField=" + orderField + "&orderDirection=" + orderDirection;
+        }
         apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
     
         const config = {
@@ -143,6 +149,7 @@ const Launchpad = () => {
             console.log(response?.data?.data?.creators);
             setApplications(response?.data?.data?.launchpads);
             setPageCount(response?.data?.data?.count);
+            window.scroll(0,0);
             setLoader(false);
         } catch (error) {
             // Handle error
@@ -152,10 +159,17 @@ const Launchpad = () => {
     };
     
 
-
     useEffect(() => {
         getLaunchpads(activeTab);
     }, [searchQuery, verify, block, all, page])
+
+    const changeSortingOrder = async (duration,orderField, orderDirection) => {
+        try {
+            await getLaunchpads(duration, orderField, orderDirection);
+        } catch (error) {
+            console.error("Error changing sorting order:", error);
+        }
+    };
 
     return (
         <>
@@ -193,7 +207,7 @@ const Launchpad = () => {
 
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Dropdown className="amer_dropdonfst ">
+                        {/* <Dropdown className="amer_dropdonfst ">
                             <Dropdown.Toggle id="dropdown-basic">
                                 Sort by
                             </Dropdown.Toggle>
@@ -205,7 +219,7 @@ const Launchpad = () => {
                                 <Dropdown.Item href="#/action-1">Followers</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Following</Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                         <Dropdown className="filyerbyns ">
                             <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -288,38 +302,38 @@ const Launchpad = () => {
                                             <thead>
                                                 <th>
                                                     project two
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     Supply
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
                                                         Price
                                                         <div className='sidearrowtb'>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                                                            <svg onClick={() => (changeSortingOrder('live','price', 1),setPrice(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!price ? "white":"#2C253E"}  />
                                                             </svg>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                                                            <svg onClick={() => (changeSortingOrder('live','price', -1),setPrice(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={price ? "white":"#2C253E"}  />
                                                             </svg>
                                                         </div>
                                                     </div>
                                                 </th>
                                                 <th  >
                                                     expected mint date
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
                                                         Email address
                                                         <div className='sidearrowtb'>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                                                            <svg onClick={() => (changeSortingOrder('live','email', 1),setEmail(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!email ? "white":"#2C253E"}  />
                                                             </svg>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                                                            <svg onClick={() => (changeSortingOrder('live','email', -1),setEmail(true))}xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={email ? "white":"#2C253E"}  />
                                                             </svg>
                                                         </div>
                                                     </div>
@@ -444,44 +458,44 @@ const Launchpad = () => {
                         )}
                         {activeTab === 'upcoming' && (
                             <>
-                                <div className="maintablecreater">
+                               <div className="maintablecreater">
                                     <div className="innertable_user table-responsive">
                                         <table>
                                             <thead>
                                                 <th>
-                                                    project
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    project two
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     Supply
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
                                                         Price
                                                         <div className='sidearrowtb'>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                                                            <svg onClick={() => (changeSortingOrder('upcoming','price', 1),setPrice(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!price ? "white":"#2C253E"}  />
                                                             </svg>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                                                            <svg onClick={() => (changeSortingOrder('upcoming','price', -1),setPrice(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={price? "white":"#2C253E"}  />
                                                             </svg>
                                                         </div>
                                                     </div>
                                                 </th>
                                                 <th  >
                                                     expected mint date
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
                                                         Email address
                                                         <div className='sidearrowtb'>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                                                            <svg onClick={() => (changeSortingOrder('upcoming','email', 1),setEmail(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!email ? "white":"#2C253E"}  />
                                                             </svg>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                                                            <svg onClick={() => (changeSortingOrder('upcoming','email', -1),setEmail(true))}xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={email ? "white":"#2C253E"}  />
                                                             </svg>
                                                         </div>
                                                     </div>
@@ -606,44 +620,44 @@ const Launchpad = () => {
                         )}
                         {activeTab === 'past' && (
                             <>
-                                <div className="maintablecreater">
+                              <div className="maintablecreater">
                                     <div className="innertable_user table-responsive">
                                         <table>
                                             <thead>
                                                 <th>
-                                                    project name
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    project two
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     Supply
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
                                                         Price
                                                         <div className='sidearrowtb'>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                                                            <svg onClick={() => (changeSortingOrder('past','price', 1),setPrice(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!price ? "white":"#2C253E"}  />
                                                             </svg>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                                                            <svg onClick={() => (changeSortingOrder('past','price', -1),setPrice(true))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={price? "white":"#2C253E"}  />
                                                             </svg>
                                                         </div>
                                                     </div>
                                                 </th>
                                                 <th  >
                                                     expected mint date
-                                                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                                                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
                                                         Email address
                                                         <div className='sidearrowtb'>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                                                            <svg onClick={() => (changeSortingOrder('past','email', 1),setEmail(false))} xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill={!email ? "white":"#2C253E"}  />
                                                             </svg>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                                                            <svg onClick={() => (changeSortingOrder('past','email', -1),setEmail(true))}xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill={email ? "white":"#2C253E"}  />
                                                             </svg>
                                                         </div>
                                                     </div>
