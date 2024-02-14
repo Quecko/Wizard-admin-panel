@@ -7,16 +7,14 @@ import { CircularProgress } from '@material-ui/core';
 import { Dropdown, Pagination } from "react-bootstrap";
 import Environment from 'utils/Environment';
 import axios from "axios";
+import Spinner from "react-bootstrap/Spinner";
 import { ToastContainer, toast } from 'react-toastify';
-
+import ReactPaginate from "react-paginate";
 
 
 const Creators = () => {
   const [open, setOpen] = useState(false);
-  const [offset, setOffset] = useState(1);
-  const [limit, setLimit] = useState(100);
-  const [page, setPage] = useState(1);
-  const [count, setCount] = useState(0);
+  const [loader, setLoader] = useState(false);
   const [block, setBlock] = useState(false);
   const [verify, setVerify] = useState(false);
   const [all, setAll] = useState(false);
@@ -25,7 +23,23 @@ const Creators = () => {
   const api_url = Environment.api_url;
   const [creator, setCreator] = useState([]);
 
+  // pagination ============
+
+  const [limit] = useState(3);
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState([]);
+
+  console.log(page, pageCount, "asd pageee");
+
+  const handlePageChange = (e) => {
+    const selectedPage = e.selected;
+    setPage(selectedPage + 1);
+  };
+
+  // pagination ============
+
   const handleVerifyFilter = (e) => {
+    setLoader(true);
     if (e.target.checked) {
       setVerify(true);
       setBlock(false);
@@ -35,6 +49,7 @@ const Creators = () => {
   };
 
   const handleBlockFilter = (e) => {
+    setLoader(true);
     if (e.target.checked) {
       setBlock(true);
       setVerify(false);
@@ -44,14 +59,19 @@ const Creators = () => {
   };
 
   const handleRemoveFilter = (e) => {
+    setLoader(true);
     if (e.target.checked) {
       setBlock(false);
       setVerify(false);
+    } else if (!e.target.checked) {
+      setAll(true);
     }
   };
 
-  const getCreater = async (val) => {
-    let apiUrl = api_url + "/creators?limit=" + limit + "&offset=" + offset;
+
+  const getCreater = async () => {
+    setLoader(true);
+    let apiUrl = api_url + "/creators?limit=" + limit + "&offset=" + page;
 
     if (searchQuery) {
       apiUrl += "&search=" + searchQuery;
@@ -67,16 +87,27 @@ const Creators = () => {
       },
     };
 
-    const response = await axios(config);
-    console.log(response?.data?.data?.creators);
-    setCreator(response?.data?.data?.creators);
+    axios(config)
+      .then(response => {
+        console.log(response?.data?.data?.creators);
+        setCreator(response?.data?.data?.creators);
+        setPageCount(response?.data?.data?.count);
+        setLoader(false);
+      })
+      .catch(error => {
+        console.error('Error fetching creators:', error);
+        // Handle error here
+        setLoader(false);
+      });
   };
-
-
-
   useEffect(() => {
-    getCreater(val);
-  }, [searchQuery, verify, block, all])
+    getCreater();
+  }, [page, verify, searchQuery, block, all])
+
+
+
+
+
 
   const verifiedCreator = async (id) => {
     // setLoader(true);
@@ -90,6 +121,11 @@ const Creators = () => {
     await axios(config)
       .then((res) => {
         // setLoader(false);
+        console.log("success", res);
+        toast.success(res?.data?.message, {
+          position: "top-right",
+          autoClose: 2000,
+        });
       })
       .catch((err) => {
         if (err?.response?.status == 501) {
@@ -117,6 +153,10 @@ const Creators = () => {
     await axios(config)
       .then((res) => {
         // setLoader(false);
+        toast.success(res?.data?.message, {
+          position: "top-right",
+          autoClose: 2000,
+        });
       })
       .catch((err) => {
         if (err?.response?.status == 501) {
@@ -131,6 +171,8 @@ const Creators = () => {
 
       });
   };
+
+
 
 
 
@@ -171,7 +213,7 @@ const Creators = () => {
 
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown className="amer_dropdonfst ">
+            {/* <Dropdown className="amer_dropdonfst ">
               <Dropdown.Toggle id="dropdown-basic">
                 Sort by
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none">
@@ -187,7 +229,7 @@ const Creators = () => {
                 <Dropdown.Item href="#/action-1">Following</Dropdown.Item>
 
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
             <Dropdown className="filyerbyns ">
               <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
@@ -210,30 +252,30 @@ const Creators = () => {
                                     </div> */}
                   <div class="content">
                     <label class="checkBox">
-                      <input id="ch1" type="checkbox" />
+                      <input checked={all} onChange={(e) => handleRemoveFilter(e)} id="ch1" type="checkbox" />
                       <div class="transition"></div>
                     </label>
                   </div>
                 </div>
                 <div className="inneritem">
-                  Limited Edition
+                  Verify
 
 
                   <div class="content">
                     <label class="checkBox">
-                      <input id="ch1" type="checkbox" />
+                      <input checked={verify} onChange={(e) => handleVerifyFilter(e)} id="ch1" type="checkbox" />
                       <div class="transition"></div>
                     </label>
                   </div>
 
                 </div>
                 <div className="inneritem">
-                  Open Edition
+                  Block
 
 
                   <div class="content">
                     <label class="checkBox">
-                      <input id="ch1" type="checkbox" />
+                      <input checked={block} onChange={(e) => handleBlockFilter(e)} id="ch1" type="checkbox" />
                       <div class="transition"></div>
                     </label>
 
@@ -246,11 +288,36 @@ const Creators = () => {
             <div className="innertable_user table-responsive">
               <table>
                 <thead>
-                  <th>Artist name
-                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                  <th>
+                  <div className='volmouter'>
+                  Artist name
+                      <div className='sidearrowtb'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                        </svg>
+                      </div>
+                    </div>
+                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                   </th>
-                  <th>items created
-                    <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
+                  <th>
+                  <div className='volmouter'>
+                  items created
+                      <div className='sidearrowtb'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    
+                  
+                    {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                   </th>
                   {/* <th>Items sold
                     <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
@@ -261,77 +328,127 @@ const Creators = () => {
                   <th>Following
                     <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" />
                   </th> */}
-                  <th>Verified
+                  <th>
+                    <div className='volmouter'>
+                      Verified
+                      <div className='sidearrowtb'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                        </svg>
+                      </div>
+                    </div>
                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                   </th>
-                  <th>Block artist
+                  <th>
+
+                    <div className='volmouter'>
+                      Block artist
+                      <div className='sidearrowtb'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                          <path d="M10.3774 0H5.37295H0.866554C0.0954068 0 -0.290167 0.87 0.256063 1.38L4.41705 5.265C5.08377 5.8875 6.16819 5.8875 6.83492 5.265L8.41737 3.7875L10.9959 1.38C11.5341 0.87 11.1485 0 10.3774 0Z" fill="#2C253E" />
+                        </svg>
+                      </div>
+                    </div>
+
                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                   </th>
                 </thead>
                 <tbody>
-                  {creator.map((item, index) => {
-                    return (
-                      <>
-                        <tr key={index}>
-                          <td>
-                            <div className="mainimgdiv">
-                              <div className="inerimgd">
-                                <img src={item?.profileImageUrl} className="tableimgginer">
-                                </img>
+                  {creator.length > 0 ? (
+                    creator.map((item, index) => {
+                      return (
+                        <>
+                          <tr key={index}>
+                            <td>
+                              <div className="mainimgdiv">
+                                <div className="inerimgd">
+                                  <img src={item?.profileImageUrl} className="tableimgginer">
+                                  </img>
+                                </div>
+                                <p className="tableimgtext">
+                                  {item?.name}
+                                </p>
                               </div>
-                              <p className="tableimgtext">
-                                {item?.name}
-                              </p>
-                            </div>
-                          </td>
-                          <td>{item?.itemsCreated} items</td>
-                          {/* <td>
+                            </td>
+                            <td>{item?.itemsCreated} items</td>
+                            {/* <td>
                       <span className="eleipiess">
                         25 items
                       </span>
                     </td>
                     <td>3.7K</td>
                     <td>1.5K</td> */}
-                          <td className=""> 
-                            <div className="main-outer-ps">
-                              <div className="main-switch-nn">
-                                <div class="custom-controlcustomswitch createrswitch">
-                                  {/* <input defaultChecked={item?.isVerified} onChange={() =>
+                            <td className="">
+                              <div className="main-outer-ps">
+                                <div className="main-switch-nn">
+                                  <div class="custom-controlcustomswitch createrswitch">
+                                    {/* <input defaultChecked={item?.isVerified} onChange={() =>
                                     verifiedCreator(item?._id)
                                   } type="checkbox" class="custom-control-input" id="customSwitches1" />
                                   <label class="custom-control-label" for="customSwitches1"></label> */}
 
-                                  <label class="switch">
-                                    <input type="checkbox"  />
-                                    <span class="slider round"></span>
-                                  </label>
+                                    <label class="switch">
+                                      <input defaultChecked={item?.isVerified} onChange={() =>
+                                        verifiedCreator(item?._id)
+                                      } type="checkbox" />
+                                      <span class="slider round"></span>
+                                    </label>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="main-outer-ps">
-                              <div className="main-switch-nn">
-                                <div class="custom-control custom-switch">
-                                  <input defaultChecked={item?.isBlocked} onChange={() =>
-                                    blockCreator(item?._id)
-                                  } type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                  <label class="custom-control-label" for="customSwitches2"></label>
+                              <div className="main-outer-p">
+
+                                <div className="main-switch-nn">
+                                  <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitches" />
+                                    <label class="custom-control-label" for="customSwitches"></label>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </>
-                    )
-                  })}
+                            </td>
+                            <td>
+                              <div className="main-outer-ps">
+                                <div className="main-switch-nn">
+                                  <div class="custom-control createrswitch">
+                                    <label class="switch">
+                                      <input defaultChecked={item?.isBlocked} onChange={() =>
+                                        blockCreator(item?._id)
+                                      } type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                      <span class="slider round"></span></label>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      )
+                    })
+                  ) : loader ? (
+                    <tr>
+                      <td colSpan="8" className="text-center">
+                        <div className="text-center">
+                          {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                          {/* <h4>No Categories</h4> */}
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    <p class="text-center text-white mt-3">No Records</p>
+                  )}
 
 
                 </tbody>
               </table>
             </div>
             <div className='Paginationlattable'>
-              <button className='leftpigbtn' >
+              {/* <button className='leftpigbtn' >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
@@ -350,7 +467,32 @@ const Creators = () => {
                   <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
 
-              </button>
+              </button> */}
+
+
+
+              {page >= 1 ?
+                <ReactPaginate
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakLabel="..."
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  pageCount={Math.ceil(pageCount / limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageChange}
+                  containerClassName="pagination"
+                  activeClassName="active"
+                  forcePage={page - 1}
+                />
+                : ''}
             </div>
 
           </div>

@@ -4,23 +4,157 @@ import React, { useState, useEffect } from 'react'
 import { Dropdown, Modal, Nav, Pagination } from 'react-bootstrap'
 import './applications.scss'
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import moment from "moment";
+import Spinner from "react-bootstrap/Spinner";
+import { useHistory } from 'react-router-dom';
+import ReactPaginate from "react-paginate";
+
 
 const Applications = () => {
     const api_url = Environment.api_url;
     const val = localStorage.getItem("accessToken");
-    const [offset, setOffset] = useState(1);
-    const [limit, setLimit] = useState(100);
+    // const [offset, setOffset] = useState(1);
+    // const [limit, setLimit] = useState(100);
+    const history = useHistory();
     const [activeTab, setActiveTab] = useState('submitted');
+    const [loader, setLoader] = useState(false);
     const [block, setBlock] = useState(false);
     const [verify, setVerify] = useState(false);
     const [all, setAll] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [show, setShow] = useState(false);
+    const [applications, setApplications] = useState([]);
+    const [details, setDetails] = useState({});
+    const [teamNames, setTeamNames] = useState([]);
+    const [mintStages, setMintStages] = useState([]);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // const handleShow = () => setShow(true);
+
+    // pagination ============
+
+    const [limit] = useState(10);
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState([]);
+
+    console.log(page, pageCount, "asd pageee");
+
+    const handlePageChange = (e) => {
+        const selectedPage = e.selected;
+        setPage(selectedPage + 1);
+    };
+
+    // pagination ============
+
+    const applicationDetails = async (id) => {
+        setShow(true);
+        const config = {
+            method: "get",
+            url: api_url + "/launchpads/" + id + "/application-details",
+            headers: {
+                Authorization: "Bearer " + val,
+            },
+        };
+        await axios(config)
+            .then((res) => {
+                const resData = res?.data;
+                console.log("details: ", resData?.data);
+                setDetails(resData?.data);
+                setTeamNames(resData?.data?.teamMembers);
+                setMintStages(resData?.data?.mintStages);
+
+
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                } else if (err?.response?.status == 401) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                    // FetchRefreshToken();
+                    console.log("refresh token: ", err?.response);
+                }
+                console.log("error meessage: ", err?.response?.data?.message);
+                toast.error(err?.response?.data?.message, {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+
+            });
+    };
+
+    const approveApp = async (id) => {
+        setLoader(true);
+        const config = {
+            method: "patch",
+            url: api_url + "/launchpads/" + id + "/application-status",
+            data: {
+                status: "approved",
+            },
+            headers: {
+                Authorization: "Bearer " + val,
+            },
+        };
+        await axios(config)
+            .then((res) => {
+                handleClose();
+                toast.success(res?.data?.message);
+                getLaunchpads();
+            })
+            .catch((err) => {
+                if (err?.response?.status == 501) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                } else if (err?.response?.status == 401) {
+                    localStorage.removeItem("accessToken");
+                    history.push("/");
+                    // FetchRefreshToken();
+                    console.log("refresh token: ", err?.response);
+                }
+                console.log("error meessage: ", err?.response?.data?.message);
+                toast.error(err?.response?.data?.message, {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+
+            });
+    };
+
+    const rejectApp = async (id) => {
+        try {
+            const config = {
+                method: "patch",
+                url: api_url + "/launchpads/" + id + "/application-status",
+                data: {
+                    status: "rejected",
+                },
+                headers: {
+                    Authorization: "Bearer " + val,
+                },
+            };
+            const res = await axios(config);
+            handleClose();
+            toast.success(res?.data?.message);
+            getLaunchpads();
+        } catch (err) {
+            // Error handling
+            console.log("Error:", err);
+            if (err?.response?.status === 501 || err?.response?.status === 401) {
+                localStorage.removeItem("accessToken");
+                history.push("/");
+            }
+            toast.error(err?.response?.data?.message, {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    };
+
 
     const handleVerifyFilter = (e) => {
+        setLoader(true);
         if (e.target.checked) {
             setVerify(true);
             setBlock(false);
@@ -30,6 +164,7 @@ const Applications = () => {
     };
 
     const handleBlockFilter = (e) => {
+        setLoader(true);
         if (e.target.checked) {
             setBlock(true);
             setVerify(false);
@@ -39,6 +174,7 @@ const Applications = () => {
     };
 
     const handleRemoveFilter = (e) => {
+        setLoader(true);
         if (e.target.checked) {
             setBlock(false);
             setVerify(false);
@@ -47,18 +183,21 @@ const Applications = () => {
 
 
     const handleSelect = (selectedTab) => {
+        setLoader(true);
         setActiveTab(selectedTab);
     };
 
-    const getLaunchpads = async (val, status) => {
-        let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + offset + "&status=" + status;
-
+    const getLaunchpads = async (status) => {
+        setLoader(true);
+        setApplications({});
+        let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + page + "&status=" + status;
+    
         if (searchQuery) {
             apiUrl += "&search=" + searchQuery;
         }
-
+    
         apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
-
+    
         const config = {
             method: "get",
             url: apiUrl,
@@ -66,15 +205,25 @@ const Applications = () => {
                 Authorization: "Bearer " + val,
             },
         };
-
-        const response = await axios(config);
-        console.log(response?.data?.data?.creators);
-        // setCreator(response?.data?.data?.creators);
+    
+        try {
+            const response = await axios(config);
+            console.log(response?.data?.data?.applications);
+            setApplications(response?.data?.data?.applications);
+            setPageCount(response?.data?.data?.count);
+            setLoader(false);
+        } catch (error) {
+            // Handle error
+            console.error("Error fetching launchpads:", error);
+            setLoader(false);
+        }
     };
+    
+
 
     useEffect(() => {
-        getLaunchpads(val, activeTab);
-    }, [activeTab, searchQuery, verify, block, all])
+        getLaunchpads(activeTab);
+    }, [searchQuery, verify, block, all], page)
     return (
         <>
             <div className='content'>
@@ -156,22 +305,10 @@ const Applications = () => {
                                     </div> */}
                                         <div class="content">
                                             <label class="checkBox">
-                                                <input id="ch1" type="checkbox" />
+                                                <input checked={all} onChange={(e) => handleRemoveFilter(e)} id="ch1" type="checkbox" />
                                                 <div class="transition"></div>
                                             </label>
                                         </div>
-                                    </div>
-                                    <div className="inneritem">
-                                        Limited Edition
-
-
-                                        <div class="content">
-                                            <label class="checkBox">
-                                                <input id="ch1" type="checkbox" />
-                                                <div class="transition"></div>
-                                            </label>
-                                        </div>
-
                                     </div>
                                     <div className="inneritem">
                                         Open Edition
@@ -179,7 +316,19 @@ const Applications = () => {
 
                                         <div class="content">
                                             <label class="checkBox">
-                                                <input id="ch1" type="checkbox" />
+                                                <input checked={verify} onChange={(e) => handleVerifyFilter(e)} id="ch1" type="checkbox" />
+                                                <div class="transition"></div>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div className="inneritem">
+                                        Limited Edition
+
+
+                                        <div class="content">
+                                            <label class="checkBox">
+                                                <input checked={block} onChange={(e) => handleBlockFilter(e)} id="ch1" type="checkbox" />
                                                 <div class="transition"></div>
                                             </label>
 
@@ -190,1341 +339,364 @@ const Applications = () => {
                         </div>
 
 
-                        {activeTab === 'submitted' && (
-                            <>
-                                <div className='maintablea  onlybdrfor'>
-                                    <div className='maintablepills'>
-                                        <Nav variant="pills" className='amberpillsouter'>
-                                            <Nav.Item eventKey="submitted" onSelect={() => getLaunchpads(val, 'submitted')} className='amberitempils'>
-                                                <Nav.Link className='ineramb' eventKey="link-2222">Pending</Nav.Link>
-                                            </Nav.Item>
-                                            {/* <Nav.Item className='amberitempils'>
+
+                        <>
+                            <div className='maintablea  onlybdrfor'>
+                                <div className='maintablepills'>
+                                    <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className='amberpillsouter'>
+                                        <Nav.Item className='amberitempils'>
+                                            <Nav.Link className='ineramb' eventKey="submitted" onSelect={() => getLaunchpads('submitted')}>Pending</Nav.Link>
+                                        </Nav.Item>
+                                        {/* <Nav.Item className='amberitempils'>
                                                 <Nav.Link className='ineramb' eventKey="link-3333">Approved</Nav.Link>
                                             </Nav.Item> */}
-                                            <Nav.Item className='amberitempils'>
-                                                <Nav.Link eventKey="rejected" onSelect={() => getLaunchpads(val, 'rejected')} className='ineramb' >
-                                                    Rejected
-                                                </Nav.Link>
-                                            </Nav.Item>
-                                        </Nav>
-                                    </div>
-
-
-
-                                    {activeTab === 'submitted' && (
-                                        <>
-                                            <div className="maintablecreater">
-                                                <div className="innertable_user table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <th>
-                                                                project name
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                Supply
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Price
-                                                                    <div className='sidearrowtb'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
-                                                                        </svg>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
-                                                                        </svg>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </th>
-                                                            <th  >
-                                                                expected mint date
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Email address
-                                                                    <div className='sidearrowtb'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
-                                                                        </svg>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
-                                                                        </svg>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </th>
-                                                            <th>
-                                                                Referral
-                                                            </th>
-                                                            <th>
-                                                                Detail
-                                                            </th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div className='Paginationlattable'>
-                                                    <button className='leftpigbtn' >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-                                                        Prev
-                                                    </button>
-                                                    <Pagination>
-                                                        <Pagination.Item>{1}</Pagination.Item>
-                                                        <Pagination.Item>{2}</Pagination.Item>
-                                                        <Pagination.Ellipsis />
-                                                        <Pagination.Item active>{5}</Pagination.Item>
-                                                        <Pagination.Item>{6}</Pagination.Item>
-                                                    </Pagination>
-                                                    <button className='leftpigbtn' >
-                                                        Next
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-                                    {activeTab === 'rejected' && (
-                                        <>
-                                            <div className="maintablecreater">
-                                                <div className="innertable_user table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <th>
-                                                                project name
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                Supply
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Price
-                                                                    <div className='sidearrowtb'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
-                                                                        </svg>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
-                                                                        </svg>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </th>
-                                                            <th  >
-                                                                expected mint date
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Email address
-                                                                    <div className='sidearrowtb'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
-                                                                        </svg>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
-                                                                        </svg>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </th>
-                                                            <th>
-                                                                Referral
-                                                            </th>
-                                                            <th>
-                                                                Detail
-                                                            </th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div className='Paginationlattable'>
-                                                    <button className='leftpigbtn' >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-                                                        Prev
-                                                    </button>
-                                                    <Pagination>
-                                                        <Pagination.Item>{1}</Pagination.Item>
-                                                        <Pagination.Item>{2}</Pagination.Item>
-                                                        <Pagination.Ellipsis />
-                                                        <Pagination.Item active>{5}</Pagination.Item>
-                                                        <Pagination.Item>{6}</Pagination.Item>
-                                                    </Pagination>
-                                                    <button className='leftpigbtn' >
-                                                        Next
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-                                    {activeTab === 'link-4444' && (
-                                        <>
-                                            <div className="maintablecreater">
-                                                <div className="innertable_user table-responsive">
-                                                    <table>
-                                                        <thead>
-                                                            <th>
-                                                                project name
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                Supply
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Price
-                                                                    <div className='sidearrowtb'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
-                                                                        </svg>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
-                                                                        </svg>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </th>
-                                                            <th  >
-                                                                expected mint date
-                                                                {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
-                                                            </th>
-
-                                                            <th>
-                                                                <div className='volmouter'>
-                                                                    Email address
-                                                                    <div className='sidearrowtb'>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
-                                                                        </svg>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                                                            <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
-                                                                        </svg>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </th>
-                                                            <th>
-                                                                Referral
-                                                            </th>
-                                                            <th>
-                                                                Detail
-                                                            </th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div className="mainimgdiv">
-                                                                        <div className="inerimgd">
-                                                                            <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                            </img>
-                                                                        </div>
-                                                                        <p className="tableimgtext">
-                                                                            Forganas
-                                                                        </p>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    30 CORE
-                                                                </td>
-                                                                <td>
-                                                                    2,087 CORE
-                                                                </td>
-                                                                <td>
-                                                                    15-3-2024
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        123@gmail.com
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span className="eleipiess">
-                                                                        twitter
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <button className="detailbtn" onClick={handleShow}>Details</button>
-                                                                </td>
-                                                            </tr>
-
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div className='Paginationlattable'>
-                                                    <button className='leftpigbtn' >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-                                                        Prev
-                                                    </button>
-                                                    <Pagination>
-                                                        <Pagination.Item>{1}</Pagination.Item>
-                                                        <Pagination.Item>{2}</Pagination.Item>
-                                                        <Pagination.Ellipsis />
-                                                        <Pagination.Item active>{5}</Pagination.Item>
-                                                        <Pagination.Item>{6}</Pagination.Item>
-                                                    </Pagination>
-                                                    <button className='leftpigbtn' >
-                                                        Next
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
+                                        <Nav.Item className='amberitempils'>
+                                            <Nav.Link eventKey="rejected" onSelect={() => getLaunchpads('rejected')} className='ineramb' >
+                                                Rejected
+                                            </Nav.Link>
+                                        </Nav.Item>
+                                    </Nav>
                                 </div>
-                            </>
-                        )}
+
+
+
+                                {activeTab === 'submitted' && (
+                                    <>
+                                        <div className="maintablecreater">
+                                            <div className="innertable_user table-responsive">
+                                                <table>
+                                                    <thead>
+                                                        <th>
+                                                            project name
+                                                            {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                        </th>
+                                                        <th>
+                                                            Supply
+                                                            {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                        </th>
+                                                        <th>
+                                                            <div className='volmouter'>
+                                                                Price
+                                                                <div className='sidearrowtb'>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    </svg>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </th>
+                                                        <th  >
+                                                            expected mint date
+                                                            {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                        </th>
+
+                                                        <th>
+                                                            <div className='volmouter'>
+                                                                Email address
+                                                                <div className='sidearrowtb'>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    </svg>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </th>
+                                                        <th>
+                                                            Referral
+                                                        </th>
+                                                        <th>
+                                                            Detail
+                                                        </th>
+                                                    </thead>
+                                                    <tbody>
+                                                        {applications.length > 0 ? (
+                                                            applications?.map((item, index) => {
+                                                                return (
+                                                                    <>
+
+                                                                        <tr key={index}>
+                                                                            <td>
+                                                                                <div className="mainimgdiv">
+                                                                                    <div className="inerimgd">
+                                                                                        <img src={item?.imageUrl} className="tableimgginer">
+                                                                                        </img>
+                                                                                    </div>
+                                                                                    <p className="tableimgtext">
+                                                                                        {item?.name}
+                                                                                    </p>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.totalSupply}
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.price}
+                                                                            </td>
+                                                                            <td>
+
+                                                                                {moment(item?.mintStartTime)
+                                                                                    .format(
+                                                                                        "DD-MMM-YYYY HH:mm:ss"
+                                                                                    )}
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.email}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.twitterUrl}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button className="detailbtn" onClick={() => applicationDetails(item?._id)}>Details</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </>
+                                                                )
+                                                            })
+                                                        ) : loader ? (
+                                                            <tr>
+                                                                <td colSpan="8" className="text-center">
+                                                                    <div className="text-center">
+                                                                        {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                                                                        {/* <h4>No Categories</h4> */}
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        ) : (
+                                                            <p class="text-center text-white mt-3">No Records</p>
+                                                        )}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div className='Paginationlattable'>
+                                                {/* <button className='leftpigbtn' >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                        <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                                    </svg>
+                                                    Prev
+                                                </button>
+                                                <Pagination>
+                                                    <Pagination.Item>{1}</Pagination.Item>
+                                                    <Pagination.Item>{2}</Pagination.Item>
+                                                    <Pagination.Ellipsis />
+                                                    <Pagination.Item active>{5}</Pagination.Item>
+                                                    <Pagination.Item>{6}</Pagination.Item>
+                                                </Pagination>
+                                                <button className='leftpigbtn' >
+                                                    Next
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                        <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                                    </svg>
+
+                                                </button> */}
+                                                {page >= 1 ?
+                                                    <ReactPaginate
+                                                        previousLabel="Previous"
+                                                        nextLabel="Next"
+                                                        pageClassName="page-item"
+                                                        pageLinkClassName="page-link"
+                                                        previousClassName="page-item"
+                                                        previousLinkClassName="page-link"
+                                                        nextClassName="page-item"
+                                                        nextLinkClassName="page-link"
+                                                        breakLabel="..."
+                                                        breakClassName="page-item"
+                                                        breakLinkClassName="page-link"
+                                                        pageCount={Math.ceil(pageCount / limit)}
+                                                        marginPagesDisplayed={2}
+                                                        pageRangeDisplayed={5}
+                                                        onPageChange={handlePageChange}
+                                                        containerClassName="pagination"
+                                                        activeClassName="active"
+                                                        forcePage={page - 1}
+                                                    />
+                                                    : ''}
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                                {activeTab === 'rejected' && (
+                                    <>
+                                        <div className="maintablecreater">
+                                            <div className="innertable_user table-responsive">
+                                                <table>
+                                                    <thead>
+                                                        <th>
+                                                            project rejected
+                                                            {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                        </th>
+                                                        <th>
+                                                            Supply
+                                                            {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                        </th>
+                                                        <th>
+                                                            <div className='volmouter'>
+                                                                Price
+                                                                <div className='sidearrowtb'>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    </svg>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </th>
+                                                        <th  >
+                                                            expected mint date
+                                                            {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
+                                                        </th>
+
+                                                        <th>
+                                                            <div className='volmouter'>
+                                                                Email address
+                                                                <div className='sidearrowtb'>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M1.01179 6L6.01621 6L10.5226 6C11.2938 6 11.6793 5.13 11.1331 4.62L6.97211 0.735C6.30539 0.112499 5.22097 0.112499 4.55425 0.735L2.97179 2.2125L0.393261 4.62C-0.144936 5.13 0.240639 6 1.01179 6Z" fill="white" />
+                                                                    </svg>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
+                                                                        <path d="M10.5202 0H5.51577H1.00938C0.238229 0 -0.147345 0.87 0.398885 1.38L4.55987 5.265C5.22659 5.8875 6.31102 5.8875 6.97774 5.265L8.5602 3.7875L11.1387 1.38C11.6769 0.87 11.2913 0 10.5202 0Z" fill="#2C253E" />
+                                                                    </svg>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </th>
+                                                        <th>
+                                                            Referral
+                                                        </th>
+                                                        <th>
+                                                            Detail
+                                                        </th>
+                                                    </thead>
+                                                    <tbody>
+                                                        {applications.length > 0 ? (
+                                                            applications?.map((item, index) => {
+                                                                return (
+                                                                    <>
+
+                                                                        <tr key={index}>
+                                                                            <td>
+                                                                                <div className="mainimgdiv">
+                                                                                    <div className="inerimgd">
+                                                                                        <img src={item?.imageUrl} className="tableimgginer">
+                                                                                        </img>
+                                                                                    </div>
+                                                                                    <p className="tableimgtext">
+                                                                                        {item?.name}
+                                                                                    </p>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.totalSupply}
+                                                                            </td>
+                                                                            <td>
+                                                                                {item?.price}
+                                                                            </td>
+                                                                            <td>
+
+                                                                                {moment(item?.mintStartTime)
+                                                                                    .format(
+                                                                                        "DD-MMM-YYYY HH:mm:ss"
+                                                                                    )}
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.email}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span className="eleipiess">
+                                                                                    {item?.twitterUrl}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button className="detailbtn" onClick={() => applicationDetails(item?._id)}>Details</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </>
+                                                                )
+                                                            })
+                                                        ) : loader ? (
+                                                            <tr>
+                                                                <td colSpan="8" className="text-center">
+                                                                    <div className="text-center">
+                                                                        {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                                                                        {/* <h4>No Categories</h4> */}
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        ) : (
+                                                            <p class="text-center text-white mt-3">No Records</p>
+                                                        )}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div className='Paginationlattable'>
+                                                {/* <button className='leftpigbtn' >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                        <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                                    </svg>
+                                                    Prev
+                                                </button>
+                                                <Pagination>
+                                                    <Pagination.Item>{1}</Pagination.Item>
+                                                    <Pagination.Item>{2}</Pagination.Item>
+                                                    <Pagination.Ellipsis />
+                                                    <Pagination.Item active>{5}</Pagination.Item>
+                                                    <Pagination.Item>{6}</Pagination.Item>
+                                                </Pagination>
+                                                <button className='leftpigbtn' >
+                                                    Next
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                        <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                                                    </svg>
+
+                                                </button> */}
+                                                {page >= 1 ?
+                                                    <ReactPaginate
+                                                        previousLabel="Previous"
+                                                        nextLabel="Next"
+                                                        pageClassName="page-item"
+                                                        pageLinkClassName="page-link"
+                                                        previousClassName="page-item"
+                                                        previousLinkClassName="page-link"
+                                                        nextClassName="page-item"
+                                                        nextLinkClassName="page-link"
+                                                        breakLabel="..."
+                                                        breakClassName="page-item"
+                                                        breakLinkClassName="page-link"
+                                                        pageCount={Math.ceil(pageCount / limit)}
+                                                        marginPagesDisplayed={2}
+                                                        pageRangeDisplayed={5}
+                                                        onPageChange={handlePageChange}
+                                                        containerClassName="pagination"
+                                                        activeClassName="active"
+                                                        forcePage={page - 1}
+                                                    />
+                                                    : ''}
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </>
+
 
 
                     </div>
@@ -1549,7 +721,7 @@ const Applications = () => {
                                     Project Image
                                 </h5>
                                 <div className='tommodimg'>
-                                    <img src="\launchpad\modalctr.svg" alt="" className='modinerimg' />
+                                    <img src={details?.imageUrl} alt="" className='modinerimg' />
                                 </div>
                             </div>
                             <div className='modfsrflex'>
@@ -1558,83 +730,99 @@ const Applications = () => {
                                         Launchpad Name
                                     </h6>
                                     <h6 className='namefullletf'>
-                                        Spiritual but not religious
+                                        {details?.name}
                                     </h6>
                                 </div>
                                 <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Launchpad  </h6>
-                                    <h6 className='namefullletf'> Limited edition </h6>
+                                    <h6 className='namefullletf'> {details?.limitedEddition ? "Limited edition " : "Open edition "}</h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft w-100'>
                                     <h6 className='usernnamee'>Launchpad Description </h6>
-                                    <h6 className='namefullletdestpn'> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt. </h6>
+                                    <h6 className='namefullletdestpn'> {details?.description} </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'>Total Supply </h6>
-                                    <h6 className='namefullletf'> 4,444 </h6>
+                                    <h6 className='namefullletf'> {details?.totalSupply} </h6>
                                 </div>
                                 <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Price </h6>
-                                    <h6 className='namefullletf'> Games </h6>
+                                    <h6 className='namefullletf'> {details?.price} </h6>
                                 </div>
                             </div>
+
+
                             <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Team member 1</h6>
-                                    <h6 className='namefullletf'> john Doe</h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Team member 2  </h6>
-                                    <h6 className='namefullletf'> Damon Holland </h6>
-                                </div>
+                                {teamNames?.map((item, index) => {
+                                    return (
+                                        <>
+                                            <div key={index} className='fsteft'>
+                                                <h6 className='usernnamee'> Team member {index + 1}</h6>
+                                                <h6 className='namefullletf'> {item?.name}</h6>
+                                            </div>
+                                        </>
+                                    )
+                                })}
                             </div>
+
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'> Mint Start date </h6>
-                                    <h6 className='namefullletf'>Mint Start date </h6>
+                                    <h6 className='namefullletf'> {moment(details?.mintStartTime)
+                                        .format(
+                                            "DD-MMM-YYYY HH:mm:ss"
+                                        )} </h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Mint Start date  </h6>
-                                    <h6 className='namefullletf'> 3 </h6>
+                                    <h6 className='usernnamee'>Mint Stages</h6>
+                                    <h6 className='namefullletf'> {mintStages?.length} </h6>
                                 </div>
                             </div>
                             <div className='onlyforbdrre'>
 
                             </div>
+                            {teamNames?.map((item, index) => {
+                                return (
+                                    <>
 
-                            <div className="topdivfds">
-                                <h5 className='launchpadinfosssxx'>
+                                        <div className="topdivfds">
+                                            {/* <h5 className='launchpadinfosssxx'>
                                     Team Info
-                                </h5>
-                                <h5 className='launchpadinfosssxxsmall'>
-                                    Team Member 1
-                                </h5>
+                                </h5> */}
+                                            <h5 className='launchpadinfosssxxsmall'>
+                                                Team Member {index + 1}
+                                            </h5>
 
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Name </h6>
-                                    <h6 className='namefullletf'> John Doe </h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Designation  </h6>
-                                    <h6 className='namefullletf'> Designer </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Twitter </h6>
-                                    <h6 className='namefullletf'> http://me.xn--c6h </h6>
-                                </div>
-                                {/* <div className='fsteftsec'>
+                                        </div>
+
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Name </h6>
+                                                <h6 className='namefullletf'> {item?.name}</h6>
+                                            </div>
+                                            <div className='fsteftsec'>
+                                                <h6 className='usernnamee'>Designation  </h6>
+                                                <h6 className='namefullletf'> {item?.designation}</h6>
+                                            </div>
+                                        </div>
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Twitter </h6>
+                                                <h6 className='namefullletf'> {item?.twitterUrl} </h6>
+                                            </div>
+                                            {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Designation  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
                                 </div> */}
-                            </div>
+                                        </div>
+
+                                    </>
+                                )
+                            })}
                             <div className='onlyforbdrre'>
 
                             </div>
@@ -1647,63 +835,52 @@ const Applications = () => {
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'> Mint Start Date </h6>
-                                    <h6 className='namefullletf'> 01/02/2024 2:44 PM</h6>
+                                    <h6 className='namefullletf'>   {moment(details?.mintStartTime)
+                                        .format(
+                                            "DD-MMM-YYYY HH:mm:ss"
+                                        )}</h6>
                                 </div>
                                 {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Designation  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
                                 </div> */}
                             </div>
-                            <div className="topdivfds">
-                                <h5 className='launchpadinfosssxxsmall'>
-                                    Mint Stage 1
-                                </h5>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Name </h6>
-                                    <h6 className='namefullletf'>Presale 1</h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Duration  </h6>
-                                    <h6 className='namefullletf'> 1d 2h 23m </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Sale Price </h6>
-                                    <h6 className='namefullletf'>15.258 CORE</h6>
-                                </div>
-                                {/* <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Duration  </h6>
-                                    <h6 className='namefullletf'> Designer </h6>
-                                </div> */}
-                            </div>
-                            <div className="topdivfds">
-                                <h5 className='launchpadinfosssxxsmall'>
-                                    Mint Stage 2
-                                </h5>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Name </h6>
-                                    <h6 className='namefullletf'>Presale 1</h6>
-                                </div>
-                                <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Duration  </h6>
-                                    <h6 className='namefullletf'> 1d 2h 23m </h6>
-                                </div>
-                            </div>
-                            <div className='modfsrflex'>
-                                <div className='fsteft'>
-                                    <h6 className='usernnamee'> Sale Price </h6>
-                                    <h6 className='namefullletf'>15.258 CORE</h6>
-                                </div>
-                                {/* <div className='fsteftsec'>
+                            {mintStages?.map((item, index) => {
+                                return (
+                                    <>
+
+                                        <div className="topdivfds">
+                                            <h5 className='launchpadinfosssxxsmall'>
+                                                Mint Stage {index + 1}
+                                            </h5>
+                                        </div>
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Name </h6>
+                                                <h6 className='namefullletf'>{item?.name}</h6>
+                                            </div>
+                                            <div className='fsteftsec'>
+                                                <h6 className='usernnamee'>Duration  </h6>
+                                                <h6 className='namefullletf'> {moment(item?.mintStartTime)
+                                                    .format(
+                                                        "DD-MMM-YYYY HH:mm:ss"
+                                                    )} </h6>
+                                            </div>
+                                        </div>
+                                        <div className='modfsrflex'>
+                                            <div className='fsteft'>
+                                                <h6 className='usernnamee'> Sale Price </h6>
+                                                <h6 className='namefullletf'>{item?.price}</h6>
+                                            </div>
+                                            {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Duration  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
                                 </div> */}
-                            </div>
+                                        </div>
+                                    </>
+                                )
+                            })}
+
                             <div className='onlyforbdrre'>
 
                             </div>
@@ -1715,17 +892,17 @@ const Applications = () => {
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'> Earnings Address </h6>
-                                    <h6 className='namefullletf eleipiess'>0xab6fd6074782c805933...</h6>
+                                    <h6 className='namefullletf eleipiess'>{details?.earningAddress}</h6>
                                 </div>
                                 <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Platfrom Fees  </h6>
-                                    <h6 className='namefullletf'> 10% </h6>
+                                    <h6 className='namefullletf'> {details?.platformFee}% </h6>
                                 </div>
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'> Your Earning </h6>
-                                    <h6 className='namefullletf'>90%</h6>
+                                    <h6 className='namefullletf'>{details?.earning}%</h6>
                                 </div>
                                 {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Duration  </h6>
@@ -1735,11 +912,11 @@ const Applications = () => {
                         </div>
 
                         <div className='lastfoterbtn'>
-                            <button className='rreject'>
+                            <button onClick={() => rejectApp(details?._id)} className='rreject'>
                                 Reject
                             </button>
 
-                            <button className='approveeedd'>
+                            <button onClick={() => approveApp(details?._id)} className='approveeedd'>
                                 Approve
                             </button>
 
