@@ -45,6 +45,7 @@ const Creators = () => {
     if (e.target.checked) {
       setVerify(true);
       setBlock(false);
+      setAll(false);
     } else if (!e.target.checked) {
       setVerify(false);
     }
@@ -55,6 +56,8 @@ const Creators = () => {
     if (e.target.checked) {
       setBlock(true);
       setVerify(false);
+      setAll(false);
+
     } else if (!e.target.checked) {
       setBlock(false);
     }
@@ -63,10 +66,11 @@ const Creators = () => {
   const handleRemoveFilter = (e) => {
     setLoader(true);
     if (e.target.checked) {
+      setAll(true);
       setBlock(false);
       setVerify(false);
     } else if (!e.target.checked) {
-      setAll(true);
+      setAll(false);
     }
   };
 
@@ -402,7 +406,7 @@ const Creators = () => {
                                   <label class="custom-control-label" for="customSwitches1"></label>
 
                                     <label class="switch">
-                                      <input defaultChecked={item?.isVerified} onChange={() =>
+                                      <input checked={item?.isVerified} onChange={() =>
                                         verifiedCreator(item?._id)
                                       } type="checkbox" />
                                       <span class="slider round"></span>
@@ -415,7 +419,7 @@ const Creators = () => {
                                 <div className="main-switch-nn">
                                   <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id={`customSwitches-${item._id}`}
-                                      defaultChecked={item.isVerified}
+                                      checked={item.isVerified}
                                       onChange={() => verifiedCreator(item._id)} />
                                     <label class="custom-control-label" htmlFor={`customSwitches-${item._id}`} ></label>
                                   </div>
@@ -429,7 +433,7 @@ const Creators = () => {
                                     <label class="switch">
                                       <input defaultChecked={item?.isBlocked} onChange={() =>
                                         blockCreator(item?._id)
-                                      } type="checkbox" class="custom-control-input" id="customSwitches2" />
+                                      } type="checkbox" class="custom-control-input"  id={(index + page).toString()} />
                                       <span class="slider round"></span></label>
 
                                   </div>
@@ -439,10 +443,10 @@ const Creators = () => {
 
                                 <div className="main-switch-nn">
                                   <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id={`customSwitche-${item._id}`}
-                                      defaultChecked={item.isBlocked}
+                                    <input type="checkbox" class="custom-control-input"  id={(index + page).toString()}
+                                      checked={item.isBlocked}
                                       onChange={() => blockCreator(item._id)} />
-                                    <label class="custom-control-label" htmlFor={`customSwitche-${item._id}`} ></label>
+                                    <label class="custom-control-label" for={(index + page).toString()} ></label>
                                   </div>
                                 </div>
                               </div>

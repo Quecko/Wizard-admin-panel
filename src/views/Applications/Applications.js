@@ -87,7 +87,7 @@ const Applications = () => {
             });
     };
 
-    const approveApp = async (id) => {
+    const approveApp = async (id,status) => {
         setLoader(true);
         const config = {
             method: "patch",
@@ -103,7 +103,7 @@ const Applications = () => {
             .then((res) => {
                 handleClose();
                 toast.success(res?.data?.message);
-                getLaunchpads();
+                getLaunchpads(status);
             })
             .catch((err) => {
                 if (err?.response?.status == 501) {
@@ -124,7 +124,7 @@ const Applications = () => {
             });
     };
 
-    const rejectApp = async (id) => {
+    const rejectApp = async (id,status) => {
         try {
             const config = {
                 method: "patch",
@@ -139,7 +139,7 @@ const Applications = () => {
             const res = await axios(config);
             handleClose();
             toast.success(res?.data?.message);
-            getLaunchpads();
+            getLaunchpads(status);
         } catch (err) {
             // Error handling
             console.log("Error:", err);
@@ -158,30 +158,36 @@ const Applications = () => {
     const handleVerifyFilter = (e) => {
         setLoader(true);
         if (e.target.checked) {
-            setVerify(true);
-            setBlock(false);
+          setVerify(true);
+          setBlock(false);
+          setAll(false);
         } else if (!e.target.checked) {
-            setVerify(false);
+          setVerify(false);
         }
-    };
-
-    const handleBlockFilter = (e) => {
+      };
+    
+      const handleBlockFilter = (e) => {
         setLoader(true);
         if (e.target.checked) {
-            setBlock(true);
-            setVerify(false);
+          setBlock(true);
+          setVerify(false);
+          setAll(false);
+    
         } else if (!e.target.checked) {
-            setBlock(false);
+          setBlock(false);
         }
-    };
-
-    const handleRemoveFilter = (e) => {
+      };
+    
+      const handleRemoveFilter = (e) => {
         setLoader(true);
         if (e.target.checked) {
-            setBlock(false);
-            setVerify(false);
+          setAll(true);
+          setBlock(false);
+          setVerify(false);
+        } else if (!e.target.checked) {
+          setAll(false);
         }
-    };
+      };
 
 
     const handleSelect = (selectedTab) => {
@@ -230,7 +236,7 @@ const Applications = () => {
 
     useEffect(() => {
         getLaunchpads(activeTab);
-    }, [searchQuery, verify, block, all], page)
+    }, [searchQuery, verify, block, all, page])
 
     const changeSortingOrder = async (status,orderField, orderDirection) => {
         try {
@@ -927,11 +933,11 @@ const Applications = () => {
                         </div>
                        {details?.status !== "rejected" &&
                         <div className='lastfoterbtn'>
-                            <button onClick={() => rejectApp(details?._id)} className='rreject'>
+                            <button onClick={() => rejectApp(details?._id,"rejected")} className='rreject'>
                                 Reject
                             </button>
 
-                            <button onClick={() => approveApp(details?._id)} className='approveeedd'>
+                            <button onClick={() => approveApp(details?._id,"submitted")} className='approveeedd'>
                                 Approve
                             </button>
 

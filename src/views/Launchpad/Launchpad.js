@@ -91,30 +91,36 @@ const Launchpad = () => {
     const handleVerifyFilter = (e) => {
         setLoader(true);
         if (e.target.checked) {
-            setVerify(true);
-            setBlock(false);
+          setVerify(true);
+          setBlock(false);
+          setAll(false);
         } else if (!e.target.checked) {
-            setVerify(false);
+          setVerify(false);
         }
-    };
-
-    const handleBlockFilter = (e) => {
+      };
+    
+      const handleBlockFilter = (e) => {
         setLoader(true);
         if (e.target.checked) {
-            setBlock(true);
-            setVerify(false);
+          setBlock(true);
+          setVerify(false);
+          setAll(false);
+    
         } else if (!e.target.checked) {
-            setBlock(false);
+          setBlock(false);
         }
-    };
-
-    const handleRemoveFilter = (e) => {
+      };
+    
+      const handleRemoveFilter = (e) => {
         setLoader(true);
         if (e.target.checked) {
-            setBlock(false);
-            setVerify(false);
+          setAll(true);
+          setBlock(false);
+          setVerify(false);
+        } else if (!e.target.checked) {
+          setAll(false);
         }
-    };
+      };
 
 
     const handleSelect = (selectedTab) => {
