@@ -5,7 +5,7 @@ body {
   font-size: $font-size-base;
   font-family: "Lexend", sans-serif;
   -moz-osx-font-smoothing: grayscale;
-  background: #08050A;
+  background: #08050a;
   -webkit-font-smoothing: antialiased;
   background-image: url(".//..//..//..//../src/bg.png");
   width: 100%;
@@ -109,7 +109,7 @@ p {
 }
 
 .green {
-  color: #49D632 !important;
+  color: #04c182 !important;
 }
 
 .red {
@@ -338,14 +338,13 @@ img.tableimgginerddvidd {
   border-radius: 30px;
 }
 
-
 .navfrofiledeopdown.dropdown {
-
   .dropdown-toggle:after {
     display: none !important;
   }
   button#dropdown-autoclose-outside {
-    .dropup .dropdown-toggle:after, .dropdown .dropdown-toggle:after {
+    .dropup .dropdown-toggle:after,
+    .dropdown .dropdown-toggle:after {
       display: none !important;
     }
 
@@ -358,7 +357,7 @@ img.tableimgginerddvidd {
       display: flex;
       align-items: center;
       gap: 10px;
-    
+
       .dromdownproiner_img {
         width: 42px;
         height: 42px;
@@ -371,7 +370,7 @@ img.tableimgginerddvidd {
         img.dropdownarowss {
           width: 100%;
           height: 100%;
-      }
+        }
       }
       .dromdownproiner_text {
         .p {
@@ -380,7 +379,7 @@ img.tableimgginerddvidd {
           line-height: 1.8em;
           font-size: 1em;
           font-weight: 400;
-      }
+        }
       }
     }
   }
