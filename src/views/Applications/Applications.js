@@ -195,10 +195,10 @@ const Applications = () => {
         setActiveTab(selectedTab);
     };
 
-    const getLaunchpads = async (status, orderField, orderDirection) => {
+    const getLaunchpads = async (status, orderField = 'updatedAt', orderDirection = -1) => {
         setLoader(true);
         setApplications({});
-        let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + page + "&status=" + status;
+        let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + page + "&status=" + status + "&orderField=" + orderField + "&orderDirection=" + orderDirection;
     
         if (searchQuery) {
             apiUrl += "&search=" + searchQuery;
@@ -206,9 +206,7 @@ const Applications = () => {
     
         apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
     
-        if (orderField && orderDirection) {
-            apiUrl += "&orderField=" + orderField + "&orderDirection=" + orderDirection;
-        }
+        
     
         const config = {
             method: "get",
