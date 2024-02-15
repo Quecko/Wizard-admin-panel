@@ -454,9 +454,9 @@
     outline: none !important;
 }
 .custom-switch .custom-control-label::after {
-  top: calc(0.25rem + 3px);
+  top: calc(0.3rem + 3px);
   left: calc(-2.25rem + 4px);
-  width: calc(1rem - 4px);
+  width: calc(1.1rem - 4px);
   height: calc(1rem - 4px);
   background-color: #ffffff;
   border-radius: 0.5rem;
@@ -466,14 +466,11 @@
 
   width: 2.1rem;
   /* width: 3.5em; */
-  height: 18px;
-
-}
-.custom-control-label::before {
+  // height: 18px;
 
   height: 1.2rem;
-
 }
+
 }
 
 .main-switch-nn .custom-switch {
