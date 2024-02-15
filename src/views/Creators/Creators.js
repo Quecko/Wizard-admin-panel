@@ -132,12 +132,14 @@ const Creators = () => {
     };
     await axios(config)
       .then((res) => {
-        // setLoader(false);
+        setLoader(true);
+        getCreater();
         console.log("success", res);
         toast.success(res?.data?.message, {
           position: "top-right",
           autoClose: 2000,
         });
+       
       })
       .catch((err) => {
         if (err?.response?.status == 501) {
@@ -164,11 +166,13 @@ const Creators = () => {
     };
     await axios(config)
       .then((res) => {
-        // setLoader(false);
+         setLoader(true);
+        getCreater();
         toast.success(res?.data?.message, {
           position: "top-right",
           autoClose: 2000,
         });
+      
       })
       .catch((err) => {
         if (err?.response?.status == 501) {
@@ -443,10 +447,10 @@ const Creators = () => {
 
                                 <div className="main-switch-nn">
                                   <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input"  id={(index + page).toString()}
+                                    <input type="checkbox" class="custom-control-input"  id={`customSwitche-${item._id}`}
                                       checked={item.isBlocked}
                                       onChange={() => blockCreator(item._id)} />
-                                    <label class="custom-control-label" for={(index + page).toString()} ></label>
+                                    <label class="custom-control-label" htmlFor={`customSwitche-${item._id}`} ></label>
                                   </div>
                                 </div>
                               </div>

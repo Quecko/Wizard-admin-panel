@@ -16,7 +16,7 @@ import Creators from "views/Creators/Creators";
 var routes = [
   {
     path: "/dashboard",
-    name: "Hello! john doe",
+    name: "Hi! Admin",
     image: banner1,
     component: Dashboard,
     layout: "/admin",
