@@ -4,7 +4,7 @@ import './collections.scss';
 
 const Collections = () => {
 
-    const [activeTab1, setActiveTab1] = useState('link-1');
+    const [activeTab1, setActiveTab1] = useState('link-2222');
 
     const handleSelect1 = (eventKey) => {
         setActiveTab1(eventKey);

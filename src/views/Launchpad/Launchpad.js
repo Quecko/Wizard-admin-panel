@@ -305,7 +305,7 @@ const Launchpad = () => {
                                         <table>
                                             <thead>
                                                 <th>
-                                                    project two
+                                                    project Name
                                                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
@@ -467,7 +467,7 @@ const Launchpad = () => {
                                         <table>
                                             <thead>
                                                 <th>
-                                                    project two
+                                                    project Name
                                                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>
@@ -629,7 +629,7 @@ const Launchpad = () => {
                                         <table>
                                             <thead>
                                                 <th>
-                                                    project two
+                                                    project Name
                                                     {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                 </th>
                                                 <th>

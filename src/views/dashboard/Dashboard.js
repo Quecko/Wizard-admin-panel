@@ -6,6 +6,7 @@ import ReactApexChart from "react-apexcharts";
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import DatePicker, { Calendar, DateObject } from "react-multi-date-picker";
 
 function Dashboard() {
@@ -14,17 +15,27 @@ function Dashboard() {
   const history = useHistory();
   const [setalllset, setSetalllset] = useState();
   const [setDataTime, setSetDataTime] = useState();
+  const [loader, setLoader] = useState(false);
   const [stats, setStats] = useState([]);
+  const [topItems, setTopItems] = useState([]);
+  const [count, setCount] = useState([]);
+  const [count1, setCount1] = useState([]);
+console.log(count, 'asdfdsafdsa');
   const [alllset, setAlllset] = useState();
   const [showcalendar2, setShowCalendar2] = useState(false);
   const [showcalendar1, setShowCalendar1] = useState(false);
   const [showcalendar3, setShowCalendar3] = useState(false);
   const [showcalendar4, setShowCalendar4] = useState(false);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const Acls = JSON.parse(localStorage.getItem('acls'))
+  const [calledAPI, setCalledAPI] = useState(false);
+
+
 
 
   const getOrderStats = async () => {
-   
+
     setStats([]);
     const config = {
       method: "get",
@@ -47,8 +58,92 @@ function Dashboard() {
       });
   };
 
+  const getTopItems = async () => {
+    setLoader(true);
+    setTopItems([]);
+    const config = {
+      method: "get",
+      url: api_url + "/nfts/top-items?offset=1&limit=10&orderField=price&orderDirection=-1",
+      headers: {
+        Authorization: "Bearer " + val,
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        const resData = res?.data?.data;
+        setTopItems(resData?.nfts);
+        setLoader(false);
+      })
+      .catch((error) => {
+        setLoader(false);
+        if (error?.response?.status == 501) {
+          localStorage.removeItem("accessToken");
+          history.push("/");
+        }
+      });
+  };
+
+  // const getSaleReport = async () => {
+  //   const config = {
+  //     method: "get",
+  //     url: api_url + "/nfts/sale-Reports",
+  //     headers: {
+  //       Authorization: "Bearer " + val,
+  //     },
+  //   };
+  //   await axios(config)
+  //     .then((res) => {
+  //       const resData = res?.data?.data;
+  //       console.log("top okokokokok", resData?.count, resData?.nfts, resData?.dailyTotalPrices);
+  //       setCount(resData?.count);
+  //       setCount1(resData?.dailyTotalPrices);
+  //     })
+  //     .catch((error) => {
+  //       setLoader(false);
+  //       if (error?.response?.status == 501) {
+  //         localStorage.removeItem("accessToken");
+  //         history.push("/");
+  //       }
+  //     });
+  // };
+
+  const newUserchartHandle = (startDate, endDate) => {
+    let url = `${api_url}/nfts/sale-Reports`;
+  
+    if (startDate && endDate) {
+    
+      url += `?startDate=${startDate}&endDate=${endDate}`;
+    }
+  
+    axios.get(url, { headers: { "Authorization": `Bearer ${val}` } })
+      .then((response) => {
+        console.log("🚀 ~ response newUserchartHandle", response);
+        const dates = [];
+        const counts = [];
+        response.data.data.dailyTotalPrices.forEach(user => {
+          dates.push(user.date);
+          counts.push(user.sale?.toFixed(4));
+        });
+  
+        setCount(dates);
+        setCount1(counts);
+  
+        // Now you have 'dates' array and 'counts' array with separate values
+        console.log('Dates:', dates);
+        console.log('Counts:', counts);
+      })
+      .catch((err) => {
+        console.log(err, 'error in API call');
+        // Handle errors
+      });
+  }
+  
+  
+
   useEffect(() => {
-      getOrderStats();
+    getOrderStats();
+    getTopItems();
+    // getSaleReport();
   }, []);
 
   const [options, setobject] = useState({
@@ -76,6 +171,7 @@ function Dashboard() {
     },
     xaxis: {
       type: 'datetime',
+      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
       categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
       axisBorder: {
         show: false // Hide the x-axis border
@@ -137,7 +233,8 @@ function Dashboard() {
     },
     xaxis: {
       type: 'datetime',
-      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+      categories: count1,
+      // categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
       labels: {
         show: false, // Hide x-axis labels
       }
@@ -196,13 +293,97 @@ function Dashboard() {
     }
   });
 
-
+  const state = {
+    series: [
+      {
+        name: 'New users',
+        // data: [31, 40, 28, 51, 42, 109, 100]
+        data: count1
+        // data: newUChartcounts
+      }
+      // {
+      //   name: 'series2',
+      //   data: [11, 32, 45, 32, 34, 52, 41]
+      // }
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: 'line'
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'smooth',
+        colors: ['#862FC0'],
+        width: 3,
+        dashArray: 0, // Remove dashed stroke if not needed
+        lineCap: 'round', // Adjust line cap if needed
+        dropShadow: {
+          enabled: true,
+          top: 9,
+          left: 5,
+          blur: 10,
+          opacity: 1,
+          color: '#862FC0'
+        }
+      },
+      xaxis: {
+        type: 'datetime',
+        categories: count,
+        // categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+        axisBorder: {
+          show: false // Hide the x-axis border
+        },
+        axisTicks: {
+          show: false // Hide the x-axis ticks
+        },
+        labels: {
+          style: {
+            colors: '#725196' // Customize the color of x-axis labels
+          }
+        }
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: '#725196' // Customize the color of y-axis labels
+          }
+        }
+      },
+      tooltip: {
+        enabled: false // Remove the tooltip
+      },
+      grid: {
+        show: false // Hide the center line of the chart
+      },
+      plotOptions: {
+        bar: {
+          columnWidth: '50%', // Adjust column width if needed
+          colors: {
+            ranges: [{
+              from: 0,
+              to: 0,
+              color: '#862FC0'
+            }]
+          },
+          strokeColors: ['#862FC0'],
+          strokeWidth: 5,
+          fill: {
+            type: 'solid'
+          }
+        }
+      }
+    }
+  }
 
   const [series, setseries] = useState(
     [
       {
         name: 'series1',
-        data: [31, 40, 90, 51, 42, 109, 100, 120,]
+        data: count
+        // data: [31, 40, 90, 51, 42, 109, 100, 120,]
       }
       // {
       //   name: 'series2',
@@ -226,6 +407,28 @@ function Dashboard() {
     new DateObject().setDay(23).add(1, "month"),
   ])
 
+  const calculatePastDate = (n) => {
+    const today = new Date();
+    const pastDate = new Date(today);
+    pastDate.setDate(today.getDate() - n);
+    return pastDate.toISOString().split('T')[0];
+  };
+  
+  // Function to handle the click event for 1D and 7D buttons
+  const handleDateButtonClick = (days) => {
+    const endDate = new Date().toISOString().split('T')[0]; // Current date
+    const startDate = calculatePastDate(days);
+    newUserchartHandle(startDate, endDate);
+  };
+
+
+  useEffect(() => {
+    if (!calledAPI) {
+      newUserchartHandle();
+      setCalledAPI(true);
+    }
+  }, [calledAPI]);
+
   return (
     <>
       <div className="content">
@@ -242,11 +445,11 @@ function Dashboard() {
                       <h6 className="inertext">Total Users</h6>
                       {stats?.users &&
                         Object.keys(stats).length > 0 ? (
-                      <h3 className="commoncardtext">   {" "}
-                      {stats?.users}</h3>
+                        <h3 className="commoncardtext">   {" "}
+                          {stats?.users}</h3>
                       ) : (
                         <h3 className="commoncardtext">   {" "}
-                        0</h3>
+                          0</h3>
                       )}
                     </div>
                   </div>
@@ -282,11 +485,11 @@ function Dashboard() {
                       <h6 className="inertext">Total Collections</h6>
                       {stats?.collections &&
                         Object.keys(stats).length > 0 ? (
-                      <h3 className="commoncardtext">   {" "}
-                      {stats?.collections}</h3>
+                        <h3 className="commoncardtext">   {" "}
+                          {stats?.collections}</h3>
                       ) : (
                         <h3 className="commoncardtext">   {" "}
-                        0</h3>
+                          0</h3>
                       )}
                     </div>
                   </div>
@@ -300,11 +503,11 @@ function Dashboard() {
                       <h6 className="inertext">Total Transactions</h6>
                       {stats?.transactions &&
                         Object.keys(stats).length > 0 ? (
-                      <h3 className="commoncardtext">   {" "}
-                      {stats?.transactions}</h3>
+                        <h3 className="commoncardtext">   {" "}
+                          {stats?.transactions}</h3>
                       ) : (
                         <h3 className="commoncardtext">   {" "}
-                        0</h3>
+                          0</h3>
                       )}
                     </div>
                   </div>
@@ -318,11 +521,11 @@ function Dashboard() {
                       <h6 className="inertext">Total Artists</h6>
                       {stats?.creators &&
                         Object.keys(stats).length > 0 ? (
-                      <h3 className="commoncardtext">   {" "}
-                      {stats?.creators}</h3>
+                        <h3 className="commoncardtext">   {" "}
+                          {stats?.creators}</h3>
                       ) : (
                         <h3 className="commoncardtext">   {" "}
-                        0</h3>
+                          0</h3>
                       )}
                     </div>
                   </div>
@@ -341,20 +544,20 @@ function Dashboard() {
                     {/* <img src="/dashboard-assets/issonns.svg" className="img-fluid custom-img" alt="Your Alt Text" /> */}
                     <div className="custom-tab-bar">
                       <a className='clanderdate'
-                      >
+                     onClick={() => handleDateButtonClick(1)} >
                         1D
                       </a>
                       <a className='clanderdate'
-                      >
+                      onClick={() => handleDateButtonClick(7)}>
                         7D
                       </a>
-                      <a className='clanderdate'>
+                      <a className='clanderdate' onClick={() => handleDateButtonClick(30)}>
                         1M
                       </a>
-                      <a className='clanderdate'  >
+                      <a className='clanderdate' onClick={() => handleDateButtonClick(365)} >
                         1Y
                       </a>
-                      <a className='clanderdate'>
+                      <a className='clanderdate'onClick={newUserchartHandle}>
                         All
                       </a>
                       <a className='clanderdate' onClick={() => setShowCalendar2(!showcalendar2)}>
@@ -367,7 +570,7 @@ function Dashboard() {
                       {showcalendar2 && (
                         <div className="cal set-custom-calendar-div">
                           <Calendar
-                            numberOfMonths={2}
+                            numberOfMonths={1}
                             disableMonthPicker
                             disableYearPicker
                           />
@@ -377,7 +580,7 @@ function Dashboard() {
                   </div>
                 </div>
                 <div id="chart">
-                  <ReactApexChart options={options} series={series} type="line" height={350} />
+                  <ReactApexChart options={state?.options} series={state?.series} type="line" height={350} />
                 </div>
               </div>
             </div>
@@ -392,106 +595,35 @@ function Dashboard() {
                   </h5>
                 </div>
                 <div className='dash_leftinersec_scrol'>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
+                  {topItems.length > 0 ? (
+                    topItems?.map((item, index) => {
+                      return (
+                        <>
+                          <div key={index} className='scrolinerlefttop'>
+                            <div className='scrolinerleft_iner'>
+                              <img src={item?.nft} className="inoncardinerxx" />
+                            </div>
+                            <div className='scrolinerleft_text'>
+                              <h6 className="inertextc">{item?.launchpadId?.name}</h6>
+                              <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />{item?.price} <span className='corre'>
+                                CORE  </span></h3>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    })
+                  ) : loader ? (
+
+
+                    <div className="text-center">
+                      {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                      {/* <h4>No Categories</h4> */}
                     </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Taiyo Infants</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Kups by Raposa</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item3.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">The Anon Club</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Taiyo Infants</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Kups by Raposa</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Taiyo Infants</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Kups by Raposa</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item3.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">The Anon Club</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item1.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Taiyo Infants</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
-                  <div className='scrolinerlefttop'>
-                    <div className='scrolinerleft_iner'>
-                      <img src="\dashboard\item2.svg" className="inoncardinerxx" />
-                    </div>
-                    <div className='scrolinerleft_text'>
-                      <h6 className="inertextc">Kups by Raposa</h6>
-                      <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />8,547.2+ <span className='corre'>
-                        CORE  </span></h3>
-                    </div>
-                  </div>
+
+
+                  ) : (
+                    <p class="text-center text-white mt-3">No Records</p>
+                  )}
                 </div>
               </div>
 
