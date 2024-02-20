@@ -70,17 +70,18 @@ const Launchpad = () => {
 
             })
             .catch((err) => {
-                if (err?.response?.status == 501) {
+                console.log(err?.res?.status,"aaabi");
+                if (err?.res?.status == 501) {
                     localStorage.removeItem("accessToken");
                     history.push("/");
-                } else if (err?.response?.status == 401) {
+                } else if (err?.res?.status === 401) {
                     localStorage.removeItem("accessToken");
                     history.push("/");
                     // FetchRefreshToken();
-                    console.log("refresh token: ", err?.response);
+                    console.log("refresh token: ", err?.res);
                 }
-                console.log("error meessage: ", err?.response?.data?.message);
-                toast.error(err?.response?.data?.message, {
+                console.log("error meessage: ", err?.res?.data?.message);
+                toast.error(err?.res?.data?.message, {
                     position: "top-right",
                     autoClose: 2000,
                 });
@@ -156,8 +157,14 @@ const Launchpad = () => {
             window.scroll(0, 0);
             setLoader(false);
         } catch (error) {
-            // Handle error
-            console.error("Error fetching launchpads:", error);
+            if (error.response && error.response.status === 401) {
+              
+                history.push("/")
+            } else {
+                
+                console.error("Error fetching launchpads:", error);
+                
+            }
             setLoader(false);
         }
     };

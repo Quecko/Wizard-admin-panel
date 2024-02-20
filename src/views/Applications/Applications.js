@@ -206,8 +206,6 @@ const Applications = () => {
     
         apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
     
-        
-    
         const config = {
             method: "get",
             url: apiUrl,
@@ -224,11 +222,18 @@ const Applications = () => {
             window.scroll(0, 0);
             setLoader(false);
         } catch (error) {
-            // Handle error
-            console.error("Error fetching launchpads:", error);
+            if (error.response && error.response.status === 401) {
+              
+                history.push("/")
+            } else {
+                
+                console.error("Error fetching launchpads:", error);
+                
+            }
             setLoader(false);
         }
     };
+    
     
 
 

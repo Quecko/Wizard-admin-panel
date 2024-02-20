@@ -6,6 +6,7 @@ import { Backdrop } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { Dropdown, Pagination } from "react-bootstrap";
 import Environment from 'utils/Environment';
+import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,6 +17,7 @@ const Creators = () => {
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [block, setBlock] = useState(false);
+  const history = useHistory();
   const [verify, setVerify] = useState(false);
   const [all, setAll] = useState(false);
   const [item, setItem] = useState(false);
@@ -102,8 +104,13 @@ const Creators = () => {
             setLoader(false);
         })
         .catch(error => {
+          if (error.response && error.response.status === 401) {
+            
+            history.push("/")
+        } else {
             console.error('Error fetching creators:', error);
-            // Handle error here
+            
+        }
             setLoader(false);
         });
 };
@@ -384,8 +391,10 @@ const Creators = () => {
                             <td>
                               <div className="mainimgdiv">
                                 <div className="inerimgd">
-                                  <img src={item?.profileImageUrl} className="tableimgginer">
-                                  </img>
+                                  {item?.profileImageUrl ?  <img src={item?.profileImageUrl} className="tableimgginer">
+                                  </img>  :  <img src="\users-assets\Frame 9985.svg" className="tableimgginer">
+                                  </img>}
+                                
                                 </div>
                                 <p className="tableimgtext">
                                   {item?.name}
