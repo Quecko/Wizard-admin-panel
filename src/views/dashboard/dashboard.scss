@@ -414,8 +414,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
-    &:active {
+    &.active {
       border-radius: 3.968px;
       background: #862fc0;
       color: #ffffff;

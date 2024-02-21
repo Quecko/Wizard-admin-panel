@@ -26,6 +26,7 @@ function Dashboard() {
   const [showcalendar1, setShowCalendar1] = useState(false);
   const [showcalendar3, setShowCalendar3] = useState(false);
   const [showcalendar4, setShowCalendar4] = useState(false);
+  const [activeButton, setActiveButton] = useState('All');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const Acls = JSON.parse(localStorage.getItem('acls'))
@@ -35,9 +36,9 @@ function Dashboard() {
   const handleDateChange = (value) => {
     setSelectedDates(value);
     if (Array.isArray(value) && value.length === 2) {
-      setShowCalendar2(false); 
+      setShowCalendar2(false);
       newUserchartHandle(value[0], value[1]);
-      setSelectedDates([]); 
+      setSelectedDates([]);
     }
   };
 
@@ -136,8 +137,8 @@ function Dashboard() {
 
         setCount(dates);
         setCount1(counts);
-      
-      
+
+
         console.log('Dates:', dates);
         console.log('Counts:', counts);
       })
@@ -416,16 +417,16 @@ function Dashboard() {
     new DateObject().setDay(23).add(1, "month"),
   ])
 
-  const calculatePastDate = (n) => {
+  const calculatePastDate = (days) => {
     const today = new Date();
     const pastDate = new Date(today);
-    pastDate.setDate(today.getDate() - n);
+    pastDate.setDate(today.getDate() - days);
     return pastDate.toISOString().split('T')[0];
   };
 
-  
+
   const handleDateButtonClick = (days) => {
-    const endDate = new Date().toISOString().split('T')[0]; 
+    const endDate = new Date().toISOString().split('T')[0];
     const startDate = calculatePastDate(days);
     newUserchartHandle(startDate, endDate);
   };
@@ -437,6 +438,10 @@ function Dashboard() {
       setCalledAPI(true);
     }
   }, [calledAPI]);
+
+  const handleClick = (buttonName) => {
+    setActiveButton(buttonName);
+  };
 
   return (
     <>
@@ -552,21 +557,24 @@ function Dashboard() {
                   <div>
                     {/* <img src="/dashboard-assets/issonns.svg" className="img-fluid custom-img" alt="Your Alt Text" /> */}
                     <div className="custom-tab-bar">
-                      <a className='clanderdate'
-                        onClick={() => handleDateButtonClick(1)} >
+                     
+                      <a className={activeButton === '1D' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClick(1),handleClick("1D"))}>
                         1D
                       </a>
-                      <a className='clanderdate'
-                        onClick={() => handleDateButtonClick(7)}>
+                    
+                      <a className={activeButton === '7D' ? 'clanderdate active' : 'clanderdate'}onClick={() => (handleDateButtonClick(7),handleClick("7D"))}>
                         7D
                       </a>
-                      <a className='clanderdate' onClick={() => handleDateButtonClick(30)}>
+                   
+                      <a className={activeButton === '1M' ? 'clanderdate active' : 'clanderdate'}onClick={() => (handleDateButtonClick(30),handleClick("1M"))}>
                         1M
                       </a>
-                      <a className='clanderdate' onClick={() => handleDateButtonClick(365)} >
+                     
+                      <a className={activeButton === '1Y' ? 'clanderdate active' : 'clanderdate'}onClick={() => (handleDateButtonClick(365),handleClick("1Y"))}>
                         1Y
                       </a>
-                      <a className='clanderdate' onClick={newUserchartHandle}>
+                     
+                      <a className={activeButton === 'All' ? 'clanderdate active' : 'clanderdate'} onClick={() => (newUserchartHandle(),handleClick("All"))}>
                         All
                       </a>
                       <a className='clanderdate' onClick={() => setShowCalendar2(!showcalendar2)}>

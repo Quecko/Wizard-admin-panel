@@ -616,7 +616,7 @@ img.tableimgginerddvidd {
     align-items: center;
     justify-content: center;
 
-    &:active {
+    &.active {
       border-radius: 5px;
       background: #3654d6;
       color: rgb(255, 255, 255);
