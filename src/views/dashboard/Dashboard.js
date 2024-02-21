@@ -618,7 +618,8 @@ function Dashboard() {
                         <>
                           <div key={index} className='scrolinerlefttop'>
                             <div className='scrolinerleft_iner'>
-                              <img src={item?.nft} className="inoncardinerxx" />
+                             
+                              {item?.nft ? <img src={item?.nft} className="inoncardinerxx" /> : <img src="\users-assets\Frame 9985.svg" className="inoncardinerxx" />}
                             </div>
                             <div className='scrolinerleft_text'>
                               <h6 className="inertextc">{item?.launchpadId?.name}</h6>

@@ -100,9 +100,9 @@ h2 {
   font-weight: 900 !important;
 }
 
-p {
-  // font-size: 16px !important;
-}
+// p {
+//    font-size: 16px !important;
+// }
 
 .common {
   color: #ffffff;
@@ -525,7 +525,8 @@ img.tableimgginerddvidd {
         linear-gradient(90deg, #3553d5 50.15%, #0c194e 217.12%)
       );
 
-      -webkit-background-clip: text;
+      
+      --webkit-background-clip:text ;
       -webkit-text-fill-color: transparent;
       font-family: Poppins;
       font-size: 16px;
