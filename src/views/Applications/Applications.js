@@ -1,8 +1,8 @@
+import './applications.scss'
 import Environment from 'utils/Environment';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Dropdown, Modal, Nav, Pagination } from 'react-bootstrap'
-import './applications.scss'
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import moment from "moment";
@@ -809,6 +809,7 @@ const Applications = () => {
                             <div className='onlyforbdrre'>
 
                             </div>
+                            
                             {teamNames?.map((item, index) => {
                                 return (
                                     <>

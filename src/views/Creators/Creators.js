@@ -16,8 +16,8 @@ import ReactPaginate from "react-paginate";
 const Creators = () => {
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
-  const [block, setBlock] = useState(false);
   const history = useHistory();
+  const [block, setBlock] = useState(false);
   const [verify, setVerify] = useState(false);
   const [all, setAll] = useState(false);
   const [item, setItem] = useState(false);

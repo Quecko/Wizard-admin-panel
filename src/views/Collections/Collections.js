@@ -1,14 +1,100 @@
-import React, { useState } from 'react'
-import { Dropdown, Modal, Nav, Pagination } from 'react-bootstrap'
 import './collections.scss';
+import Environment from 'utils/Environment';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import { Dropdown, Modal, Nav, Pagination } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import moment from "moment";
+import Spinner from "react-bootstrap/Spinner";
+import { useHistory } from 'react-router-dom';
+import ReactPaginate from "react-paginate";
 
 const Collections = () => {
 
+    const api_url = Environment.api_url;
+    const val = localStorage.getItem("accessToken");
     const [activeTab1, setActiveTab1] = useState('link-2222');
+    const history = useHistory();
+    const [loader, setLoader] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [collection, setCollection] = useState([]);
+    const [block, setBlock] = useState(false);
+    const [verify, setVerify] = useState(true);
+
+    const handleVerifyFilter = (e) => {
+        setLoader(true);
+        setVerify(true);
+        setBlock(false);
+
+    };
+
+    const handleBlockFilter = (e) => {
+        setLoader(true);
+        setBlock(true);
+        setVerify(false);
+
+
+    };
+    // pagination ============
+
+    const [limit] = useState(10);
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState([]);
+
+    console.log(page, pageCount, "asd pageee");
+
+    const handlePageChange = (e) => {
+        const selectedPage = e.selected;
+        setPage(selectedPage + 1);
+    };
+
+    // pagination ============
 
     const handleSelect1 = (eventKey) => {
         setActiveTab1(eventKey);
     }
+
+    const getCollection = async (orderField = 'createdAt', orderDirection = -1) => {
+        setLoader(true);
+        let apiUrl = api_url + "/launchpads/discover?limit=" + limit + "&offset=" + page;
+
+        if (searchQuery) {
+            apiUrl += "&search=" + searchQuery;
+        }
+
+        apiUrl += verify ? "&limitedEddition=true" : block ? "&openEddition=true" : "";
+
+        const config = {
+            method: "get",
+            url: apiUrl,
+            headers: {
+                Authorization: "Bearer " + val,
+            },
+        };
+
+        axios(config)
+            .then(response => {
+                console.log(response?.data?.data?.creators);
+                setCollection(response?.data?.data?.launchpads);
+                setPageCount(response?.data?.data?.count);
+                window.scroll(0, 0);
+                setLoader(false);
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+
+                    history.push("/")
+                } else {
+                    console.error('Error fetching creators:', error);
+
+                }
+                setLoader(false);
+            });
+    };
+    useEffect(() => {
+        getCollection();
+    }, [page, searchQuery, verify, block])
 
     return (
         <>
@@ -22,7 +108,8 @@ const Collections = () => {
                                 <path d="M9.58317 18.125C4.87484 18.125 1.0415 14.2916 1.0415 9.58329C1.0415 4.87496 4.87484 1.04163 9.58317 1.04163C14.2915 1.04163 18.1248 4.87496 18.1248 9.58329C18.1248 14.2916 14.2915 18.125 9.58317 18.125ZM9.58317 2.29163C5.55817 2.29163 2.2915 5.56663 2.2915 9.58329C2.2915 13.6 5.55817 16.875 9.58317 16.875C13.6082 16.875 16.8748 13.6 16.8748 9.58329C16.8748 5.56663 13.6082 2.29163 9.58317 2.29163Z" fill="#862FC0" />
                                 <path d="M18.3335 18.9583C18.1752 18.9583 18.0169 18.9 17.8919 18.775L16.2252 17.1083C15.9835 16.8666 15.9835 16.4666 16.2252 16.225C16.4669 15.9833 16.8669 15.9833 17.1085 16.225L18.7752 17.8916C19.0169 18.1333 19.0169 18.5333 18.7752 18.775C18.6502 18.9 18.4919 18.9583 18.3335 18.9583Z" fill="#862FC0" />
                             </svg>
-                            <input type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
+                            <input value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)} type="text" name="full_name" className="ambassadorinput" placeholder="Search" />
                         </div>
                         <Dropdown className="amer_dropdonfstnew onlyformobile d-none " autoClose={false}>
                             <Dropdown.Toggle id="dropdown-basic" className="scrhmolddropdown">
@@ -42,7 +129,7 @@ const Collections = () => {
                                     </div></Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Dropdown className="amer_dropdonfst ">
+                        {/* <Dropdown className="amer_dropdonfst ">
                             <Dropdown.Toggle id="dropdown-basic">
                                 Sort by
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none">
@@ -56,7 +143,7 @@ const Collections = () => {
                                 <Dropdown.Item href="#/action-2">Price: Low to High</Dropdown.Item>
                    
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                         {/* <Dropdown className="filyerbyns ">
                             <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none">
@@ -82,13 +169,13 @@ const Collections = () => {
                     <div className='maintablea  onlybdrfor'>
                         <div className='maintablepills'>
                             <Nav variant="pills" activeKey={activeTab1} onSelect={handleSelect1} className='amberpillsouter'>
-                                <Nav.Item className='amberitempils'>
+                                <Nav.Item onClick={handleVerifyFilter} className='amberitempils'>
                                     <Nav.Link className='ineramb' eventKey="link-2222">Limited Edition</Nav.Link>
                                 </Nav.Item>
                                 {/* <Nav.Item className='amberitempils'>
                                                 <Nav.Link className='ineramb' eventKey="link-3333">Approved</Nav.Link>
                                             </Nav.Item> */}
-                                <Nav.Item className='amberitempils'>
+                                <Nav.Item onClick={handleBlockFilter} className='amberitempils'>
                                     <Nav.Link className='ineramb' eventKey="link-4444">
                                         Open Edition
                                     </Nav.Link>
@@ -161,59 +248,74 @@ const Collections = () => {
                                                 </th>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
 
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
+                                                {collection?.length > 0 ? (
+                                                    collection?.map((item, index) => {
+                                                        return (
+                                                            <>
+                                                                <tr key={index}>
+                                                                    <td>
+                                                                        <div className="mainimgdiv">
+                                                                            <div className="inerimgd">
+                                                                                <img src={item?.imageUrl} className="tableimgginer">
+                                                                                </img>
+                                                                            </div>
+                                                                            <p className="tableimgtext">
+                                                                                {item?.name}
+                                                                            </p>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        {item?.floorToday?.price ? item?.floorToday?.price : "0"} CORE
+                                                                    </td>
+                                                                    <td>
+                                                                        <span className="eleipiess">
+                                                                            2,087 CORE
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        {item?.marketcap} USDC
+                                                                    </td>
+                                                                    <td className='red'>
+                                                                        <span className={((item?.floorYesterday?.price - item?.floorToday?.price) / item?.floorYesterday?.price * 100 >= 0 && (item?.floorToday?.price || item?.floorToday?.price > 0) ? 'green' : 'red')}>
+                                                                            {item?.floorYesterday?.price && item?.floorToday?.price && item?.floorYesterday?.price !== 0 && item?.floorToday?.price !== 0 ?
+                                                                                (
+                                                                                    ((item?.floorYesterday?.price - item?.floorToday?.price) / item?.floorYesterday?.price * 100).toFixed(2) >= 0 ?
+                                                                                        "+" + ((item?.floorYesterday?.price - item?.floorToday?.price) / item?.floorYesterday?.price * 100).toFixed(2) + "%" :
+                                                                                        ((item?.floorYesterday?.price - item?.floorToday?.price) / item?.floorYesterday?.price * 100).toFixed(2) + "%"
+                                                                                )
+                                                                                :
+                                                                                (!item?.floorToday?.price && !item?.floorYesterday?.price ? "0%" : (!item?.floorToday?.price && item?.floorYesterday?.price === 0 ? "100%" : (!item?.floorYesterday?.price && item?.floorToday?.price === 0 ? "-100%" : "+100%"))) 
+                                                                            }
+                                                                        </span>
 
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754   <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
+                                                                    </td>
+                                                                    <td>
+                                                                        2,087 CORE
+                                                                    </td>
+                                                                    <td className='red'>
+                                                                        <span className='red' >  -1%</span>
 
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
+                                                                    </td>
+                                                                    <td className=''>
+                                                                        2,448
+                                                                    </td>
+                                                                    <td className=''>
+                                                                        {item?.todayNFTs}  <span className='lightgrey'>
+                                                                            (6.9%)
+                                                                        </span>
+                                                                    </td>
+                                                                    <td className=''>
+                                                                        754   <span className='lightgrey'>
+                                                                            (6.9%)
+                                                                        </span>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {/* <Link to="/admin/userdetail">
                           <button className="detailbtn" >Detail</button>
                         </Link> */}
-                                                        {/* <div className="main-outer-p">
+                                                                        {/* <div className="main-outer-p">
 
                                                 <div className="main-switch-nn">
                                                     <div class="custom-control custom-switch">
@@ -222,701 +324,23 @@ const Collections = () => {
                                                     </div>
                                                 </div>
                                             </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
+                                                                    </td>
+                                                                </tr>
+                                                            </>
+                                                        )
+                                                    })
+                                                ) : loader ? (
+                                                    <tr>
+                                                        <td colSpan="8" className="text-center">
+                                                            <div className="text-center">
+                                                                {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                                                                {/* <h4>No Categories</h4> */}
                                                             </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754   <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754   <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754   <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754   <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className='red'>
-                                                        <span className='red' >  -1%</span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754   <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        30 CORE
-                                                    </td>
-                                                    <td>
-                                                        <span className="eleipiess">
-                                                            2,087 CORE
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        9.4M USDC
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td>
-                                                        2,087 CORE
-                                                    </td>
-                                                    <td className=''>
-                                                        <span className='green' > +1.8% </span>
-
-                                                    </td>
-                                                    <td className=''>
-                                                        2,448
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-                                                    <td className=''>
-                                                        754  <span className='lightgrey'>
-                                                            (6.9%)
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {/* <Link to="/admin/userdetail">
-                          <button className="detailbtn" >Detail</button>
-                        </Link> */}
-                                                        {/* <div className="main-outer-p">
-
-                                                <div className="main-switch-nn">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitches2" />
-                                                        <label class="custom-control-label" for="customSwitches2"></label>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
+                                                ) : (
+                                                    <p class="text-center text-white mt-3">No Records</p>
+                                                )}
 
 
 
@@ -926,7 +350,7 @@ const Collections = () => {
 
                                     </div>
                                     <div className='Paginationlattable'>
-                                        <button className='leftpigbtn' >
+                                        {/* <button className='leftpigbtn' >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                 <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                             </svg>
@@ -945,7 +369,30 @@ const Collections = () => {
                                                 <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                             </svg>
 
-                                        </button>
+                                        </button> */}
+
+                                        {page >= 1 ?
+                                            <ReactPaginate
+                                                previousLabel="Previous"
+                                                nextLabel="Next"
+                                                pageClassName="page-item"
+                                                pageLinkClassName="page-link"
+                                                previousClassName="page-item"
+                                                previousLinkClassName="page-link"
+                                                nextClassName="page-item"
+                                                nextLinkClassName="page-link"
+                                                breakLabel="..."
+                                                breakClassName="page-item"
+                                                breakLinkClassName="page-link"
+                                                pageCount={Math.ceil(pageCount / limit)}
+                                                marginPagesDisplayed={2}
+                                                pageRangeDisplayed={5}
+                                                onPageChange={handlePageChange}
+                                                containerClassName="pagination"
+                                                activeClassName="active"
+                                                forcePage={page - 1}
+                                            />
+                                            : ''}
                                     </div>
 
                                 </div>
@@ -980,174 +427,55 @@ const Collections = () => {
 
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
+
+
+                                                {collection?.length > 0 ? (
+                                                    collection?.map((item, index) => {
+                                                        return (
+                                                            <>
+                                                                <tr key={index}>
+                                                                    <td>
+                                                                        <div className="mainimgdiv">
+                                                                            <div className="inerimgd">
+                                                                                <img src={item?.imageUrl} className="tableimgginer">
+                                                                                </img>
+                                                                            </div>
+                                                                            <p className="tableimgtext">
+                                                                                {item?.name}
+                                                                            </p>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        {item?.todayNFTs}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        100,000 CORE
+                                                                    </td>
+                                                                </tr>
+
+                                                            </>
+                                                        )
+                                                    })
+                                                ) : loader ? (
+                                                    <tr>
+                                                        <td colSpan="8" className="text-center">
+                                                            <div className="text-center">
+                                                                {<Spinner animation="border" style={{ color: "#862fc0" }} />}
+                                                                {/* <h4>No Categories</h4> */}
                                                             </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="mainimgdiv">
-                                                            <div className="inerimgd">
-                                                                <img src="\users-assets\admin-img.png" className="tableimgginer">
-                                                                </img>
-                                                            </div>
-                                                            <p className="tableimgtext">
-                                                                Forganas
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        5,145
-                                                    </td>
-
-                                                    <td>
-                                                        100,000 CORE
-                                                    </td>
-                                                </tr>
-
+                                                        </td>
+                                                    </tr>
+                                                ) : (
+                                                    <p class="text-center text-white mt-3">No Records</p>
+                                                )}
                                             </tbody>
 
                                         </table>
 
                                     </div>
                                     <div className='Paginationlattable'>
-                                        <button className='leftpigbtn' >
+                                        {/* <button className='leftpigbtn' >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                 <path d="M15.8332 10H4.99987M9.16654 5L4.7558 9.41074C4.43036 9.73618 4.43036 10.2638 4.7558 10.5893L9.16654 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                             </svg>
@@ -1166,7 +494,30 @@ const Collections = () => {
                                                 <path d="M4.1665 10H14.9998M10.8332 5L15.2439 9.41074C15.5694 9.73618 15.5694 10.2638 15.2439 10.5893L10.8332 15" stroke="white" stroke-width="1.5" stroke-linecap="round" />
                                             </svg>
 
-                                        </button>
+                                        </button> */}
+
+                                        {page >= 1 ?
+                                            <ReactPaginate
+                                                previousLabel="Previous"
+                                                nextLabel="Next"
+                                                pageClassName="page-item"
+                                                pageLinkClassName="page-link"
+                                                previousClassName="page-item"
+                                                previousLinkClassName="page-link"
+                                                nextClassName="page-item"
+                                                nextLinkClassName="page-link"
+                                                breakLabel="..."
+                                                breakClassName="page-item"
+                                                breakLinkClassName="page-link"
+                                                pageCount={Math.ceil(pageCount / limit)}
+                                                marginPagesDisplayed={2}
+                                                pageRangeDisplayed={5}
+                                                onPageChange={handlePageChange}
+                                                containerClassName="pagination"
+                                                activeClassName="active"
+                                                forcePage={page - 1}
+                                            />
+                                            : ''}
                                     </div>
 
                                 </div>
