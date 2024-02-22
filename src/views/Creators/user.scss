@@ -435,7 +435,7 @@
 
     content: "";
     background-color: #4a4a4a;
-    border: 1px solid #4a4a4a;
+    border: none;
     box-shadow: none !important;
     outline: none !important;
   }
@@ -676,6 +676,9 @@ a:not([href]):not([class]) {
 }
 
 @media (max-width: 600px) {
+  .mydots.navbar-toggler {
+    display: none;
+}
   .content .inputtttt {
     width: 100%;
     margin-left: 0px;
@@ -705,9 +708,9 @@ a:not([href]):not([class]) {
   }
 }
 .maintablecreater {
-  // border-radius: 10px;
+  border-radius: 10px;
   border: 1px solid #1b1b1b;
-  background: rgba(8, 5, 10, 0);
+  background: #08050a00;
   overflow: hidden;
 
   .claimpillss {
@@ -1930,7 +1933,7 @@ a:not([href]):not([class]) {
     left: -12px;
   }
   .amer_dropdonfstnew.onlyformobile .dropdown-menu.show a.dropdown-item {
-    width: 729px;
+    width: 755px;
   }
   .newinputs .inputoutermain .ambrinputicon {
     position: absolute;
@@ -2014,7 +2017,7 @@ a:not([href]):not([class]) {
 }
 @media (max-width: 600px) {
   .amer_dropdonfstnew.onlyformobile .dropdown-menu.show a.dropdown-item {
-    width: 390px;
+    width: 425px;
   }
   .maintablecreater .Paginationlattable .pagination {
 
@@ -2025,8 +2028,31 @@ a:not([href]):not([class]) {
    width: unset;
 }
 }
+.rmdp-arrow-container:hover {
+  background-color: #862fc0;
+  box-shadow: 0 0 3px #0d0711;
+}
 @media (max-width: 400px) {
   .amer_dropdonfstnew.onlyformobile .dropdown-menu.show a.dropdown-item {
-    width: 343px;
+    width: 371px;
   }
+  .nopaddingonmobileonly{
+    padding: 0px !important;
+  }
+  .navbar.navbar-transparent a:not(.dropdown-item):not(.btn) {
+   
+    font-size: 16px;
+    
+    text-transform: math-auto;
+}
+.custom-tab-bar a.clanderdate {
+
+  height: 80%;
+
+}
+.main-dashboard .chartouterdiv .dashbodtop_left .statay {
+
+  font-size: 14px;
+
+}
 }

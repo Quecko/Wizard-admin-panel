@@ -448,7 +448,7 @@ function Dashboard() {
       <div className="content">
         <section className="main-dashboard">
           <div className="row ">
-            <div className="col-xl-12 col-sm-12 ">
+            <div className="col-xl-12 col-sm-12  nopaddingonmobileonly">
               <div className="dashbrd_top_cardmaindiv ">
                 <div className="new_card">
                   <div className='cardinercont'>
@@ -683,7 +683,7 @@ function Dashboard() {
                       {showcalendar1 && (
                         <div className="cal set-custom-calendar-div">
                           <Calendar
-                            numberOfMonths={2}
+                            numberOfMonths={1}
                             disableMonthPicker
                             disableYearPicker
                           />
