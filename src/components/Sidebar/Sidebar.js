@@ -92,7 +92,8 @@ function Sidebar(props) {
     >
 
       <div className="sidebar-wrapper" ref={sidebar}>
-        <div className="logo">
+     <div>
+     <div className="logo">
           <Link
             to="/admin/dashboard"
             className="simple-text logo-mini "
@@ -259,6 +260,7 @@ function Sidebar(props) {
 
 
         </Nav>
+     </div>
         <div className="edit-page-profile">
           {/* <div className="logo-imgss d-flex justify-content-start align-items-center">
               <Link onClick={logout}><img src={banner10} className="pad-rihgt" alt="" /></Link>
