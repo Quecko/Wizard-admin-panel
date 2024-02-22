@@ -190,7 +190,7 @@
 
       display: flex;
       padding: 20px;
-
+      gap: 10px;
       align-items: flex-start;
       .toptaberow {
         color: #fff;
@@ -337,7 +337,9 @@
     }
   }
 }
-
+// .apexcharts-toolbar {
+//   display: none !important;
+// }
 @media (max-width: 1199px) {
   .main-dashboard .dashbrd_top_cardmaindiv {
     display: flex;
@@ -364,7 +366,7 @@
     flex-direction: column-reverse;
   }
   .main-dashboard .btumouterhdngmain .inerbutmsec .commoncardtextbutm {
-    font-size: 18px;
+    font-size: 15px;
   }
   .main-dashboard .btumouterhdngmain .inerbutmsec .tootall {
     font-size: 14px;
@@ -379,7 +381,13 @@
     .dash_butmright_outer_chart
     .dash_butmouter_chart_inertext
     .cvfred {
-    font-size: 26px;
+    font-size: 20px;
+  }
+  .main-dashboard .dash_butmright_outer_chart {
+    min-width: 100%;
+  }
+  .main-dashboard .btumouterhdngmain .inerbutmsec .commoncardtextbutm {
+    gap: 5px;
   }
 }
 .custom-tab-bar {

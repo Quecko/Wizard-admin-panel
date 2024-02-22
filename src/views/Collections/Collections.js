@@ -129,7 +129,7 @@ const Collections = () => {
                                     </div></Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        {/* <Dropdown className="amer_dropdonfst ">
+                        <Dropdown className="amer_dropdonfst ">
                             <Dropdown.Toggle id="dropdown-basic">
                                 Sort by
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none">
@@ -143,7 +143,7 @@ const Collections = () => {
                                 <Dropdown.Item href="#/action-2">Price: Low to High</Dropdown.Item>
                    
                             </Dropdown.Menu>
-                        </Dropdown> */}
+                        </Dropdown>
                         {/* <Dropdown className="filyerbyns ">
                             <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none">
