@@ -27,7 +27,7 @@ function Dashboard() {
   const [showcalendar3, setShowCalendar3] = useState(false);
   const [showcalendar4, setShowCalendar4] = useState(false);
   const [activeButton, setActiveButton] = useState('All');
-  const [startDate, setStartDate] = useState('');
+  const [totalSalePrice, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const Acls = JSON.parse(localStorage.getItem('acls'))
   const [calledAPI, setCalledAPI] = useState(false);
@@ -118,7 +118,7 @@ function Dashboard() {
   // };
 
   const newUserchartHandle = (startDate, endDate) => {
-    let url = `${api_url}/nfts/sale-Reports`;
+    let url = `${api_url}/sales/`;
 
     if (startDate && endDate) {
 
