@@ -27,7 +27,15 @@ function Dashboard() {
   const [showcalendar3, setShowCalendar3] = useState(false);
   const [showcalendar4, setShowCalendar4] = useState(false);
   const [activeButton, setActiveButton] = useState('All');
-  const [totalSalePrice, setStartDate] = useState('');
+  const [totalSalePrice, setTotalSalePrice] = useState('');
+  const [currentMonthPrice, setCurrentMonthPrice] = useState('');
+  const [lastMonthPrice, setLastMonthPrice] = useState('');
+  const [totalSaleCount, setTotalSaleCount] = useState('');
+  const [currentMonthCount, setCurrentMonthCount] = useState('');
+  const [lastMonthCount, setLastMonthCount] = useState('');
+  const [yearData,setYearData] = useState([]);
+  const [totalYear,setTotalYear] = useState("");
+  
   const [endDate, setEndDate] = useState('');
   const Acls = JSON.parse(localStorage.getItem('acls'))
   const [calledAPI, setCalledAPI] = useState(false);
@@ -137,7 +145,12 @@ function Dashboard() {
 
         setCount(dates);
         setCount1(counts);
-
+        setTotalSalePrice(response?.data?.data?.totalSalePriceSum);
+        setCurrentMonthPrice(response?.data?.data?.currentMonthTotalSalePriceSum);
+        setLastMonthPrice(response?.data?.data?.lastMonthTotalSalePriceSum);
+        setTotalSaleCount(response?.data?.data?.totalSaleCount);
+        setCurrentMonthCount(response?.data?.data?.currentMonthTotalSaleCount);
+        setLastMonthCount(response?.data?.data?.lastMonthTotalSaleCount);
 
         console.log('Dates:', dates);
         console.log('Counts:', counts);
@@ -149,11 +162,36 @@ function Dashboard() {
   }
 
 
+  const getYearData = async () => {
+
+    setStats([]);
+    const config = {
+      method: "get",
+      url: api_url + "/sales/saleWithDate",
+      headers: {
+        Authorization: "Bearer " + val,
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        const resData = res?.data?.data;
+        console.log("ali: ", resData?.totalSalesPrice);
+        setYearData(resData?.salesByYear);
+        setTotalYear(resData?.totalSalesPrice)
+      })
+      .catch((error) => {
+        if (error?.response?.status == 501) {
+          localStorage.removeItem("accessToken");
+          history.push("/");
+        }
+      });
+  };
+
 
   useEffect(() => {
     getOrderStats();
     getTopItems();
-    // getSaleReport();
+    getYearData();
   }, []);
 
   const [options, setobject] = useState({
@@ -557,24 +595,24 @@ function Dashboard() {
                   <div>
                     {/* <img src="/dashboard-assets/issonns.svg" className="img-fluid custom-img" alt="Your Alt Text" /> */}
                     <div className="custom-tab-bar">
-                     
-                      <a className={activeButton === '1D' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClick(1),handleClick("1D"))}>
+
+                      <a className={activeButton === '1D' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClick(1), handleClick("1D"))}>
                         1D
                       </a>
-                    
-                      <a className={activeButton === '7D' ? 'clanderdate active' : 'clanderdate'}onClick={() => (handleDateButtonClick(7),handleClick("7D"))}>
+
+                      <a className={activeButton === '7D' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClick(7), handleClick("7D"))}>
                         7D
                       </a>
-                   
-                      <a className={activeButton === '1M' ? 'clanderdate active' : 'clanderdate'}onClick={() => (handleDateButtonClick(30),handleClick("1M"))}>
+
+                      <a className={activeButton === '1M' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClick(30), handleClick("1M"))}>
                         1M
                       </a>
-                     
-                      <a className={activeButton === '1Y' ? 'clanderdate active' : 'clanderdate'}onClick={() => (handleDateButtonClick(365),handleClick("1Y"))}>
+
+                      <a className={activeButton === '1Y' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClick(365), handleClick("1Y"))}>
                         1Y
                       </a>
-                     
-                      <a className={activeButton === 'All' ? 'clanderdate active' : 'clanderdate'} onClick={() => (newUserchartHandle(),handleClick("All"))}>
+
+                      <a className={activeButton === 'All' ? 'clanderdate active' : 'clanderdate'} onClick={() => (newUserchartHandle(), handleClick("All"))}>
                         All
                       </a>
                       <a className='clanderdate' onClick={() => setShowCalendar2(!showcalendar2)}>
@@ -618,7 +656,7 @@ function Dashboard() {
                         <>
                           <div key={index} className='scrolinerlefttop'>
                             <div className='scrolinerleft_iner'>
-                             
+
                               {item?.nft ? <img src={item?.nft} className="inoncardinerxx" /> : <img src="\users-assets\Frame 9985.svg" className="inoncardinerxx" />}
                             </div>
                             <div className='scrolinerleft_text'>
@@ -694,17 +732,17 @@ function Dashboard() {
                 </div>
                 <div className='btumouterhdngmain'>
                   <div className='inerbutmsec'>
-                    <h3 className="commoncardtextbutm">    <img src="\dashboard\iconbig.svg" className="inon" alt='icon' />500,058 CORE</h3>
+                    <h3 className="commoncardtextbutm">    <img src="\dashboard\iconbig.svg" className="inon" alt='icon' />{totalYear.toString().substring(0, 7)} CORE</h3>
                     <p className='tootall'>
                       TOTAL
                     </p>
                   </div>
-                  <div className='inerbutmsec'>
+                  {/* <div className='inerbutmsec'>
                     <h3 className="commoncardtextbutm">    <img src="\dashboard\iconbig.svg" className="inon" alt='icon' />54,896 CORE</h3>
                     <p className='tootall'>
                       AVERAGE
                     </p>
-                  </div>
+                  </div> */}
                 </div>
                 <div className='table-responsive dastoutertable'>
                   <div class="tablerow">
@@ -713,30 +751,29 @@ function Dashboard() {
                     <p className='toptaberow'>Growth</p>
                     <p className='toptaberow'>Earnings</p>
                   </div>
-                  <div class="tablerow">
-                    <p className='sectblerow'>2023</p>
-                    <p className='sectblerow'>7,2039</p>
-                    <p className='sectblerow green'>+24%</p>
-                    <p className='sectblerow'>789,845.00</p>
+                  {yearData?.map((item,index) => {
+                    return(
+                      <>
+                        <div key={index} class="tablerow">
+                    <p className='sectblerow'>{item?._id}</p>
+                    <p className='sectblerow'>{item?.count}</p>
+                    <p className={((totalYear - item?.totalSalesPrice) / totalYear * 100 >= 0 || (item?.totalSalesPrice && totalYear === 0) ? 'sectblerow green' : 'sectblerow red')}>  
+                      {totalYear && item?.totalSalesPrice && totalYear !== 0 && item?.totalSalesPrice !== 0 ?
+                        (
+                          ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) >= 0 ?
+                            "+" + ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%" :
+                            ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%"
+                        )
+                        :
+                        (!item?.totalSalesPrice && !totalYear ? "0%" : (item?.totalSalesPrice && totalYear === 0 ? "+100%" : (totalYear && item?.totalSalesPrice === 0 ? "-100%" : "+100%")))
+                      }</p>
+                    <p className='sectblerow'>{item?.totalSalesPrice}</p>
                   </div>
-                  <div class="tablerow">
-                    <p className='sectblerow'>2023</p>
-                    <p className='sectblerow'>7,2039</p>
-                    <p className='sectblerow red'>Growth</p>
-                    <p className='sectblerow'>789,845.00</p>
-                  </div>
-                  <div class="tablerow">
-                    <p className='sectblerow'>2023</p>
-                    <p className='sectblerow'>7,2039</p>
-                    <p className='sectblerow green'>+24%</p>
-                    <p className='sectblerow'>789,845.00</p>
-                  </div>
-                  <div class="tablerow">
-                    <p className='sectblerow'>2023</p>
-                    <p className='sectblerow'>7,2039</p>
-                    <p className='sectblerow red'>Growth</p>
-                    <p className='sectblerow'>789,845.00</p>
-                  </div>
+                      </>
+                    )
+                  })}
+                
+               
                 </div>
               </div>
             </div>
@@ -750,7 +787,7 @@ function Dashboard() {
                     Revenue
                   </p>
                   <p className='cvfred'>
-                    532K CORE
+                    {totalSalePrice.toString().substring(0, 7)} CORE
                   </p>
                 </div>
                 <div className='dash_butmouter_chart_inertextright'>
@@ -764,12 +801,21 @@ function Dashboard() {
 
 
                   <div className='inercrt'>
-                    <p className='revngggren'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <p className={((lastMonthPrice - currentMonthPrice) / lastMonthPrice * 100 >= 0 || (currentMonthPrice && lastMonthPrice === 0) ? 'revngggren' : 'revngggren red')}>
+                      {/* <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                         <path d="M7.52904 3.98754L4.99987 1.45837L2.4707 3.98754" stroke="#04C182" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M5 8.54168L5 1.52917" stroke="#04C182" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
-                      24.87%
+                      24.87% */}
+                      {lastMonthPrice && currentMonthPrice && lastMonthPrice !== 0 && currentMonthPrice !== 0 ?
+                        (
+                          ((lastMonthPrice - currentMonthPrice) / lastMonthPrice * 100).toFixed(2) >= 0 ?
+                            "+" + ((lastMonthPrice - currentMonthPrice) / lastMonthPrice * 100).toFixed(2) + "%" :
+                            ((lastMonthPrice - currentMonthPrice) / lastMonthPrice * 100).toFixed(2) + "%"
+                        )
+                        :
+                        (!currentMonthPrice && !lastMonthPrice ? "0%" : (currentMonthPrice && lastMonthPrice === 0 ? "+100%" : (lastMonthPrice && currentMonthPrice === 0 ? "-100%" : "+100%")))
+                      }
                     </p>
                     <p className='month'>
                       This month
@@ -788,7 +834,7 @@ function Dashboard() {
                     Sales
                   </p>
                   <p className='cvfred'>
-                    153 Units
+                    {totalSaleCount} Units
                   </p>
                 </div>
                 <div className='dash_butmouter_chart_inertextright'>
@@ -803,12 +849,24 @@ function Dashboard() {
 
 
                   <div className='inercrt'>
-                    <p className='revngggren red'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <p
+                      // className='revngggren red'
+                      className={((lastMonthCount - currentMonthCount) / lastMonthCount * 100 >= 0 || (currentMonthCount && lastMonthCount === 0) ? 'revngggren' : 'revngggren red')}
+                    >
+                      {/* <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                         <path d="M7.52904 6.01246L4.99987 8.54163L2.4707 6.01246" stroke="#E84A4A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M5 1.45832L5 8.47083" stroke="#E84A4A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
-                      24.87%
+                      24.87% */}
+                      {lastMonthCount && currentMonthCount && lastMonthCount !== 0 && currentMonthCount !== 0 ?
+                        (
+                          ((lastMonthCount - currentMonthCount) / lastMonthCount * 100).toFixed(2) >= 0 ?
+                            "+" + ((lastMonthCount - currentMonthCount) / lastMonthCount * 100).toFixed(2) + "%" :
+                            ((lastMonthCount - currentMonthCount) / lastMonthCount * 100).toFixed(2) + "%"
+                        )
+                        :
+                        (!currentMonthCount && !lastMonthCount ? "0%" : (currentMonthCount && lastMonthCount === 0 ? "+100%" : (lastMonthCount && currentMonthCount === 0 ? "-100%" : "+100%")))
+                      }
                     </p>
                     <p className='month'>
                       This month

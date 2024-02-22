@@ -141,7 +141,7 @@ const Collections = () => {
                                 <Dropdown.Item href="#/action-2">Name</Dropdown.Item>
                                 <Dropdown.Item href="#/action-1">Price: Hight to Low</Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">Price: Low to High</Dropdown.Item>
-                   
+
                             </Dropdown.Menu>
                         </Dropdown>
                         {/* <Dropdown className="filyerbyns ">
@@ -277,7 +277,7 @@ const Collections = () => {
                                                                         {item?.marketcap} USDC
                                                                     </td>
                                                                     <td className='red'>
-                                                                        <span className={((item?.floorYesterday?.price - item?.floorToday?.price) / item?.floorYesterday?.price * 100 >= 0 && (item?.floorToday?.price || item?.floorToday?.price > 0) ? 'green' : 'red')}>
+                                                                        <span className={item?.floorYesterday?.price && item?.floorToday?.price && item?.floorYesterday?.price !== 0 && item?.floorToday?.price !== 0 ? ((item?.floorYesterday?.price - item?.floorToday?.price) >= 0 ? 'green' : 'red') : 'green'}>
                                                                             {item?.floorYesterday?.price && item?.floorToday?.price && item?.floorYesterday?.price !== 0 && item?.floorToday?.price !== 0 ?
                                                                                 (
                                                                                     ((item?.floorYesterday?.price - item?.floorToday?.price) / item?.floorYesterday?.price * 100).toFixed(2) >= 0 ?
@@ -285,7 +285,7 @@ const Collections = () => {
                                                                                         ((item?.floorYesterday?.price - item?.floorToday?.price) / item?.floorYesterday?.price * 100).toFixed(2) + "%"
                                                                                 )
                                                                                 :
-                                                                                (!item?.floorToday?.price && !item?.floorYesterday?.price ? "0%" : (!item?.floorToday?.price && item?.floorYesterday?.price === 0 ? "100%" : (!item?.floorYesterday?.price && item?.floorToday?.price === 0 ? "-100%" : "+100%"))) 
+                                                                                (!item?.floorToday?.price && !item?.floorYesterday?.price ? "0%" : (item?.floorToday?.price && item?.floorYesterday?.price === 0 ? "+100%" : (item?.floorYesterday?.price && item?.floorToday?.price === 0 ? "-100%" : "+100%")))
                                                                             }
                                                                         </span>
 
