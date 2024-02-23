@@ -129,7 +129,7 @@ const Collections = () => {
                                     </div></Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Dropdown className="amer_dropdonfst ">
+                        {/* <Dropdown className="amer_dropdonfst ">
                             <Dropdown.Toggle id="dropdown-basic">
                                 Sort by
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="7" viewBox="0 0 12 7" fill="none">
@@ -143,7 +143,7 @@ const Collections = () => {
                                 <Dropdown.Item href="#/action-2">Price: Low to High</Dropdown.Item>
 
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                         {/* <Dropdown className="filyerbyns ">
                             <Dropdown.Toggle className="filyerbynss" id="dropdown-basic">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none">
@@ -223,7 +223,7 @@ const Collections = () => {
                                                 </th>
                                                 <th>
                                                     <div className='volmouter'>
-                                                        Volume 1d%
+                                                        Volume 1d
                                                         <div className='sidearrowtb'>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
                                                                 <path d="M0.868964 6L5.87339 6L10.3798 6C11.1509 6 11.5365 5.13 10.9903 4.62L6.82929 0.735C6.16257 0.112499 5.07814 0.112499 4.41142 0.735L2.82896 2.2125L0.250439 4.62C-0.287758 5.13 0.0978165 6 0.868964 6Z" fill="white" />
@@ -270,7 +270,7 @@ const Collections = () => {
                                                                     </td>
                                                                     <td>
                                                                         <span className="eleipiess">
-                                                                            2,087 CORE
+                                                                            {item?.volume.toString().substring(0, 7)} CORE
                                                                         </span>
                                                                     </td>
                                                                     <td>
@@ -291,17 +291,27 @@ const Collections = () => {
 
                                                                     </td>
                                                                     <td>
-                                                                        2,087 CORE
+                                                                    {item?.volumeToday.toString().substring(0, 7)} CORE
                                                                     </td>
                                                                     <td className='red'>
-                                                                        <span className='red' >  -1%</span>
+                                                                    <span className={item?.volumeYesterday && item?.volumeToday && item?.volumeYesterday !== 0 && item?.volumeToday !== 0 ? ((item?.volumeYesterday - item?.volumeToday) >= 0 ? 'green' : 'red') : 'green'}>
+                                                                            {item?.volumeYesterday && item?.volumeToday && item?.volumeYesterday !== 0 && item?.volumeToday !== 0 ?
+                                                                                (
+                                                                                    ((item?.volumeYesterday - item?.volumeToday) / item?.volumeYesterday * 100).toFixed(2) >= 0 ?
+                                                                                        "+" + ((item?.volumeYesterday - item?.volumeToday) / item?.volumeYesterday * 100).toFixed(2) + "%" :
+                                                                                        ((item?.volumeYesterday - item?.volumeToday) / item?.volumeYesterday * 100).toFixed(2) + "%"
+                                                                                )
+                                                                                :
+                                                                                (!item?.volumeToday && !item?.volumeYesterday ? "0%" : (item?.volumeToday && item?.volumeYesterday === 0 ? "+100%" : (item?.volumeYesterday && item?.volumeToday === 0 ? "-100%" : "+100%")))
+                                                                            }
+                                                                        </span>
 
                                                                     </td>
                                                                     <td className=''>
-                                                                        2,448
+                                                                        {item?.totalSales}
                                                                     </td>
                                                                     <td className=''>
-                                                                        {item?.todayNFTs}  <span className='lightgrey'>
+                                                                        {item?.totalNfts}  <span className='lightgrey'>
                                                                             (6.9%)
                                                                         </span>
                                                                     </td>

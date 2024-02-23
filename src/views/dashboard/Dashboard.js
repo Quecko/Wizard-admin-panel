@@ -33,9 +33,9 @@ function Dashboard() {
   const [totalSaleCount, setTotalSaleCount] = useState('');
   const [currentMonthCount, setCurrentMonthCount] = useState('');
   const [lastMonthCount, setLastMonthCount] = useState('');
-  const [yearData,setYearData] = useState([]);
-  const [totalYear,setTotalYear] = useState("");
-  
+  const [yearData, setYearData] = useState([]);
+  const [totalYear, setTotalYear] = useState("");
+
   const [endDate, setEndDate] = useState('');
   const Acls = JSON.parse(localStorage.getItem('acls'))
   const [calledAPI, setCalledAPI] = useState(false);
@@ -751,29 +751,29 @@ function Dashboard() {
                     <p className='toptaberow'>Growth</p>
                     <p className='toptaberow'>Earnings</p>
                   </div>
-                  {yearData?.map((item,index) => {
-                    return(
+                  {yearData?.map((item, index) => {
+                    return (
                       <>
                         <div key={index} class="tablerow">
-                    <p className='sectblerow'>{item?._id}</p>
-                    <p className='sectblerow'>{item?.count}</p>
-                    <p className={((totalYear - item?.totalSalesPrice) / totalYear * 100 >= 0 || (item?.totalSalesPrice && totalYear === 0) ? 'sectblerow green' : 'sectblerow red')}>  
-                      {totalYear && item?.totalSalesPrice && totalYear !== 0 && item?.totalSalesPrice !== 0 ?
-                        (
-                          ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) >= 0 ?
-                            "+" + ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%" :
-                            ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%"
-                        )
-                        :
-                        (!item?.totalSalesPrice && !totalYear ? "0%" : (item?.totalSalesPrice && totalYear === 0 ? "+100%" : (totalYear && item?.totalSalesPrice === 0 ? "-100%" : "+100%")))
-                      }</p>
-                    <p className='sectblerow'>{item?.totalSalesPrice}</p>
-                  </div>
+                          <p className='sectblerow'>{item?._id}</p>
+                          <p className='sectblerow'>{item?.count}</p>
+                          <p className={((totalYear - item?.totalSalesPrice) / totalYear * 100 >= 0 || (item?.totalSalesPrice && totalYear === 0) ? 'sectblerow green' : 'sectblerow red')}>
+                            {totalYear && item?.totalSalesPrice && totalYear !== 0 && item?.totalSalesPrice !== 0 ?
+                              (
+                                ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) >= 0 ?
+                                  "+" + ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%" :
+                                  ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%"
+                              )
+                              :
+                              (!item?.totalSalesPrice && !totalYear ? "0%" : (item?.totalSalesPrice && totalYear === 0 ? "+100%" : (totalYear && item?.totalSalesPrice === 0 ? "-100%" : "+100%")))
+                            }</p>
+                          <p className='sectblerow'>{item?.totalSalesPrice}</p>
+                        </div>
                       </>
                     )
                   })}
-                
-               
+
+
                 </div>
               </div>
             </div>
