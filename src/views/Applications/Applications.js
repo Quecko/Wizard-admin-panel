@@ -886,7 +886,7 @@ const Applications = () => {
                                             </div>
                                             <div className='fsteftsec'>
                                                 <h6 className='usernnamee'>Duration  </h6>
-                                                <h6 className='namefullletf'> {moment(item?.mintStartTime)
+                                                <h6 className='namefullletf'> {moment(item?.mintStageTime)
                                                     .format(
                                                         "DD-MMM-YYYY HH:mm:ss"
                                                     )} </h6>
