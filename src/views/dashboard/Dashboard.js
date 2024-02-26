@@ -27,6 +27,7 @@ function Dashboard() {
   const [showcalendar3, setShowCalendar3] = useState(false);
   const [showcalendar4, setShowCalendar4] = useState(false);
   const [activeButton, setActiveButton] = useState('All');
+  const [activeButtonTwo, setActiveButtonTwo] = useState('All');
   const [totalSalePrice, setTotalSalePrice] = useState('');
   const [currentMonthPrice, setCurrentMonthPrice] = useState('');
   const [lastMonthPrice, setLastMonthPrice] = useState('');
@@ -35,6 +36,7 @@ function Dashboard() {
   const [lastMonthCount, setLastMonthCount] = useState('');
   const [yearData, setYearData] = useState([]);
   const [totalYear, setTotalYear] = useState("");
+  const [trans, setTrans] = useState("");
 
   const [endDate, setEndDate] = useState('');
   const Acls = JSON.parse(localStorage.getItem('acls'))
@@ -50,6 +52,16 @@ function Dashboard() {
     }
   };
 
+  const [selectedDatesTwo, setSelectedDatesTwo] = useState([]);
+
+  const handleDateChangeTwo = (value) => {
+    setSelectedDatesTwo(value);
+    if (Array.isArray(value) && value.length === 2) {
+      setShowCalendar1(false);
+      getYearData(value[0], value[1]);
+      setSelectedDatesTwo([]);
+    }
+  };
 
 
   const getOrderStats = async () => {
@@ -126,58 +138,59 @@ function Dashboard() {
   // };
 
   const newUserchartHandle = (startDate, endDate) => {
+    const formattedStartDate = startDate ? new Date(startDate).toISOString().split('T')[0] : '';
+    const formattedEndDate = endDate ? new Date(endDate).toISOString().split('T')[0] : '';
+
     let url = `${api_url}/sales/`;
 
     if (startDate && endDate) {
-
-      url += `?startDate=${startDate}&endDate=${endDate}`;
+        url += `?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
     }
 
     axios.get(url, { headers: { "Authorization": `Bearer ${val}` } })
-      .then((response) => {
-        console.log("🚀 ~ response newUserchartHandle", response);
-        const dates = [];
-        const counts = [];
-        response.data.data.dailyTotalPrices.forEach(user => {
-          dates.push(user.date);
-          counts.push(user.sale?.toFixed(4));
+        .then((response) => {
+            console.log("🚀 ~ response newUserchartHandle", response);
+            const dates = [];
+            const counts = [];
+            response.data.data.dailyTotalPrices.forEach(user => {
+                dates.push(user.date);
+                counts.push(user.sale?.toFixed(4));
+            });
+
+            setCount(dates);
+            setCount1(counts);
+            setTrans(response?.data?.data?.count);
+            setTotalSalePrice(response?.data?.data?.totalSalePriceSum);
+            setCurrentMonthPrice(response?.data?.data?.currentMonthTotalSalePriceSum);
+            setLastMonthPrice(response?.data?.data?.lastMonthTotalSalePriceSum);
+            setTotalSaleCount(response?.data?.data?.totalSaleCount);
+            setCurrentMonthCount(response?.data?.data?.currentMonthTotalSaleCount);
+            setLastMonthCount(response?.data?.data?.lastMonthTotalSaleCount);
+
+            console.log('Dates:', dates);
+            console.log('Counts:', counts);
+        })
+        .catch((err) => {
+            console.log(err, 'error in API call');
+            // Handle errors
         });
+}
 
-        setCount(dates);
-        setCount1(counts);
-        setTotalSalePrice(response?.data?.data?.totalSalePriceSum);
-        setCurrentMonthPrice(response?.data?.data?.currentMonthTotalSalePriceSum);
-        setLastMonthPrice(response?.data?.data?.lastMonthTotalSalePriceSum);
-        setTotalSaleCount(response?.data?.data?.totalSaleCount);
-        setCurrentMonthCount(response?.data?.data?.currentMonthTotalSaleCount);
-        setLastMonthCount(response?.data?.data?.lastMonthTotalSaleCount);
 
-        console.log('Dates:', dates);
-        console.log('Counts:', counts);
-      })
-      .catch((err) => {
-        console.log(err, 'error in API call');
-        // Handle errors
-      });
+
+  const getYearData = async (startDate, endDate) => {
+    const formattedStartDate = startDate ? new Date(startDate).toISOString().split('T')[0] : '';
+    const formattedEndDate = endDate ? new Date(endDate).toISOString().split('T')[0] : '';
+    let url = `${api_url}/sales/SaleWithDate`;
+
+    if (startDate && endDate) {
+      url += `?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   }
 
-
-  const getYearData = async () => {
-
-    setStats([]);
-    const config = {
-      method: "get",
-      url: api_url + "/sales/saleWithDate",
-      headers: {
-        Authorization: "Bearer " + val,
-      },
-    };
-    await axios(config)
-      .then((res) => {
-        const resData = res?.data?.data;
-        console.log("ali: ", resData?.totalSalesPrice);
-        setYearData(resData?.salesByYear);
-        setTotalYear(resData?.totalSalesPrice)
+    axios.get(url, { headers: { "Authorization": `Bearer ${val}` } })
+      .then((response) => {
+        setYearData(response?.data?.data?.dailyTotalPrices);
+        
       })
       .catch((error) => {
         if (error?.response?.status == 501) {
@@ -192,6 +205,7 @@ function Dashboard() {
     getOrderStats();
     getTopItems();
     getYearData();
+
   }, []);
 
   const [options, setobject] = useState({
@@ -470,6 +484,13 @@ function Dashboard() {
   };
 
 
+  const handleDateButtonClickTwo = (days) => {
+    const endDate = new Date().toISOString().split('T')[0];
+    const startDate = calculatePastDate(days);
+    getYearData(startDate, endDate);
+  };
+
+
   useEffect(() => {
     if (!calledAPI) {
       newUserchartHandle();
@@ -479,6 +500,10 @@ function Dashboard() {
 
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
+  };
+
+  const handleClickTwo = (buttonName) => {
+    setActiveButtonTwo(buttonName);
   };
 
   return (
@@ -553,10 +578,10 @@ function Dashboard() {
                     </div>
                     <div className="innercontent">
                       <h6 className="inertext">Total Transactions</h6>
-                      {stats?.transactions &&
+                      {trans &&
                         Object.keys(stats).length > 0 ? (
                         <h3 className="commoncardtext">   {" "}
-                          {stats?.transactions}</h3>
+                          {trans}</h3>
                       ) : (
                         <h3 className="commoncardtext">   {" "}
                           0</h3>
@@ -694,21 +719,21 @@ function Dashboard() {
                   </h5>
                   <div>
                     <div className="custom-tab-bar">
-                      <a className='clanderdate'
+                      <a className={activeButtonTwo === '1D' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClickTwo(1), handleClickTwo("1D"))}
                       >
                         1D
                       </a>
-                      <a className='clanderdate'
+                      <a className={activeButtonTwo === '7D' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClickTwo(7), handleClickTwo("7D"))}
                       >
                         7D
                       </a>
-                      <a className='clanderdate'>
+                      <a className={activeButtonTwo === '1M' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClickTwo(30), handleClickTwo("1M"))}>
                         1M
                       </a>
-                      <a className='clanderdate'  >
+                      <a className={activeButtonTwo === '1Y' ? 'clanderdate active' : 'clanderdate'} onClick={() => (handleDateButtonClickTwo(365), handleClickTwo("1Y"))} >
                         1Y
                       </a>
-                      <a className='clanderdate'>
+                      <a className={activeButtonTwo === 'All' ? 'clanderdate active' : 'clanderdate'} onClick={() => (getYearData(), handleClickTwo("All"))}>
                         All
                       </a>
                       <a className='clanderdate' onClick={() => setShowCalendar1(!showcalendar1)}>
@@ -720,10 +745,10 @@ function Dashboard() {
                       {/* {showcalendar && ( */}
                       {showcalendar1 && (
                         <div className="cal set-custom-calendar-div">
-                          <Calendar
-                            numberOfMonths={1}
-                            disableMonthPicker
-                            disableYearPicker
+                           <Calendar
+                            multiple
+                            value={selectedDatesTwo}
+                            onChange={handleDateChangeTwo} // Call handleDateChange when a date or range of dates is selected
                           />
                         </div>
                       )}
@@ -755,19 +780,19 @@ function Dashboard() {
                     return (
                       <>
                         <div key={index} class="tablerow">
-                          <p className='sectblerow'>{item?._id}</p>
+                          <p className='sectblerow'>{item?.date}</p>
                           <p className='sectblerow'>{item?.count}</p>
-                          <p className={((totalYear - item?.totalSalesPrice) / totalYear * 100 >= 0 || (item?.totalSalesPrice && totalYear === 0) ? 'sectblerow green' : 'sectblerow red')}>
-                            {totalYear && item?.totalSalesPrice && totalYear !== 0 && item?.totalSalesPrice !== 0 ?
+                          <p className={((item?.previousCount - item?.count) / item?.previousCount * 100 >= 0 || (item?.count && item?.previousCount === 0) ? 'sectblerow green' : 'sectblerow red')}>
+                            {item?.previousCount && item?.count && item?.previousCount !== 0 && item?.count !== 0 ?
                               (
-                                ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) >= 0 ?
-                                  "+" + ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%" :
-                                  ((totalYear - item?.totalSalesPrice) / totalYear * 100).toFixed(2) + "%"
+                                ((item?.previousCount - item?.count) / item?.previousCount * 100).toFixed(2) >= 0 ?
+                                  "+" + ((item?.previousCount - item?.count) / item?.previousCount * 100).toFixed(2) + "%" :
+                                  ((item?.previousCount - item?.count) / item?.previousCount * 100).toFixed(2) + "%"
                               )
                               :
-                              (!item?.totalSalesPrice && !totalYear ? "0%" : (item?.totalSalesPrice && totalYear === 0 ? "+100%" : (totalYear && item?.totalSalesPrice === 0 ? "-100%" : "+100%")))
+                              (!item?.count && !item?.previousCount ? "0%" : (item?.count && item?.previousCount === 0 ? "+100%" : (item?.previousCount && item?.count === 0 ? "-100%" : "+100%")))
                             }</p>
-                          <p className='sectblerow'>{item?.totalSalesPrice}</p>
+                          <p className='sectblerow'>{item?.sale}</p>
                         </div>
                       </>
                     )
