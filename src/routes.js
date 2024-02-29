@@ -37,7 +37,7 @@ var routes = [
   },
   {
     path: "/nfts",
-    name: "NFTs",
+    name: "FEES",
     component: Nfts,
     layout: "/admin",
   },

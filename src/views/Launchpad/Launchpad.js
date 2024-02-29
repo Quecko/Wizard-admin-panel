@@ -129,18 +129,21 @@ const Launchpad = () => {
         setActiveTab(selectedTab);
     };
 
-    const getLaunchpads = async (duration, orderField = 'updatedAt', orderDirection = -1) => {
+    const getLaunchpads = async (duration,  orderField, orderDirection ) => {
         setLoader(true);
         setApplications([]);
-        let apiUrl = api_url + "/launchpads/approved?limit=" + limit + "&offset=" + page + "&duration=" + duration + "&orderField=" + orderField + "&orderDirection=" + orderDirection;
-
-        if (searchQuery) {
-            apiUrl += "&search=" + searchQuery;
+        let apiUrl = api_url + "/launchpads/listed?limit=" + limit + "&offset=" + page + "&duration[]=" + duration;
+    
+        if (orderField && orderDirection) {
+            apiUrl += "&orderField=" + orderField + "&orderDirection=" + orderDirection;
         }
-
-
+    
+        if (searchQuery) {
+            apiUrl += "&search=" +searchQuery;
+        }
+    
         apiUrl += verify ? "&openEddition=true" : block ? "&limitedEddition=true" : "";
-
+    
         const config = {
             method: "get",
             url: apiUrl,
@@ -148,7 +151,7 @@ const Launchpad = () => {
                 Authorization: "Bearer " + val,
             },
         };
-
+    
         try {
             const response = await axios(config);
             console.log(response?.data?.data?.creators);
@@ -158,16 +161,14 @@ const Launchpad = () => {
             setLoader(false);
         } catch (error) {
             if (error.response && error.response.status === 401) {
-              
-                history.push("/")
+                history.push("/");
             } else {
-                
                 console.error("Error fetching launchpads:", error);
-                
             }
             setLoader(false);
         }
     };
+    
 
 
     useEffect(() => {

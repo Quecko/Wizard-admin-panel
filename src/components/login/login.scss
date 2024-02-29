@@ -308,3 +308,11 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.valid {
+  color: green !important;
+}
+
+.invalid {
+  color: red !important;
+}

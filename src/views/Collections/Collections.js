@@ -266,7 +266,7 @@ const Collections = () => {
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        {item?.floorToday?.price ? item?.floorToday?.price : "0"} CORE
+                                                                        {item?.floorToday?.price ? item?.floorToday?.price.toString().substring(0, 7) : "0"} CORE
                                                                     </td>
                                                                     <td>
                                                                         <span className="eleipiess">
@@ -274,7 +274,7 @@ const Collections = () => {
                                                                         </span>
                                                                     </td>
                                                                     <td>
-                                                                        {item?.marketcap} USDC
+                                                                       {item?.marketcap.toString().substring(0, 7)} USDC
                                                                     </td>
                                                                     <td className='red'>
                                                                         <span className={item?.floorYesterday?.price && item?.floorToday?.price && item?.floorYesterday?.price !== 0 && item?.floorToday?.price !== 0 ? ((item?.floorYesterday?.price - item?.floorToday?.price) >= 0 ? 'green' : 'red') : 'green'}>
@@ -294,7 +294,7 @@ const Collections = () => {
                                                                     {item?.volumeToday.toString().substring(0, 7)} CORE
                                                                     </td>
                                                                     <td className='red'>
-                                                                    <span className={item?.volumeYesterday && item?.volumeToday && item?.volumeYesterday !== 0 && item?.volumeToday !== 0 ? ((item?.volumeYesterday - item?.volumeToday) >= 0 ? 'green' : 'red') : 'green'}>
+                                                                    <span className={item?.volumeYesterday && item?.volumeToday && item?.volumeYesterday !== 0 && item?.volumeToday !== 0 ? ((item?.volumeYesterday - item?.volumeToday) >= 0 ? 'green' : '') : 'red'}>
                                                                             {item?.volumeYesterday && item?.volumeToday && item?.volumeYesterday !== 0 && item?.volumeToday !== 0 ?
                                                                                 (
                                                                                     ((item?.volumeYesterday - item?.volumeToday) / item?.volumeYesterday * 100).toFixed(2) >= 0 ?
@@ -312,12 +312,12 @@ const Collections = () => {
                                                                     </td>
                                                                     <td className=''>
                                                                         {item?.totalNfts}  <span className='lightgrey'>
-                                                                            (6.9%)
+                                                                            {/* (6.9%) */}
                                                                         </span>
                                                                     </td>
                                                                     <td className=''>
-                                                                        754   <span className='lightgrey'>
-                                                                            (6.9%)
+                                                                        {item?.ownersCount}  <span className='lightgrey'>
+                                                                            {/* (6.9%) */}
                                                                         </span>
                                                                     </td>
 

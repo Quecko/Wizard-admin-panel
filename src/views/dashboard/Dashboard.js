@@ -792,7 +792,7 @@ function Dashboard() {
                               :
                               (!item?.count && !item?.previousCount ? "0%" : (item?.count && item?.previousCount === 0 ? "+100%" : (item?.previousCount && item?.count === 0 ? "-100%" : "+100%")))
                             }</p>
-                          <p className='sectblerow'>{item?.sale}</p>
+                          <p className='sectblerow'>{item?.sale.toString().substring(0, 7)} CORE</p>
                         </div>
                       </>
                     )
@@ -818,7 +818,7 @@ function Dashboard() {
                 <div className='dash_butmouter_chart_inertextright'>
                   <div className='onlyfordshsmalchat'>
                     <div id="chart">
-                      <ReactApexChart options={options1} series={series} type="area" height={100} />
+                      {/* <ReactApexChart options={options1} series={series} type="area" height={100} /> */}
                     </div>
                     {/* <img src="\dashboard\grnchart.svg" className=" w-100"/> */}
                   </div>
@@ -867,7 +867,7 @@ function Dashboard() {
 
                   <div className='onlyfordshsmalchat'>
                     <div id="chart">
-                      <ReactApexChart options={options2} series={series} type="area" height={100} />
+                      {/* <ReactApexChart options={options2} series={series} type="area" height={100} /> */}
                     </div>
                     {/* <img src="\dashboard\grnchart2.svg" className=" w-100" /> */}
                   </div>
