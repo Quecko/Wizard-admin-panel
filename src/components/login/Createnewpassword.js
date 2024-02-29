@@ -4,6 +4,7 @@ import axios from 'axios';
 import Environment from 'utils/Environment';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import Success from './successpassword';
 
 const Create = () => {
     const history = useHistory();
@@ -78,6 +79,9 @@ const Create = () => {
 
     return (
         <>
+                    {success ? <Success /> : null}
+            {create ?
+
                  <section className="login-section">
                     <span className='gradient-linear'></span>
                     <div className="parent">
@@ -278,6 +282,8 @@ const Create = () => {
                         </div>
                     </div >
                 </section >
+
+: null}
         </>
     )
 }
