@@ -355,13 +355,23 @@
     max-width: 100%;
   }
   .main-dashboard .dash_leftouter {
-    margin-top: 25px;
+    margin-top: 0px;
   }
   .main-dashboard .chartouterdiv {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
 }
 @media (max-width: 600px) {
+  .main-dashboard .dastoutertable .tablerow {
+    border-radius: 10px;
+    background: #180d20;
+    justify-content: space-between;
+    display: flex;
+    padding: 20px;
+    grid-gap: 10px;
+    gap: 10px;
+    align-items: center;
+}
   .columnreverse {
     flex-direction: column-reverse;
   }
@@ -369,13 +379,14 @@
     font-size: 15px;
   }
   .main-dashboard .btumouterhdngmain .inerbutmsec .tootall {
-    font-size: 14px;
+    font-size: 12px;
   }
   .main-dashboard .dastoutertable .tablerow .toptaberow {
     font-size: 12px;
   }
   .main-dashboard .dastoutertable .tablerow .sectblerow {
     font-size: 12px;
+    text-align: center;
   }
   .main-dashboard
     .dash_butmright_outer_chart

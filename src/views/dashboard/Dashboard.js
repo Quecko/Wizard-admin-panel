@@ -611,7 +611,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="row ">
-            <div className="col-xl-8 col-sm-12 p0">
+            <div className="col-xl-8 col-sm-12 nopaddingonmobileonly">
               <div className='chartouterdiv'>
                 <div className="dashbodtop_left ">
                   <h5 className="statay">
@@ -664,7 +664,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-12 ">
+            <div className="col-xl-4 col-sm-12 nopaddingonmobileonly">
               <div className='dash_leftouter'>
                 <div className='dash_leftinertop'>
                   <h5 className='lefttophdng'>
@@ -711,7 +711,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="row my-4 columnreverse ">
-            <div className="col-xl-8 col-sm-12 p0">
+            <div className="col-xl-8 col-sm-12 nopaddingonmobileonly ">
               <div className='chartouterdiv'>
                 <div className="dashbodtop_left mb-0">
                   <h5 className="statay">
@@ -802,7 +802,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-sm-12 ">
+            <div className="col-xl-4 col-sm-12 nopaddingonmobileonly">
               <div className='dash_butmright_outer_chart'>
                 <div className='dash_butmouter_chart_inertext'>
                   <div className="imgouterdivxx">

@@ -2119,11 +2119,10 @@ a:not([href]):not([class]) {
 }
 
 @media (max-width: 800px) {
-  .newinputs .inputoutermain {
-    position: relative;
-    width: 101%;
-    left: -12px;
-  }
+  .maintablecreater .Paginationlattable .pagination {
+    grid-gap: 5px;
+    gap: 30px;
+}
 
   .amer_dropdonfstnew.onlyformobile .dropdown-menu.show a.dropdown-item {
     width: 755px;
@@ -2132,7 +2131,7 @@ a:not([href]):not([class]) {
   .newinputs .inputoutermain .ambrinputicon {
     position: absolute;
     left: 15px;
-    top: 17px;
+    top: 15px;
   }
 
   .newinputs {
@@ -2153,7 +2152,7 @@ a:not([href]):not([class]) {
 
   .amer_dropdonfstnew.onlyformobile input.ambassadorinput {
     padding: 18px 44px;
-    width: 101%;
+    width: 710px;
   }
 
   .onlymobile.dropdown-menu.show {
@@ -2215,14 +2214,21 @@ a:not([href]):not([class]) {
 }
 
 @media (max-width: 600px) {
+  .amer_dropdonfstnew.onlyformobile input.ambassadorinput {
+    width: 396px;
+}
+  .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
   .amer_dropdonfstnew.onlyformobile .dropdown-menu.show a.dropdown-item {
     width: 425px;
   }
 
-  .maintablecreater .Paginationlattable .pagination {
 
-    gap: 5px;
-  }
 
   .pagination {
 
@@ -2236,6 +2242,10 @@ a:not([href]):not([class]) {
 }
 
 @media (max-width: 400px) {
+  .amer_dropdonfstnew.onlyformobile input.ambassadorinput {
+
+    width: 346px;
+}
   .amer_dropdonfstnew.onlyformobile .dropdown-menu.show a.dropdown-item {
     width: 371px;
   }
