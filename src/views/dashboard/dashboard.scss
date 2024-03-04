@@ -362,6 +362,9 @@
   }
 }
 @media (max-width: 600px) {
+  .nopaddingonmobileonly {
+    padding: 0px !important;
+  }
   .main-dashboard .dastoutertable .tablerow {
     border-radius: 10px;
     background: #180d20;
