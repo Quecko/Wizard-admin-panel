@@ -456,7 +456,7 @@ const Collections = () => {
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        {item?.todayNFTs}
+                                                                        {item?.totalNfts}
                                                                     </td>
 
                                                                     <td>
