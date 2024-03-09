@@ -266,15 +266,15 @@ const Collections = () => {
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        {item?.floorToday?.price ? item?.floorToday?.price.toString().substring(0, 7) : "0"} CORE
+                                                                        {item?.floorToday?.price ? item?.floorToday?.price?.toString().substring(0, 7) : "0"} CORE
                                                                     </td>
                                                                     <td>
                                                                         <span className="eleipiess">
-                                                                            {item?.volume.toString().substring(0, 7)} CORE
+                                                                            {item?.volume?.toString().substring(0, 7)} CORE
                                                                         </span>
                                                                     </td>
                                                                     <td>
-                                                                       {item?.marketcap.toString().substring(0, 7)} USDC
+                                                                       {item?.marketcap?.toString().substring(0, 7)} USDC
                                                                     </td>
                                                                     <td className='red'>
                                                                         <span className={item?.floorYesterday?.price && item?.floorToday?.price && item?.floorYesterday?.price !== 0 && item?.floorToday?.price !== 0 ? ((item?.floorYesterday?.price - item?.floorToday?.price) >= 0 ? 'green' : 'red') : 'green'}>
@@ -291,7 +291,7 @@ const Collections = () => {
 
                                                                     </td>
                                                                     <td>
-                                                                    {item?.volumeToday.toString().substring(0, 7)} CORE
+                                                                    {item?.volumeToday?.toString().substring(0, 7)} CORE
                                                                     </td>
                                                                     <td className='red'>
                                                                     <span className={item?.volumeYesterday && item?.volumeToday && item?.volumeYesterday !== 0 && item?.volumeToday !== 0 ? ((item?.volumeYesterday - item?.volumeToday) >= 0 ? 'green' : '') : 'red'}>
@@ -456,7 +456,7 @@ const Collections = () => {
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        {item?.totalNfts}
+                                                                        {item?.todayNFTs}
                                                                     </td>
 
                                                                     <td>

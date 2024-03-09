@@ -757,7 +757,7 @@ function Dashboard() {
                 </div>
                 <div className='btumouterhdngmain'>
                   <div className='inerbutmsec'>
-                    <h3 className="commoncardtextbutm">    <img src="\dashboard\iconbig.svg" className="inon" alt='icon' />{totalYear.toString().substring(0, 7)} CORE</h3>
+                    <h3 className="commoncardtextbutm">    <img src="\dashboard\iconbig.svg" className="inon" alt='icon' />{totalYear?.toString().substring(0, 7)} CORE</h3>
                     <p className='tootall'>
                       TOTAL
                     </p>
@@ -792,7 +792,7 @@ function Dashboard() {
                               :
                               (!item?.count && !item?.previousCount ? "0%" : (item?.count && item?.previousCount === 0 ? "+100%" : (item?.previousCount && item?.count === 0 ? "-100%" : "+100%")))
                             }</p>
-                          <p className='sectblerow'>{item?.sale.toString().substring(0, 7)} CORE</p>
+                          <p className='sectblerow'>{item?.sale?.toString().substring(0, 7)} CORE</p>
                         </div>
                       </>
                     )
@@ -812,7 +812,7 @@ function Dashboard() {
                     Revenue
                   </p>
                   <p className='cvfred'>
-                    {totalSalePrice.toString().substring(0, 7)} CORE
+                    {totalSalePrice?.toString().substring(0, 7)} CORE
                   </p>
                 </div>
                 <div className='dash_butmouter_chart_inertextright'>
