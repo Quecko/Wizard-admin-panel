@@ -587,7 +587,7 @@
         background: var(--Red, #e84a4a);
         padding: 13px 59px;
         width: 100%;
-        color: var(--On-Surface, #FFF);
+        color: var(--On-Surface, #fff);
         text-align: center;
         font-family: Lexend;
         font-size: 15px;
@@ -596,17 +596,13 @@
         line-height: 22px; /* 146.667% */
         text-transform: uppercase;
         border: none;
-
-
-        
       }
       .approveeedd {
         border-radius: 10px;
         background: var(--Green, #04c182);
 
-      
         border: none;
-        color: var(--On-Surface, #FFF);
+        color: var(--On-Surface, #fff);
         text-align: center;
         font-family: Lexend;
         font-size: 15px;
@@ -617,6 +613,67 @@
         width: 100%;
         padding: 13px 59px;
       }
+    }
+  }
+
+  label.reasnlab.form-label {
+    color: #fff;
+    font-family: Lexend;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+  }
+  textarea#exampleForm\.ControlTextarea1 {
+    border-radius: 7px;
+    display: flex;
+    padding: 20px 22px 120px 22px;
+    align-items: center;
+    gap: 231px;
+    align-self: stretch;
+    background: #130a1d;
+    border: none;
+  }
+  .modatbtsalat {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+    button.commoncommgfd {
+      border-radius: 10px;
+      border: 1px solid #862fc0;
+      display: flex;
+      padding: 17px 22px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex: 1 0 0;
+      color: #862fc0;
+      font-family: Lexend;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%;
+      background: transparent;
+    }
+    button.commoncommgfddd {
+      display: flex;
+      padding: 17px 22px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex: 1 0 0;
+      color: #FFF;
+      font-family: Lexend;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%; /* 18px */
+      border-radius: 10px;
+      background: #862FC0;
+      border: none;
     }
   }
 }
@@ -725,18 +782,12 @@
   transition: 300ms ease;
 }
 
-
 @media (max-width: 600px) {
-
-.gernelmodal .modal-dialog .lastfoterbtn .approveeedd {
-
-
-  padding: 10px;
-}
-.gernelmodal .modal-dialog .lastfoterbtn .rreject {
-
-  padding: 10px;
-  /* width: 30%; */
-
-}
+  .gernelmodal .modal-dialog .lastfoterbtn .approveeedd {
+    padding: 10px;
+  }
+  .gernelmodal .modal-dialog .lastfoterbtn .rreject {
+    padding: 10px;
+    /* width: 30%; */
+  }
 }
