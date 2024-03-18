@@ -635,6 +635,13 @@
     align-self: stretch;
     background: #130a1d;
     border: none;
+    color: var(--Light-Text-Color, #745F8C);
+font-family: Lexend;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%; /* 16px */
+text-transform: capitalize;
   }
   .modatbtsalat {
     display: flex;
