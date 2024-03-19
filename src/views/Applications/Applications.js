@@ -131,7 +131,7 @@ const Applications = () => {
     };
 
     const rejectApp = async (id, status) => {
-        if (reason.length > 100) {      
+        if (reason?.length > 100) {      
         try {
             const config = {
                 method: "patch",
