@@ -28,6 +28,7 @@ const Applications = () => {
     const [verify, setVerify] = useState(false);
     const [all, setAll] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [reason, setReason] = useState("");
     const [show, setShow] = useState(false);
     const [applications, setApplications] = useState([]);
     const [price, setPrice] = useState(false);
@@ -130,12 +131,14 @@ const Applications = () => {
     };
 
     const rejectApp = async (id, status) => {
+        if (reason.length > 100) {      
         try {
             const config = {
                 method: "patch",
                 url: api_url + "/launchpads/" + id + "/application-status",
                 data: {
                     status: "rejected",
+                    rejectedReason:reason,
                 },
                 headers: {
                     Authorization: "Bearer " + val,
@@ -145,6 +148,7 @@ const Applications = () => {
             handleClose();
             toast.success(res?.data?.message);
             getLaunchpads(status);
+            handleClose11();
         } catch (err) {
             // Error handling
             console.log("Error:", err);
@@ -156,6 +160,8 @@ const Applications = () => {
                 position: "top-right",
                 autoClose: 2000,
             });
+        }}else{
+            toast.error("Reason should be elaborated, minimum 100 words required.")
         }
     };
 
@@ -967,14 +973,15 @@ const Applications = () => {
                         <Form>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                 <Form.Label className='reasnlab'>Reason Why Rejecting?</Form.Label>
-                                <Form.Control className='textadddddea' placeholder='Explain the reason why rejecting...' as="textarea" rows={3} />
+                                <Form.Control value={reason}
+                                    onChange={(e) => setReason(e.target.value)}  className='textadddddea' placeholder='Explain the reason why rejecting...' as="textarea" rows={3} />
                             </Form.Group>
                         </Form>
                         <div className='modatbtsalat'>
                             <button className='commoncommgfd' onClick={handleClose11}>
                             Cancel
                             </button>
-                            <button  className='commoncommgfddd' onClick={handleClose11}>
+                            <button  className='commoncommgfddd' onClick={() => rejectApp(details?._id, "submitted")}>
                             Submit
                                 
                                 </button>
