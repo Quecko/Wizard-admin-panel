@@ -989,7 +989,7 @@ const Launchpad = () => {
                                     <h6 className='namefullletf eleipiess'>{details?.earningAddress}</h6>
                                 </div>
                                 <div className='fsteftsec'>
-                                    <h6 className='usernnamee'>Platfrom Fees  </h6>
+                                    <h6 className='usernnamee'>Platform Fees  </h6>
                                     <h6 className='namefullletf'> {details?.platformFee}% </h6>
                                 </div>
                             </div>
