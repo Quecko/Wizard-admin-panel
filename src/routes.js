@@ -12,6 +12,7 @@ import EditProfiles from "views/edit/EditProfile";
 import Ambassadors from "views/Ambassadors/Ambassadors";
 import Applications from "views/Applications/Applications";
 import Creators from "views/Creators/Creators";
+import Fees from "views/Fees/Fees";
 
 var routes = [
   {
@@ -75,6 +76,12 @@ var routes = [
     path: "/applications",
     name: "Applications",
     component: Applications,
+    layout: "/admin",
+  }, 
+  {
+    path: "/fees",
+    name: "Fees",
+    component: Fees,
     layout: "/admin",
   }, 
 ];
