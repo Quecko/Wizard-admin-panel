@@ -12,6 +12,10 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Environment from 'utils/Environment';
+import Web3 from 'web3';
+import useWeb3 from 'hooks/useWeb3';
+import useAuth from 'hooks/useAuth';
+import { useWeb3React } from '@web3-react/core/dist';
 
 var ps;
 
@@ -19,17 +23,20 @@ function Sidebar(props) {
   const api_url = Environment.api_url;
   const val = localStorage.getItem("accessToken");
   const [name, Setname] = useState({})
+  let { account } = useWeb3React();
+  const web3 = useWeb3();
+  const { login, logout } = useAuth();
   const history = useHistory();
   const token = localStorage.getItem('mytoken')
   const role = localStorage.getItem('myrole')
   const Acls = JSON.parse(localStorage.getItem('acls'))
   const sidebar = React.useRef();
   console.log("::::Acls", Acls)
-  const logout = () => {
-    localStorage.clear();
-    history.push("/adminlogin");
+  // const logout = () => {
+  //   localStorage.clear();
+  //   history.push("/adminlogin");
 
-  }
+  // }
 
   const getprofile = () => {
     axios.get(Environment.backendUrl + "/user/myprofile", { headers: { "Authorization": `Bearer ${token}` } })
@@ -82,6 +89,29 @@ function Sidebar(props) {
   //     }
   //   };
   // });
+  
+
+  const connectWallet = async (e) => {
+    if (account) {
+      const connectorId = window.localStorage.getItem("connectorId");
+      await logout(connectorId);
+      localStorage.removeItem("connectorId");
+      localStorage.removeItem("flag");
+    } else {
+      await login("injected", e);
+      localStorage.setItem("connectorId", "injected");
+      localStorage.setItem("flag", "true");
+      localStorage.setItem("chain", e);
+    }
+  };
+
+  const disconnectWallet = async () => {
+    const connectorId = window.localStorage.getItem("connectorId");
+    logout(connectorId);
+    localStorage.removeItem("connectorId");
+    localStorage.removeItem("flag");
+    localStorage.removeItem("chain");
+  };
 
 
   return (
@@ -301,6 +331,12 @@ function Sidebar(props) {
 
         
             </div> */}
+            {account ?   (   <button onClick={disconnectWallet}  className='logoutbunn2'>
+             disconnect Wallet
+          </button>) :    ( <button onClick={connectWallet} className='logoutbunndis'>
+          Connect Wallet
+          </button>) }
+         
 
           <button onClick={handleLogout} className='logoutbunn'>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">

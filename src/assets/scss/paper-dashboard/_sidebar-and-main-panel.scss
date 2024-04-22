@@ -106,6 +106,47 @@ iframe {
 
         .images-right {}
       }
+      button.logoutbunn2 {
+        display: flex;
+        width: 220px;
+        padding: 14px 22px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 10px;
+        background: var(--Red, #862FC0);
+        color: var(--On-Surface, #fff);
+        text-align: center;
+        font-family: Lexend;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px;
+        text-transform: uppercase;
+        border: none;
+        margin-bottom: 10px;
+      }
+
+      button.logoutbunndis {
+        display: flex;
+        width: 220px;
+        padding: 14px 22px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 10px;
+        background: var(--Red, #04c182);
+        color: var(--On-Surface, #fff);
+        text-align: center;
+        font-family: Lexend;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px;
+        text-transform: uppercase;
+        border: none;
+        margin-bottom: 10px;
+      }
 
       button.logoutbunn {
         display: flex;
