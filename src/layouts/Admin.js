@@ -7,10 +7,15 @@ import { Link } from "react-router-dom";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import routes from "routes.js";
+import useEagerConnect from "../hooks/useEagerConnect"
 
 var ps;
 
 function Dashboard(props) {
+
+
+    useEagerConnect();
+
 
   const [backgroundColor, setBackgroundColor] = React.useState("black");
   const [activeColor, setActiveColor] = React.useState("info");

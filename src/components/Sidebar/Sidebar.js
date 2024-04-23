@@ -25,6 +25,8 @@ function Sidebar(props) {
   const [name, Setname] = useState({})
   let { account } = useWeb3React();
   const web3 = useWeb3();
+  console.log("adsasd", account)
+
   const { login, logout } = useAuth();
   const history = useHistory();
   const token = localStorage.getItem('mytoken')
@@ -89,11 +91,11 @@ function Sidebar(props) {
   //     }
   //   };
   // });
-  
+
 
   const connectWallet = async (e) => {
     if (account) {
-      const connectorId = window.localStorage.getItem("connectorId");
+      const connectorId = window.localStorage.getItem("connectorId")
       await logout(connectorId);
       localStorage.removeItem("connectorId");
       localStorage.removeItem("flag");
@@ -102,15 +104,20 @@ function Sidebar(props) {
       localStorage.setItem("connectorId", "injected");
       localStorage.setItem("flag", "true");
       localStorage.setItem("chain", e);
+      // setclickedbtn(false)
+      // setLoader(false);
     }
+    // setLoader(false);
   };
 
   const disconnectWallet = async () => {
-    const connectorId = window.localStorage.getItem("connectorId");
-    logout(connectorId);
-    localStorage.removeItem("connectorId");
-    localStorage.removeItem("flag");
-    localStorage.removeItem("chain");
+    const connectorId = window.localStorage.getItem("connectorId")
+    logout(connectorId)
+    localStorage.removeItem('connectorId')
+    localStorage.removeItem('flag')
+    localStorage.removeItem('chain')
+    // localStorage.removeItem('accessToken')
+    localStorage.removeItem('wallet')
   };
 
 
@@ -328,15 +335,23 @@ function Sidebar(props) {
                 <h4>{name.full_name}</h4>
                 <p>Admin</p>
               </div>
-
-        
             </div> */}
-            {account ?   (   <button onClick={disconnectWallet}  className='logoutbunn2'>
-             disconnect Wallet
-          </button>) :    ( <button onClick={connectWallet} className='logoutbunndis'>
-          Connect Wallet
-          </button>) }
-         
+
+          {account ?
+            (
+              <button onClick={disconnectWallet} className='logoutbunn2'>
+                disconnect Wallet
+              </button>
+            )
+            :
+            (
+              <button onClick={connectWallet} className='logoutbunndis'>
+                Connect Wallet
+              </button>
+            )
+          }
+
+
 
           <button onClick={handleLogout} className='logoutbunn'>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">

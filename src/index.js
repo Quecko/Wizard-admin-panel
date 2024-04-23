@@ -36,13 +36,25 @@ import ForgotPassword from "components/login/Forgotpassword";
 import Create from "components/login/Createnewpassword";
 import Success from "components/login/successpassword";
 
+import { Web3ReactProvider } from "@web3-react/core";
+import { hooks as walletConnectV2Hooks, walletConnectV2 } from './connectors/walletConnectV2'
+import { hooks as metaMaskHooks, metaMask } from './connectors/metaMask'
+
 //redux toolkit implementation
 // import { store } from './reduxToolkit/store'
 // import { Provider } from 'react-redux'
 
+
+const connectors = [
+  [walletConnectV2, walletConnectV2Hooks],
+  [metaMask, metaMaskHooks]
+]
+
 ReactDOM.render(
     <Provider store={store}>
     <ToastContainer style={{ fontSize: 20 }} />
+    {connectors &&
+        <Web3ReactProvider connectors={connectors}>
       <BrowserRouter>
         <Switch>
           <Route exact path="/auth" render={(props) => <FactorAuth {...props} />}/>
@@ -58,6 +70,8 @@ ReactDOM.render(
           <Redirect to="/adminlogin" />
         </Switch>
       </BrowserRouter>
+      </Web3ReactProvider>
+      }
     </Provider>,
   document.getElementById("root")
 );
