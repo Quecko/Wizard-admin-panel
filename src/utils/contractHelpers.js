@@ -1,6 +1,6 @@
-import CreaterAbi from '@/utils/CreaterAbi.json';
-import MarketAbi from '@/utils/MarketAbi.json';
-
+// import CreaterAbi from '@/utils/CreaterAbi.json';
+import Launchpad from '../utils/LaunchpadAbi';
+import web3NoAccount from './web3'
 
 const getContract = (abi, address, web3) => {
     const _web3 = web3 ?? web3NoAccount;
@@ -8,9 +8,9 @@ const getContract = (abi, address, web3) => {
     return new _web3.eth.Contract(abi, address)
 }
 
-export const getCreatersContract = (address, web3) => {
-    return getContract(CreaterAbi, address, web3)
-}
-export const getMarketContract = (address, web3) => {
-    return getContract(MarketAbi, address, web3)
+// export const getCreatersContract = (address, web3) => {
+//     return getContract(CreaterAbi, address, web3)
+// }
+export const getLaunchPadcontract = (address, web3) => {
+    return getContract(Launchpad, address, web3)
 }

@@ -25,7 +25,7 @@ function Sidebar(props) {
   const [name, Setname] = useState({})
   let { account } = useWeb3React();
   const web3 = useWeb3();
-  console.log("adsasd", account)
+  // console.log("adsasd", account)
 
   const { login, logout } = useAuth();
   const history = useHistory();
@@ -33,12 +33,15 @@ function Sidebar(props) {
   const role = localStorage.getItem('myrole')
   const Acls = JSON.parse(localStorage.getItem('acls'))
   const sidebar = React.useRef();
-  console.log("::::Acls", Acls)
+  // console.log("::::Acls", Acls)
   // const logout = () => {
   //   localStorage.clear();
   //   history.push("/adminlogin");
 
   // }
+
+
+ 
 
   const getprofile = () => {
     axios.get(Environment.backendUrl + "/user/myprofile", { headers: { "Authorization": `Bearer ${token}` } })
@@ -100,7 +103,7 @@ function Sidebar(props) {
       localStorage.removeItem("connectorId");
       localStorage.removeItem("flag");
     } else {
-      await login("injected", e);
+      await login("injected");
       localStorage.setItem("connectorId", "injected");
       localStorage.setItem("flag", "true");
       localStorage.setItem("chain", e);

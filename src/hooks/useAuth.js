@@ -5,11 +5,11 @@ const useAuth = () => {
   // const { toastError } = useToast();
 
   const login = async (connectorID) => {
-    console.log("connector", connectorID);
+    // console.log("connector", connectorID);
     const connector = connectorsByName[connectorID];
     if (connector) {
       if (connectorID === "injected") {
-        await connector.activate(1116);
+        await connector.activate(1115);
       } else {
         await connector.activate();
       }

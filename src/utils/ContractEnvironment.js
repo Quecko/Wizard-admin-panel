@@ -5,7 +5,7 @@ let Environment = {
   // MarketAddress: "0xF2576574656E7Cec60e298Fa93F937025D6EA851",
 
   // for testnet
-  CreaterAddress: "0x502805D3bC518E06B99F4bbE81700cfa3C252cB0",
-  MarketAddress: "0x7d9d57DBaea57ec0040f1AB2F42e402b4DB3679D",
+  // CreaterAddress: "0x502805D3bC518E06B99F4bbE81700cfa3C252cB0",
+  LaunchpadContract: "0xa32053a2c79292bf92d12589dc845C1B205417EB",
 };
 export default Environment;
