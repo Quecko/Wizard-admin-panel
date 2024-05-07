@@ -9,7 +9,7 @@ const useAuth = () => {
     const connector = connectorsByName[connectorID];
     if (connector) {
       if (connectorID === "injected") {
-        await connector.activate(1115);
+        await connector.activate(1116);
       } else {
         await connector.activate();
       }
