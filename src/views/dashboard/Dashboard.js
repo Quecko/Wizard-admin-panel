@@ -144,37 +144,37 @@ function Dashboard() {
     let url = `${api_url}/sales/`;
 
     if (startDate && endDate) {
-        url += `?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+      url += `?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
     }
 
     axios.get(url, { headers: { "Authorization": `Bearer ${val}` } })
-        .then((response) => {
-            console.log("🚀 ~ response newUserchartHandle", response);
-            const dates = [];
-            const counts = [];
-            response.data.data.dailyTotalPrices.forEach(user => {
-                dates.push(user.date);
-                counts.push(user.sale?.toFixed(4));
-            });
-
-            setCount(dates);
-            setCount1(counts);
-            setTrans(response?.data?.data?.count);
-            setTotalSalePrice(response?.data?.data?.totalSalePriceSum);
-            setCurrentMonthPrice(response?.data?.data?.currentMonthTotalSalePriceSum);
-            setLastMonthPrice(response?.data?.data?.lastMonthTotalSalePriceSum);
-            setTotalSaleCount(response?.data?.data?.totalSaleCount);
-            setCurrentMonthCount(response?.data?.data?.currentMonthTotalSaleCount);
-            setLastMonthCount(response?.data?.data?.lastMonthTotalSaleCount);
-
-            console.log('Dates:', dates);
-            console.log('Counts:', counts);
-        })
-        .catch((err) => {
-            console.log(err, 'error in API call');
-            // Handle errors
+      .then((response) => {
+        console.log("🚀 ~ response newUserchartHandle", response);
+        const dates = [];
+        const counts = [];
+        response.data.data.dailyTotalPrices.forEach(user => {
+          dates.push(user.date);
+          counts.push(user.sale?.toFixed(4));
         });
-}
+
+        setCount(dates);
+        setCount1(counts);
+        setTrans(response?.data?.data?.count);
+        setTotalSalePrice(response?.data?.data?.totalSalePriceSum);
+        setCurrentMonthPrice(response?.data?.data?.currentMonthTotalSalePriceSum);
+        setLastMonthPrice(response?.data?.data?.lastMonthTotalSalePriceSum);
+        setTotalSaleCount(response?.data?.data?.totalSaleCount);
+        setCurrentMonthCount(response?.data?.data?.currentMonthTotalSaleCount);
+        setLastMonthCount(response?.data?.data?.lastMonthTotalSaleCount);
+
+        console.log('Dates:', dates);
+        console.log('Counts:', counts);
+      })
+      .catch((err) => {
+        console.log(err, 'error in API call');
+        // Handle errors
+      });
+  }
 
 
 
@@ -185,12 +185,12 @@ function Dashboard() {
 
     if (startDate && endDate) {
       url += `?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
-  }
+    }
 
     axios.get(url, { headers: { "Authorization": `Bearer ${val}` } })
       .then((response) => {
         setYearData(response?.data?.data?.dailyTotalPrices);
-        
+
       })
       .catch((error) => {
         if (error?.response?.status == 501) {
@@ -505,7 +505,23 @@ function Dashboard() {
   const handleClickTwo = (buttonName) => {
     setActiveButtonTwo(buttonName);
   };
-
+  
+  const normalizeImageLink = (link) => {
+    // Check if the link starts with "ipfs://"
+    if (link?.startsWith("ipfs://")) {
+      // Extract the hash from the link
+      const hash = link?.replace(/^ipfs:\/\//, '');
+      // Construct the normalized link
+      return `https://ipfs-lb.com/ipfs/${hash}`;
+    } else if (link?.startsWith("/")) {
+      // Extract the hash from the link
+      const hash = link.replace(/^\//, '');
+      // Construct the normalized link
+      return `https://ipfs-lb.com/ipfs/${hash}`;
+    }
+    // If the link doesn't match the expected formats, return it as is
+    return link;
+  };
   return (
     <>
       <div className="content">
@@ -682,10 +698,15 @@ function Dashboard() {
                           <div key={index} className='scrolinerlefttop'>
                             <div className='scrolinerleft_iner'>
 
-                              {item?.nft ? <img src={item?.nft} className="inoncardinerxx" /> : <img src="\users-assets\Frame 9985.svg" className="inoncardinerxx" />}
+                              {item?.nft &&
+                                <img src={(normalizeImageLink(item?.nft?.image))} className="inoncardinerxx" />
+                                // <img src={item} className="inoncardinerxx" />
+                              }
+
                             </div>
                             <div className='scrolinerleft_text'>
-                              <h6 className="inertextc">{item?.launchpadId?.name}</h6>
+                              <h6 className="inertextc">{item?.nft?.name}</h6>
+
                               <h3 className="commoncardtextc">    <img src="\dashboard\iconcc.svg" className="inon" alt='icon' />{item?.price} <span className='corre'>
                                 CORE  </span></h3>
                             </div>
@@ -745,7 +766,7 @@ function Dashboard() {
                       {/* {showcalendar && ( */}
                       {showcalendar1 && (
                         <div className="cal set-custom-calendar-div">
-                           <Calendar
+                          <Calendar
                             multiple
                             value={selectedDatesTwo}
                             onChange={handleDateChangeTwo} // Call handleDateChange when a date or range of dates is selected

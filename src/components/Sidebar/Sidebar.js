@@ -298,7 +298,7 @@ function Sidebar(props) {
                     <Link className={props.brandName == "Applications" ? "light" : "dull"} to={`/admin/applications`}><span>Launchpads</span></Link>
                   </li>
                   <li class="nav-item">
-                    <Link className={props.brandName == "Fees" ? "light" : "dull"} to={`/admin/fees`}><span>Collections</span></Link>
+                    <Link className={props.brandName == "Fees" ? "light" : "dull"} to={`/admin/fees`}><span>Change Fee</span></Link>
                   </li>
                 </ul>
               </div>

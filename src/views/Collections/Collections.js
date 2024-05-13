@@ -57,13 +57,15 @@ const Collections = () => {
 
     const getCollection = async (orderField = 'createdAt', orderDirection = -1) => {
         setLoader(true);
-        let apiUrl = api_url + "/launchpads/discover?limit=" + limit + "&offset=" + page;
+        let apiUrl = api_url + "/launchpads/discover?limit=" + limit + "&offset=" + page + "&orderField=price" + "&orderDirection=1" ;
 
         if (searchQuery) {
             apiUrl += "&search=" + searchQuery;
         }
 
-        apiUrl += verify ? "&limitedEddition=true" : block ? "&openEddition=true" : "";
+        // apiUrl += verify ? "&orderField=price" : block ? "?orderDirection=1" : "";
+
+        // ?offset=1&limit=10&orderField=price&orderDirection=1
 
         const config = {
             method: "get",

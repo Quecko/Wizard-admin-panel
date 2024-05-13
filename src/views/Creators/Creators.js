@@ -77,7 +77,7 @@ const Creators = () => {
   };
 
 
-  const getCreater = async (orderField = 'createdAt', orderDirection = -1) => {
+  const getCreater = async (orderField = 'itemsCreated', orderDirection = -1) => {
     setLoader(true);
     let apiUrl = api_url + "/creators?limit=" + limit + "&offset=" + page + "&orderField=" + orderField + "&orderDirection=" + orderDirection;
 

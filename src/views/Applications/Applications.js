@@ -409,7 +409,7 @@ const Applications = () => {
                                                             Supply
                                                             {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
                                                         </th>
-                                                        <th>
+                                                        {/* <th>
                                                             <div className='volmouter'>
                                                                 Price
                                                                 <div className='sidearrowtb'>
@@ -423,7 +423,7 @@ const Applications = () => {
 
                                                             </div>
 
-                                                        </th>
+                                                        </th> */}
                                                         <th  >
                                                             expected mint date
                                                             {/* <img src="\users-assets\dropdownarowt.png" className="dropdownarow pl-2" /> */}
@@ -472,9 +472,9 @@ const Applications = () => {
                                                                             <td>
                                                                                 {item?.totalSupply}
                                                                             </td>
-                                                                            <td>
+                                                                            {/* <td>
                                                                                 {item?.price}
-                                                                            </td>
+                                                                            </td> */}
                                                                             <td>
 
                                                                                 {moment(item?.mintStartTime)
@@ -784,10 +784,10 @@ const Applications = () => {
                                     <h6 className='usernnamee'>Total Supply </h6>
                                     <h6 className='namefullletf'> {details?.totalSupply} </h6>
                                 </div>
-                                <div className='fsteftsec'>
+                                {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Price </h6>
                                     <h6 className='namefullletf'> {details?.price} </h6>
-                                </div>
+                                </div> */}
                             </div>
 
 
