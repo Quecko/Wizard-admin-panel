@@ -280,8 +280,8 @@ function Sidebar(props) {
 
             <li class="nav-item">
               <a className={
-                props.brandName === "Applications" ? "nav-link activecustomclasss" :
-                  props.brandName === "Fees" ? "nav-link activecustomclasss" :
+                props.brandName === "Applications" ? "nav-link activecustomclasss" 
+              :
 
                     "nav-link"
               } href="#submenuraf" data-toggle="collapse" data-target="#submenuraf">
@@ -297,12 +297,37 @@ function Sidebar(props) {
                   <li class="nav-item">
                     <Link className={props.brandName == "Applications" ? "light" : "dull"} to={`/admin/applications`}><span>Launchpads</span></Link>
                   </li>
-                  <li class="nav-item">
+                  {/* <li class="nav-item">
                     <Link className={props.brandName == "Fees" ? "light" : "dull"} to={`/admin/fees`}><span>Change Fee</span></Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </li>
+            <li className='nav-item'>
+              <Link
+                to={`/admin/fees`}
+                className={props.brandName == "Fees" ? "nav-link activecustomclasss" : "nav-link"}
+              >
+
+                <svg xmlns="http://www.w3.org/2000/svg" className="iconns" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <g clip-path="url(#clip0_267_8464)">
+                    <path d="M12 24C5.38581 24 0 18.6142 0 12C0 5.38581 5.38581 0 12 0C18.6142 0 24 5.38581 24 12C24 18.6142 18.6142 24 12 24ZM12 1.14279C6.01423 1.14279 1.14279 6.01423 1.14279 12C1.14279 17.9858 6.01423 22.8572 12 22.8572C17.9858 22.8572 22.8572 17.9858 22.8572 12C22.8572 6.01423 17.9858 1.14279 12 1.14279Z" fill="#725196" />
+                    <path d="M13.143 13.1428C11.8807 13.1428 10.8574 12.1195 10.8574 10.8572C10.8574 9.59471 11.8807 8.57141 13.143 8.57141C14.4055 8.57141 15.4288 9.59471 15.4288 10.8572C15.4288 12.1195 14.4055 13.1428 13.143 13.1428ZM13.143 9.7142C12.5119 9.7142 12.0002 10.2258 12.0002 10.8572C12.0002 11.4883 12.5119 12 13.143 12C13.7743 12 14.286 11.4883 14.286 10.8572C14.286 10.2258 13.7743 9.7142 13.143 9.7142Z" fill="#725196" />
+                    <path d="M10.6283 17.1571L6.84277 13.3715L6.857 13.1214C7.0784 8.42135 11.7785 5.14282 18.2855 5.14282H18.857V5.71432C18.857 12.2214 15.5785 16.9214 10.8855 17.1428L10.6283 17.1571ZM8.01423 12.9285L11.0785 15.9929C14.864 15.6571 17.5284 11.7499 17.7071 6.30716C12.257 6.47144 8.34989 9.13578 8.01423 12.9214V12.9285Z" fill="#725196" />
+                    <path d="M12 21.3785V16.2644H13.1428V18.6215L14.8571 16.9072V14.4H16.0001V17.3785L12 21.3785Z" fill="#725196" />
+                    <path d="M7.73577 11.9999H2.62158L6.62165 7.99988H9.6001V9.14287H7.09291L5.37863 10.8572H7.73577V11.9999Z" fill="#725196" />
+                    <path d="M7.05744 18.8572C6.52172 18.8572 6.03602 18.6787 5.67169 18.3214C4.80032 17.4501 5.00728 15.8643 6.14316 14.6215L6.98587 15.3928C6.23587 16.2144 6.1145 17.15 6.47882 17.5143C6.84315 17.8786 7.77877 17.7571 8.60034 17.0071L9.37168 17.85C8.65014 18.5144 7.80744 18.8572 7.05744 18.8572Z" fill="#725196" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_267_8464">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <p className="">Change Fee</p>
+              </Link>
+            </li>
+
 
             {/* <li className='nav-item'>
             <Link

@@ -507,21 +507,32 @@ function Dashboard() {
   };
   
   const normalizeImageLink = (link) => {
-    // Check if the link starts with "ipfs://"
     if (link?.startsWith("ipfs://")) {
-      // Extract the hash from the link
       const hash = link?.replace(/^ipfs:\/\//, '');
-      // Construct the normalized link
       return `https://ipfs-lb.com/ipfs/${hash}`;
     } else if (link?.startsWith("/")) {
-      // Extract the hash from the link
       const hash = link.replace(/^\//, '');
-      // Construct the normalized link
       return `https://ipfs-lb.com/ipfs/${hash}`;
     }
-    // If the link doesn't match the expected formats, return it as is
     return link;
   };
+  const normalizeImageLink2 = (link2) => {
+    if (link2?.startsWith("ipfs://")) {
+      const hash2 = link2?.replace(/^ipfs:\/\//, '');
+      return `https://ipfs.io/ipfs/${hash2}`;
+    } else if (link2?.startsWith("/")) {
+      const hash2 = link2?.replace(/^\//, '');
+      return `https://ipfs.io/ipfs/${hash2}`;
+    }
+    return link2;
+  };
+  const getNormalizedImageLink = (link,link2) => {
+    const firstAttempt = normalizeImageLink(link);
+    const secondAttempt = normalizeImageLink2(link2);
+    return firstAttempt || secondAttempt;
+  };
+
+  
   return (
     <>
       <div className="content">
@@ -699,7 +710,10 @@ function Dashboard() {
                             <div className='scrolinerleft_iner'>
 
                               {item?.nft &&
-                                <img src={(normalizeImageLink(item?.nft?.image))} className="inoncardinerxx" />
+                                <img 
+                                // src={(normalizeImageLink(item?.nft?.image)) || (normalizeImageLink2(item?.nft?.image))}
+                             src={getNormalizedImageLink(item?.nft?.image)}
+                                 className="inoncardinerxx" />
                                 // <img src={item} className="inoncardinerxx" />
                               }
 
