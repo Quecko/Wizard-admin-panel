@@ -368,7 +368,7 @@ function Sidebar(props) {
             )
             :
             (
-              <button onClick={connectWallet} className='logoutbunndis'>
+              <button onClick={()=> connectWallet('1116')} className='logoutbunndis'>
                 Connect Wallet
               </button>
             )
