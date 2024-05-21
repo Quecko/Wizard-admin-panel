@@ -1,4 +1,4 @@
-import './applications.scss'
+import './collectionapplication.scss'
 import Environment from 'utils/Environment';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
@@ -12,7 +12,7 @@ import ReactPaginate from "react-paginate";
 import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-const Applications = () => {
+const CollectionApplications = () => {
     const [show11, setShow11] = useState(false);
 
     const handleClose11 = () => setShow11(false);
@@ -207,7 +207,7 @@ const Applications = () => {
         setActiveTab(selectedTab);
     };
 
-    const getLaunchpads = async (status, orderField = 'updatedAt', orderDirection = -1,type='launchpad') => {
+    const getLaunchpads = async (status, orderField = 'updatedAt', orderDirection = -1,type='collection') => {
         setLoader(true);
         setApplications({});
         let apiUrl = api_url + "/launchpads/applications?limit=" + limit + "&offset=" + page + "&status=" + status + "&orderField=" + orderField + "&orderDirection=" + orderDirection + "&type=" + type;
@@ -755,7 +755,7 @@ const Applications = () => {
                         <div className='mod_bodydiv '>
                             <div className="topdiv">
                                 <h3 className='launchpadinfo'>
-                                    Launchpad Info
+                                    Collection Info
                                 </h3>
                                 <h5 className=''>
                                     Project Image,Video
@@ -771,20 +771,20 @@ const Applications = () => {
                             <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'>
-                                        Launchpad Name
+                                        Collection Name
                                     </h6>
                                     <h6 className='namefullletf'>
                                         {details?.name}
                                     </h6>
                                 </div>
-                                <div className='fsteftsec'>
+                                {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Launchpad  </h6>
                                     <h6 className='namefullletf'> {details?.limitedEddition ? "Limited edition " : "Open edition "}</h6>
-                                </div>
+                                </div> */}
                             </div>
                             <div className='modfsrflex'>
                                 <div className='fsteft w-100'>
-                                    <h6 className='usernnamee'>Launchpad Description </h6>
+                                    <h6 className='usernnamee'>Collection Description </h6>
                                     <h6 className='namefullletdestpn'> {details?.description} </h6>
                                 </div>
                             </div>
@@ -939,21 +939,21 @@ const Applications = () => {
                                     <h6 className='usernnamee'> Earnings Address </h6>
                                     <h6 className='namefullletf eleipiess'>{details?.earningAddress}</h6>
                                 </div>
-                                <div className='fsteftsec'>
+                                {/* <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Platform Fees  </h6>
                                     <h6 className='namefullletf'> {details?.platformFee}% </h6>
-                                </div>
+                                </div> */}
                             </div>
-                            <div className='modfsrflex'>
+                            {/* <div className='modfsrflex'>
                                 <div className='fsteft'>
                                     <h6 className='usernnamee'> Your Earning </h6>
                                     <h6 className='namefullletf'>{details?.earning}%</h6>
                                 </div>
-                                {/* <div className='fsteftsec'>
+                                <div className='fsteftsec'>
                                     <h6 className='usernnamee'>Duration  </h6>
                                     <h6 className='namefullletf'> Designer </h6>
-                                </div> */}
-                            </div>
+                                </div>
+                            </div> */}
                         </div>
                         {details?.status !== "rejected" &&
                             <div className='lastfoterbtn'>
@@ -1008,4 +1008,4 @@ const Applications = () => {
     )
 }
 
-export default Applications
+export default CollectionApplications

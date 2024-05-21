@@ -11,6 +11,7 @@ import Calendar from "views/Calendar/Calendar";
 import EditProfiles from "views/edit/EditProfile";
 import Ambassadors from "views/Ambassadors/Ambassadors";
 import Applications from "views/Applications/Applications";
+import CollectionApplications from "views/CollectionApplications/CollectionApplications";
 import Creators from "views/Creators/Creators";
 import Fees from "views/Fees/Fees";
 
@@ -74,8 +75,14 @@ var routes = [
   // },
   {
     path: "/applications",
-    name: "Applications",
+    name: "Launchpad Applications",
     component: Applications,
+    layout: "/admin",
+  }, 
+  {
+    path: "/collectionapplications",
+    name: "Collection Applications",
+    component: CollectionApplications,
     layout: "/admin",
   }, 
   {
