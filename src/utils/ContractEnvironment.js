@@ -1,7 +1,7 @@
 let Environment = {
   // CreaterAddress: "0x6ab3beac4f5f0fE1c6f0CE38d20964225Be68A31",
   // for mainnet
-  LaunchpadContract: "0xa32053a2c79292bf92d12589dc845C1B205417EB",
+  LaunchpadContract: "0x6B3188AC879b3ba14D79e76068f22E2E99598CF0",
   // MarketAddress: "0x9c5F504457C3d7D073AfaD3248F96681c890F43b",
 
   // for testnet

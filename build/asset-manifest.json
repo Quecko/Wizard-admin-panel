@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.527d678c.chunk.css",
-    "main.js": "/static/js/main.9eb1139a.chunk.js",
-    "main.js.map": "/static/js/main.9eb1139a.chunk.js.map",
+    "main.js": "/static/js/main.14ea6cab.chunk.js",
+    "main.js.map": "/static/js/main.14ea6cab.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.ffe083cf.js",
     "runtime-main.js.map": "/static/js/runtime-main.ffe083cf.js.map",
     "static/css/2.0e5ef201.chunk.css": "/static/css/2.0e5ef201.chunk.css",
@@ -17,7 +17,7 @@
     "static/css/main.527d678c.chunk.css.map": "/static/css/main.527d678c.chunk.css.map",
     "static/js/2.928ebebf.chunk.js.LICENSE.txt": "/static/js/2.928ebebf.chunk.js.LICENSE.txt",
     "static/js/3.7db9993d.chunk.js.LICENSE.txt": "/static/js/3.7db9993d.chunk.js.LICENSE.txt",
-    "static/js/main.9eb1139a.chunk.js.LICENSE.txt": "/static/js/main.9eb1139a.chunk.js.LICENSE.txt",
+    "static/js/main.14ea6cab.chunk.js.LICENSE.txt": "/static/js/main.14ea6cab.chunk.js.LICENSE.txt",
     "static/media/collectionapplication.scss": "/static/media/ammod.5328192a.svg",
     "static/media/banner-icon.svg": "/static/media/banner-icon.6f392ba1.svg",
     "static/media/paper-dashboard.scss?v=1.3.0": "/static/media/nucleo-icons.ec16bc4c.woff2",
@@ -57,6 +57,6 @@
     "static/css/2.0e5ef201.chunk.css",
     "static/js/2.928ebebf.chunk.js",
     "static/css/main.527d678c.chunk.css",
-    "static/js/main.9eb1139a.chunk.js"
+    "static/js/main.14ea6cab.chunk.js"
   ]
 }
